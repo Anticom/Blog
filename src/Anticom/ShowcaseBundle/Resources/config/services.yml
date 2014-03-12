@@ -1,0 +1,7 @@
+parameters:
+#    anticom_showcase.example.class: Anticom\ShowcaseBundle\Example
+
+services:
+#    anticom_showcase.example:
+#        class: %anticom_showcase.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

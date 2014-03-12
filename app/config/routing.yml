@@ -1,0 +1,4 @@
+anticom_showcase:
+    resource: "@AnticomShowcaseBundle/Resources/config/routing.yml"
+    prefix:   /
+
