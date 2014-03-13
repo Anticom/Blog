@@ -1,4 +1,3 @@
-Blog
-====
+#Demo Projekt zur Verdeutlichung des MVC Pattern und diversen Tools
 
-Abschlussarbeit ITK
+Abschlussarbeit ITK 2014
