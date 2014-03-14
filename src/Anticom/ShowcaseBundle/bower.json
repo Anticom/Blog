@@ -1,0 +1,14 @@
+{
+    "name"        : "BlogShowcase",
+    "version"     : "1.0.0",
+    "ignore"      : [
+        ".jshintrc",
+        "**/*.txt"
+    ],
+    "dependencies": {
+        "jquery"      : "1.11.0",
+        "jquery-ui"   : "1.10.4",
+        "bootstrap"   : "*",
+        "font-awesome": "*"
+    }
+}

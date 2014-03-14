@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5c6c3fb8-847c-41ac-bd18-63654134d91f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Anticom/ShowcaseBundle/Entity/Comment.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Anticom/ShowcaseBundle/Entity/User.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Anticom/ShowcaseBundle/Entity/BlogEntry.php" afterPath="$PROJECT_DIR$/src/Anticom/ShowcaseBundle/Entity/BlogEntry.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.json" afterPath="$PROJECT_DIR$/composer.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Anticom/ShowcaseBundle/.bowerrc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Anticom/ShowcaseBundle/bower.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="clean.iws" />
@@ -43,10 +39,8 @@
       <file leaf-file-name="User.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Anticom/ShowcaseBundle/Entity/User.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="195" column="0" selection-start="3846" selection-end="3846" vertical-scroll-proportion="-113.11539" vertical-offset="255" max-vertical-offset="3298">
-              <folding>
-                <element signature="e#177#225#0" expanded="true" />
-              </folding>
+            <state line="195" column="0" selection-start="3846" selection-end="3846" vertical-scroll-proportion="0.0" vertical-offset="3315" max-vertical-offset="3417">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -54,21 +48,37 @@
       <file leaf-file-name="BlogEntry.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Anticom/ShowcaseBundle/Entity/BlogEntry.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="166" column="19" selection-start="3209" selection-end="3209" vertical-scroll-proportion="-24.076923" vertical-offset="2077" max-vertical-offset="3026">
+            <state line="166" column="19" selection-start="3209" selection-end="3209" vertical-scroll-proportion="0.0" vertical-offset="2822" max-vertical-offset="3145">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Comment.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Anticom/ShowcaseBundle/Entity/Comment.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="101" column="6" selection-start="2074" selection-end="2074" vertical-scroll-proportion="-9.807693" vertical-offset="1343" max-vertical-offset="3570">
               <folding>
-                <element signature="e#182#230#0" expanded="true" />
+                <element signature="e#180#228#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Comment.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Anticom/ShowcaseBundle/Entity/Comment.php">
+      <file leaf-file-name=".bowerrc" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Anticom/ShowcaseBundle/.bowerrc">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="211" column="0" selection-start="4293" selection-end="4293" vertical-scroll-proportion="0.89055794" vertical-offset="2638" max-vertical-offset="3570">
-              <folding>
-                <element signature="e#180#228#0" expanded="true" />
-              </folding>
+            <state line="2" column="1" selection-start="39" selection-end="39" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="136">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bower.json" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Anticom/ShowcaseBundle/bower.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="5" selection-start="288" selection-end="288" vertical-scroll-proportion="0.21841542" vertical-offset="0" max-vertical-offset="934">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -102,6 +112,9 @@
         <option value="$PROJECT_DIR$/src/Anticom/ShowcaseBundle/Entity/BlogEntry.php" />
         <option value="$PROJECT_DIR$/src/Anticom/ShowcaseBundle/Entity/Comment.php" />
         <option value="$PROJECT_DIR$/src/Anticom/ShowcaseBundle/Entity/User.php" />
+        <option value="$PROJECT_DIR$/.bowerrc" />
+        <option value="$PROJECT_DIR$/src/Anticom/ShowcaseBundle/.bowerrc" />
+        <option value="$PROJECT_DIR$/src/Anticom/ShowcaseBundle/bower.json" />
       </list>
     </option>
   </component>
@@ -142,7 +155,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -251,6 +263,32 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="clean" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="clean" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Anticom" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShowcaseBundle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="Entity" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -276,18 +314,15 @@
               <option name="myItemId" value="default" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="virtualbox" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="options.lastSelected" value="preferences.pluginManager" />
+    <property name="options.lastSelected" value="preferences.fileTypes" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
@@ -315,6 +350,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\ihk\clean\src\Anticom\ShowcaseBundle" />
       <recent name="C:\xampp\htdocs\ihk\clean\src\Anticom\ShowcaseBundle\Resources\views" />
     </key>
   </component>
@@ -364,23 +400,23 @@
     <frame x="1920" y="0" width="1920" height="1080" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19808307" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" x="2020" y="100" width="1720" height="880" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296146" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3292683" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24973376" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Framework" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32960597" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2603834" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3292683" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24973376" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25772098" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3292683" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3292683" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19808307" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="2020" y="100" width="1720" height="880" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3292683" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -404,9 +440,9 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24973376" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25772098" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3292683" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -426,11 +462,32 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/composer.json">
+    <entry file="file://$PROJECT_DIR$/src/Anticom/ShowcaseBundle/Entity/User.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="17" selection-start="182" selection-end="182" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="986">
+        <state line="195" column="0" selection-start="3846" selection-end="3846" vertical-scroll-proportion="0.0" vertical-offset="3315" max-vertical-offset="3417">
           <folding />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Anticom/ShowcaseBundle/Entity/BlogEntry.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="166" column="19" selection-start="3209" selection-end="3209" vertical-scroll-proportion="0.0" vertical-offset="2822" max-vertical-offset="3145">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Anticom/ShowcaseBundle/Entity/Comment.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="211" column="0" selection-start="4293" selection-end="4293" vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="3570">
+          <folding>
+            <element signature="e#180#228#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/composer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="17" selection-start="182" selection-end="182" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="986" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
@@ -442,9 +499,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Anticom/ShowcaseBundle/Resources/views/Default/index.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="0" selection-start="74" selection-end="74" vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="221">
-          <folding />
-        </state>
+        <state line="3" column="0" selection-start="74" selection-end="74" vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="221" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Anticom/ShowcaseBundle/AnticomShowcaseBundle.php">
@@ -456,16 +511,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Anticom/ShowcaseBundle/Controller/DefaultController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="44" selection-start="156" selection-end="156" vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="374">
-          <folding />
-        </state>
+        <state line="6" column="44" selection-start="156" selection-end="156" vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="374" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/composer.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="17" selection-start="182" selection-end="182" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="986">
-          <folding />
-        </state>
+        <state line="5" column="17" selection-start="182" selection-end="182" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="986" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
@@ -477,9 +528,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Anticom/ShowcaseBundle/Resources/views/Default/index.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="0" selection-start="74" selection-end="74" vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="221">
-          <folding />
-        </state>
+        <state line="3" column="0" selection-start="74" selection-end="74" vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="221" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Anticom/ShowcaseBundle/AnticomShowcaseBundle.php">
@@ -491,9 +540,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Anticom/ShowcaseBundle/Controller/DefaultController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="44" selection-start="156" selection-end="156" vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="374">
-          <folding />
-        </state>
+        <state line="6" column="44" selection-start="156" selection-end="156" vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="374" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/logs/dev.log">
@@ -546,51 +593,37 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Anticom/ShowcaseBundle/DependencyInjection/Configuration.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="41" selection-start="602" selection-end="602" vertical-scroll-proportion="0.5212947" vertical-offset="0" max-vertical-offset="587">
-          <folding />
-        </state>
+        <state line="19" column="41" selection-start="602" selection-end="602" vertical-scroll-proportion="0.5212947" vertical-offset="0" max-vertical-offset="587" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Anticom/ShowcaseBundle/DependencyInjection/AnticomShowcaseExtension.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="634">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="634" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Anticom/ShowcaseBundle/Tests/Controller/DefaultControllerTest.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="634">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="634" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="0" selection-start="106" selection-end="106" vertical-scroll-proportion="0.16328709" vertical-offset="0" max-vertical-offset="937">
-          <folding />
-        </state>
+        <state line="9" column="0" selection-start="106" selection-end="106" vertical-scroll-proportion="0.16328709" vertical-offset="0" max-vertical-offset="937" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Anticom/ShowcaseBundle/Controller/DefaultController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="44" selection-start="156" selection-end="156" vertical-scroll-proportion="0.10944206" vertical-offset="0" max-vertical-offset="932">
-          <folding />
-        </state>
+        <state line="6" column="44" selection-start="156" selection-end="156" vertical-scroll-proportion="0.10944206" vertical-offset="0" max-vertical-offset="932" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Anticom/ShowcaseBundle/Resources/views/Default/index.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="16" selection-start="112" selection-end="112" vertical-scroll-proportion="0.072961375" vertical-offset="0" max-vertical-offset="932">
-          <folding />
-        </state>
+        <state line="4" column="16" selection-start="112" selection-end="112" vertical-scroll-proportion="0.072961375" vertical-offset="0" max-vertical-offset="932" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/config/parameters.yml.dist">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="30" selection-start="126" selection-end="133" vertical-scroll-proportion="0.07098121" vertical-offset="0" max-vertical-offset="958">
-          <folding />
-        </state>
+        <state line="4" column="30" selection-start="126" selection-end="133" vertical-scroll-proportion="0.07098121" vertical-offset="0" max-vertical-offset="958" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vendor/doctrine/dbal/lib/Doctrine/DBAL/Types/DateTimeType.php">
@@ -602,16 +635,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bin/doctrine">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="958">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="958" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bin/doctrine.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="958">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="958" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/AppKernel.php">
@@ -658,9 +687,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Anticom/ShowcaseBundle/Resources/views/base.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="98" column="20" selection-start="3965" selection-end="3965" vertical-scroll-proportion="2.2368422" vertical-offset="306" max-vertical-offset="2244">
-          <folding />
-        </state>
+        <state line="98" column="20" selection-start="3965" selection-end="3965" vertical-scroll-proportion="2.2368422" vertical-offset="306" max-vertical-offset="2244" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vendor/doctrine/dbal/lib/Doctrine/DBAL/Types/Type.php">
@@ -700,9 +727,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/composer.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="80" selection-start="1077" selection-end="1077" vertical-scroll-proportion="0.33476394" vertical-offset="113" max-vertical-offset="1071">
-          <folding />
-        </state>
+        <state line="25" column="80" selection-start="1077" selection-end="1077" vertical-scroll-proportion="0.33476394" vertical-offset="113" max-vertical-offset="1071" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/config/config.yml">
@@ -714,28 +739,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Anticom/ShowcaseBundle/Entity/User.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="195" column="0" selection-start="3846" selection-end="3846" vertical-scroll-proportion="-113.11539" vertical-offset="255" max-vertical-offset="3298">
-          <folding>
-            <element signature="e#177#225#0" expanded="true" />
-          </folding>
+        <state line="195" column="0" selection-start="3846" selection-end="3846" vertical-scroll-proportion="0.0" vertical-offset="3315" max-vertical-offset="3417">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Anticom/ShowcaseBundle/Entity/BlogEntry.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="166" column="19" selection-start="3209" selection-end="3209" vertical-scroll-proportion="-24.076923" vertical-offset="2077" max-vertical-offset="3026">
-          <folding>
-            <element signature="e#182#230#0" expanded="true" />
-          </folding>
+        <state line="166" column="19" selection-start="3209" selection-end="3209" vertical-scroll-proportion="0.0" vertical-offset="2822" max-vertical-offset="3145">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Anticom/ShowcaseBundle/Entity/Comment.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="211" column="0" selection-start="4293" selection-end="4293" vertical-scroll-proportion="0.89055794" vertical-offset="2638" max-vertical-offset="3570">
+        <state line="101" column="6" selection-start="2074" selection-end="2074" vertical-scroll-proportion="-9.807693" vertical-offset="1343" max-vertical-offset="3570">
           <folding>
             <element signature="e#180#228#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Anticom/ShowcaseBundle/.bowerrc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="1" selection-start="39" selection-end="39" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="136">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Anticom/ShowcaseBundle/bower.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="5" selection-start="288" selection-end="288" vertical-scroll-proportion="0.21841542" vertical-offset="0" max-vertical-offset="934">
+          <folding />
         </state>
       </provider>
     </entry>
