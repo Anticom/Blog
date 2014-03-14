@@ -1,0 +1,22 @@
+{% macro commentMedia(comment) %}
+    {% import "AnticomShowcaseBundle::_macros.html.twig" as tools %}
+    {% import _self as macros %}
+
+    <div class="media">
+        <a class="pull-left" href="#">
+            <img src="{{ asset('bundles/anticomshowcase/user_blank.png') }}" class="img-circle media-object" alt="64x64">
+        </a>
+        <div class="media-body">
+            <h4 class="media-heading">Kommentar von <a href="#">{{ comment.author.nickName }}</a></h4>
+            <small><p><span class="glyphicon glyphicon-calendar"></span> {{ tools.entryDate(comment.dateTimeCreated) }}</p></small>
+            <p>{{ comment.body }}</p>
+            <small><a href="#blog/comment/new/2">Antworten</a></small>
+
+            {#nested media#}
+            {% for subcomment in comment.children %}
+                {{ macros.commentMedia(subcomment, comment.id) }}
+            {% endfor %}
+        </div>
+    </div>
+
+{% endmacro %}

@@ -1,0 +1,1 @@
+{% macro entryDate(dateTimeObject) %}{{ dateTimeObject|date('D, d.m.Y H:i')|replace({'Mon':'Montag','Tue':'Dienstag','Wed':'Mittwoch','Thu':'Donnerstag','Fri':'Freitag','Sat':'Samstag','Sun':'Sonntag'}) }}{% endmacro %}

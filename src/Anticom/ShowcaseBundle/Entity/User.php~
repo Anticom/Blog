@@ -32,7 +32,7 @@ class User {
     /**
      * @see  https://github.com/cpliakas/doctrine-password
      * @todo figure out, where to add the Type to DBAL\Types
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="password")
      */
     protected $password;
 
@@ -43,8 +43,10 @@ class User {
     protected $comments;
     #endregion
 
+    /*
     public function __construct() {
         $this->blogEntries = new ArrayCollection();
         $this->comments    = new ArrayCollection();
     }
-} 
+    */
+}

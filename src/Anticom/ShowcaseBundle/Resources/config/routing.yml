@@ -1,3 +1,15 @@
-anticom_showcase_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: AnticomShowcaseBundle:Default:index }
+index:
+  path: /
+  defaults: { _controller: AnticomShowcaseBundle:Default:index }
+
+#anticom_showcase_homepage:
+#    pattern:  /hello/{name}
+#    defaults: { _controller: AnticomShowcaseBundle:Default:index }
+
+blog:
+  path: /blog/{page}
+  defaults: {_controller: AnticomShowcaseBundle:Blog:index, page: 1}
+
+show:
+  path: /blog/show/{id}
+  defaults: {_controller: AnticomShowcaseBundle:Blog:show}

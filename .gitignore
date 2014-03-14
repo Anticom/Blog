@@ -13,4 +13,8 @@ app/config/parameters.ini
 app/config/parameters.yml
 
 # custom excludes
+composer.lock
+.idea/workspace.xml
 .vagrant/*
+src/Anticom/ShowcaseBundle/Resources/public/*
+# src/**Bundle/Resources/public/*   #needs fixing

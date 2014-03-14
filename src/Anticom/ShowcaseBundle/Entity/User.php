@@ -31,8 +31,7 @@ class User {
     protected $email;
     /**
      * @see  https://github.com/cpliakas/doctrine-password
-     * @todo figure out, where to add the Type to DBAL\Types
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="password")
      */
     protected $password;
 
@@ -43,9 +42,13 @@ class User {
     protected $comments;
     #endregion
 
-    public function __construct() {
-        $this->blogEntries = new ArrayCollection();
-        $this->comments    = new ArrayCollection();
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->blogEntries = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -107,7 +110,7 @@ class User {
     /**
      * Set password
      *
-     * @param string $password
+     * @param password $password
      * @return User
      */
     public function setPassword($password)
@@ -120,7 +123,7 @@ class User {
     /**
      * Get password
      *
-     * @return string 
+     * @return password 
      */
     public function getPassword()
     {
