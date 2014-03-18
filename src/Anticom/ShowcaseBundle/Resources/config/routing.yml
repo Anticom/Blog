@@ -1,15 +1,40 @@
-index:
-  path: /
-  defaults: { _controller: AnticomShowcaseBundle:Default:index }
+#region main routes
+anticom_showcase_index:
+    path: /
+    defaults: { _controller: AnticomShowcaseBundle:Default:index }
 
-#anticom_showcase_homepage:
-#    pattern:  /hello/{name}
-#    defaults: { _controller: AnticomShowcaseBundle:Default:index }
+anticom_showcase_impress:
+    path: /impress
+    defaults: { _controller: AnticomShowcaseBundle:Default:impress }
 
-blog:
-  path: /blog/{page}
-  defaults: {_controller: AnticomShowcaseBundle:Blog:index, page: 1}
+anticom_showcase_contact:
+    path: /contact
+    defaults: { _controller: AnticomShowcaseBundle:Default:contact }
 
-show:
-  path: /blog/show/{id}
-  defaults: {_controller: AnticomShowcaseBundle:Blog:show}
+anticom_showcase_register:
+    path: /register
+    defaults: { _controller: AnticomShowcaseBundle:User:register}
+
+#endregion
+
+#region blog
+anticom_showcase_blog:
+    path: /blog/{page}
+    defaults: {_controller: AnticomShowcaseBundle:Blog:index, page: 1}
+
+anticom_showcase_blog_show:
+    path: /blog/show/{id}
+    defaults: {_controller: AnticomShowcaseBundle:Blog:show}
+
+anticom_showcase_blog_addcomment:
+    path: /blog/comment/new/{blogEntry}/{comment}
+    defaults: {_controller: AnticomShowcaseBundle:Blog:addComment, comment: null}
+#endregion
+
+#region comments
+#...
+#endregion
+
+#region user
+#...
+#endregion

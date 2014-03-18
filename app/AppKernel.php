@@ -20,6 +20,7 @@ class AppKernel extends Kernel
 
             //additional bundles
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
 
             //application bundles
             //new Acme\DemoBundle\AcmeDemoBundle(),

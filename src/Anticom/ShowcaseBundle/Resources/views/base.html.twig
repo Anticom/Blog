@@ -1,3 +1,4 @@
+{% import "AnticomShowcaseBundle::_macros.html.twig" as tools %}
 <!DOCTYPE html>
 <html lang="de-DE">
 <head>
@@ -9,113 +10,88 @@
     <title>{% block title %}Firma XY{% endblock %}</title>
     {% block stylesheets %}
         {#Latest compiled and minified CSS#}
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ asset('bundles/anticomshowcase/bootstrap/dist/css/bootstrap.min.css') }}">
         {#Optional theme#}
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="{{ asset('bundles/anticomshowcase/bootstrap/dist/css/bootstrap-theme.min.css') }}">
+        {#font awesome#}
+        <link rel="stylesheet" href="{{ asset('bundles/anticomshowcase/font-awesome/css/font-awesome.min.css') }}">
+        {#jQuery ui theme#}
+        <link rel="stylesheet" href="{{ asset('bundles/anticomshowcase/jquery-ui/themes/base/minified/jquery-ui.min.css') }}">
     {% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
 <body>
 {% block body %}
     <div class="container">
-        {% block navbar %}
-            <div style="height: 20px;"></div>
-            <nav class="navbar navbar-default" role="navigation">
-                <div class="container-fluid">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse"
-                                data-target="#bs-example-navbar-collapse-1">
-                            <span class="sr-only">Navigation umschalten</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="{{ path('index') }}">Firma XY</a>
-                    </div>
-
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav">
-                            <li class="active"><a href="{{ path('index') }}">Startseite</a></li>
-                            <li><a href="{{ path('blog') }}">Blog</a></li>
-                        </ul>
-
-                        <p class="navbar-text navbar-right">
-                            Angemeldet als <a href="#">John Doe</a>
-                            | <a href="#" class="text-muted">abmelden</a>
-                        </p>
-                    </div>
-                    <!-- /.navbar-collapse -->
+        <div style="height: 20px;"></div>
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                {#Brand and toggle get grouped for better mobile display#}
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav0-collapse">
+                        <span class="sr-only">Navigation umschalten</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{{ path('anticom_showcase_index') }}">Firma XY</a>
                 </div>
-                <!-- /.container-fluid -->
-            </nav>
-        {% endblock %}
 
-
-        <ol class="breadcrumb">
-            {% block breadcrumbs %}
-                <li class="active">Startseite</li>
-            {% endblock %}
-        </ol>
+                {#region navbar collapse#}
+                <div class="collapse navbar-collapse" id="nav0-collapse">
+                    {{ knp_menu_render('AnticomShowcaseBundle:MenuBuilder:mainMenu', {'currentClass': 'active', 'allow_safe_labels': true}) }}
+                    {{ knp_menu_render('AnticomShowcaseBundle:MenuBuilder:userMenu', {'currentClass': 'active', 'allow_safe_labels': true}) }}
+                </div>
+                {#endregion#}
+            </div>
+        </nav>
 
         {# region flash messages #}
         {% for flashMessage in app.session.flashbag.get('notice') %}
-            <div class="alert alert-info">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                {{ flashMessage }}
-            </div>
+            {{ tools.alert(flashMessage) }}
         {% endfor %}
         {% for flashMessage in app.session.flashbag.get('success') %}
-            <div class="alert alert-success">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                {{ flashMessage }}
-            </div>
+            {{ tools.alert(flashMessage, 'success') }}
         {% endfor %}
         {% for flashMessage in app.session.flashbag.get('warning') %}
-            <div class="alert alert-warning">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                {{ flashMessage }}
-            </div>
+            {{ tools.alert(flashMessage, 'warning') }}
         {% endfor %}
-        {% for flashMessage in app.session.flashbag.get('error') %}
-            <div class="alert alert-danger">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                {{ flashMessage }}
-            </div>
+        {% for flashMessage in app.session.flashbag.get('danger') %}
+            {{ tools.alert(flashMessage, 'error') }}
         {% endfor %}
         {# endregion #}
 
+        {#region content#}
         <div class="content">
-            {% block content %}
-            {% endblock %}
+            {% block content %}{% endblock %}
         </div>
+        {#endregion#}
 
-        {% block footer %}
-            <div style="height: 75px;"></div>
-            <hr>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="col-md-8">
-                        <a href="#">Impressum</a>
-                        &bull;
-                        <a href="#">Kontakt</a>
-                        &bull;
-                        <a href="#">Datenschutz</a>
-                    </div>
-                    <div class="col-md-4">
-                        <p class="text-muted pull-right">© 2014 Firma XY. All rights reserved</p>
-                    </div>
+        {#region footer#}
+        <div style="height: 75px;"></div>
+        <hr>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="col-md-8">
+                    <a href="{{ path('anticom_showcase_impress') }}">Impressum</a>
+                    &bull;
+                    <a href="{{ path('anticom_showcase_contact') }}">Kontakt</a>
+                </div>
+                <div class="col-md-4">
+                    <p class="text-muted pull-right">© 2014 Firma XY. All rights reserved</p>
                 </div>
             </div>
-        {% endblock %}
+        </div>
+        {#endregion#}
     </div>
 {% endblock %}
 {% block javascripts %}
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    {#jQuery (necessary for Bootstrap's JavaScript plugins)#}
+    <script src="{{ asset('bundles/anticomshowcase/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('bundles/anticomshowcase/jquery-ui/ui/minified/jquery-ui.min.js') }}"></script>
+
+    {#Latest compiled and minified JavaScript#}
+    <script src="{{ asset('bundles/anticomshowcase/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 {% endblock %}
 </body>
 </html>

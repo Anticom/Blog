@@ -1,0 +1,22 @@
+Anticom\ShowcaseBundle\Entity\User:
+#TODO: implement callback in Entity
+#    constraints:
+#        - Callback: [validate]
+    properties:
+        username:
+            - NotNull:
+                message: "Der Benutzername darf nicht leer sein"
+            - NotBlank:
+                message: "Der Benutzername darf nicht leer sein"
+            - Length:
+                min: 3
+                minMessage: "Der Benutzername muss mindestens 3 Zeichen lang sein"
+        email:
+            - Email:
+                message: "Bitte geben Sie eine gültige E-mailadresse ein"
+            - Length:
+                min: 6
+                minMessage: "Die E-mailadresse muss mindestens 6 Zeichen lang sein"
+        password:
+            - NotBlank:
+                message: "Bitte geben Sie ein passwort ein"

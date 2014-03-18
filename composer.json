@@ -22,9 +22,10 @@
         "sensio/generator-bundle"             : "~2.3",
         "incenteev/composer-parameter-handler": "~2.0",
 
+        "knplabs/knp-menu-bundle"          : "*",
         "doctrine/doctrine-fixtures-bundle": "2.2.*",
 
-        "cpliakas/doctrine-password": "*"
+        "ircmaxell/password-compat" : "1.0.x-dev"
     },
     "scripts"    : {
         "post-install-cmd": [

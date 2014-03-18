@@ -10,29 +10,32 @@
             </h1>
 
             <p>
-                <span class="glyphicon glyphicon-user"></span> by <a href="#">{{ blogEntry.author.nickName }}</a>
+                <span class="glyphicon glyphicon-user"></span> by <a href="#">{{ blogEntry.author.username }}</a>
                 | <span class="glyphicon glyphicon-calendar"></span> {{ tools.entryDate(blogEntry.dateTimeCreated) }}
             </p>
 
             <div>
-                {{ blogEntry.body }}
+                {{ blogEntry.body|raw }}
             </div>
         </div>
     </div>
 
+    <!--
     <ul class="pager">
         <li class="previous"><a href="#">&larr; Vorheriger Eintrag</a></li>
         <li class="next"><a href="#">Nächster Eintrag &rarr;</a></li>
     </ul>
+    -->
 
     <div style="height: 20px;"></div>
     <h4 id="comments">Kommentare</h4>
     <hr>
     {% for comment in blogEntry.comments if comment.parent == null %}
-    <div class="media">
         {{ macros.commentMedia(comment) }}
-    </div>
     {% endfor %}
+    <div style="padding-top: 20px;">
+        <a href="{{ path('anticom_showcase_blog_addcomment', {'blogEntry': blogEntry.id}) }}#comments">Neuen kommentar verfassen</a>
+    </div>
 {% endblock %}
 
 {% block javascripts %}

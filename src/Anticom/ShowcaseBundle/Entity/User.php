@@ -12,13 +12,15 @@ namespace Anticom\ShowcaseBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Serializable;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class BlogEntry
  * @ORM\Entity()
  * @ORM\Table(name="user")
  */
-class User {
+class User implements UserInterface, Serializable {
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -26,62 +28,109 @@ class User {
      */
     protected $id;
     /** @ORM\Column(type="string", length=100) */
-    protected $nickName;
+    protected $username;
     /** @ORM\Column(type="string", length=255) */
     protected $email;
-    /**
-     * @see  https://github.com/cpliakas/doctrine-password
-     * @ORM\Column(type="password")
-     */
+    /** @ORM\Column(type="string", length=255) */
     protected $password;
+    /** @var  @ORM\Column(name="is_active", type="boolean") */
+    protected $isActive;
 
     #region relations
     /** @ORM\OneToMany(targetEntity="BlogEntry", mappedBy="author") */
     protected $blogEntries;
     /** @ORM\OneToMany(targetEntity="Comment", mappedBy="author") */
     protected $comments;
+
+    //protected $roles;
     #endregion
 
+    public function __construct() {
+        $this->blogEntries = new ArrayCollection();
+        $this->comments    = new ArrayCollection();
+        $this->isActive    = false;
+    }
+
+    #region interface implementations
     /**
-     * Constructor
+     * @inheritDoc
      */
-    public function __construct()
-    {
-        $this->blogEntries = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+    public function getUsername() {
+        return $this->username;
     }
 
     /**
+     * @inheritDoc
+     */
+    public function getSalt() {
+        return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getPassword() {
+        return $this->password;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getRoles() {
+        return ['ROLE_USER'];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function eraseCredentials() {
+    }
+
+    /**
+     * @see \Serializable::serialize()
+     */
+    public function serialize() {
+        return serialize(
+            [
+                $this->id,
+                $this->username,
+                $this->password
+            ]
+        );
+    }
+
+    /**
+     * @see \Serializable::unserialize()
+     */
+    public function unserialize($serialized) {
+        list (
+            $this->id,
+            $this->username,
+            $this->password
+            ) = unserialize($serialized);
+    }
+    #endregion
+
+    #region getters & setters
+    /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
     /**
-     * Set nickName
+     * Set username
      *
-     * @param string $nickName
+     * @param string $username
      * @return User
      */
-    public function setNickName($nickName)
-    {
-        $this->nickName = $nickName;
+    public function setUsername($username) {
+        $this->username = $username;
 
         return $this;
-    }
-
-    /**
-     * Get nickName
-     *
-     * @return string 
-     */
-    public function getNickName()
-    {
-        return $this->nickName;
     }
 
     /**
@@ -90,8 +139,7 @@ class User {
      * @param string $email
      * @return User
      */
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $this->email = $email;
 
         return $this;
@@ -100,34 +148,43 @@ class User {
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
     }
 
     /**
      * Set password
      *
-     * @param password $password
+     * @param string $password
      * @return User
      */
-    public function setPassword($password)
-    {
+    public function setPassword($password) {
         $this->password = $password;
 
         return $this;
     }
 
     /**
-     * Get password
+     * Set isActive
      *
-     * @return password 
+     * @param boolean $isActive
+     * @return User
      */
-    public function getPassword()
-    {
-        return $this->password;
+    public function setIsActive($isActive) {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean
+     */
+    public function getIsActive() {
+        return $this->isActive;
     }
 
     /**
@@ -136,8 +193,7 @@ class User {
      * @param \Anticom\ShowcaseBundle\Entity\BlogEntry $blogEntries
      * @return User
      */
-    public function addBlogEntry(\Anticom\ShowcaseBundle\Entity\BlogEntry $blogEntries)
-    {
+    public function addBlogEntry(\Anticom\ShowcaseBundle\Entity\BlogEntry $blogEntries) {
         $this->blogEntries[] = $blogEntries;
 
         return $this;
@@ -148,18 +204,16 @@ class User {
      *
      * @param \Anticom\ShowcaseBundle\Entity\BlogEntry $blogEntries
      */
-    public function removeBlogEntry(\Anticom\ShowcaseBundle\Entity\BlogEntry $blogEntries)
-    {
+    public function removeBlogEntry(\Anticom\ShowcaseBundle\Entity\BlogEntry $blogEntries) {
         $this->blogEntries->removeElement($blogEntries);
     }
 
     /**
      * Get blogEntries
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getBlogEntries()
-    {
+    public function getBlogEntries() {
         return $this->blogEntries;
     }
 
@@ -169,8 +223,7 @@ class User {
      * @param \Anticom\ShowcaseBundle\Entity\Comment $comments
      * @return User
      */
-    public function addComment(\Anticom\ShowcaseBundle\Entity\Comment $comments)
-    {
+    public function addComment(\Anticom\ShowcaseBundle\Entity\Comment $comments) {
         $this->comments[] = $comments;
 
         return $this;
@@ -181,18 +234,17 @@ class User {
      *
      * @param \Anticom\ShowcaseBundle\Entity\Comment $comments
      */
-    public function removeComment(\Anticom\ShowcaseBundle\Entity\Comment $comments)
-    {
+    public function removeComment(\Anticom\ShowcaseBundle\Entity\Comment $comments) {
         $this->comments->removeElement($comments);
     }
 
     /**
      * Get comments
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getComments()
-    {
+    public function getComments() {
         return $this->comments;
     }
+    #endregion
 }

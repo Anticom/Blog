@@ -1,0 +1,28 @@
+{% extends 'AnticomShowcaseBundle::base.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Kontakt</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form accept-charset="UTF-8" role="form">
+                            <fieldset>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Ihre E-mailadresse" name="email" type="text">
+                                </div>
+                                <div style="margin-bottom: 15px;">
+                                    <textarea class="form-control" rows="5" placeholder="Ihre Nachhicht an uns" name="body"></textarea>
+                                </div>
+                                <input class="btn btn-lg btn-primary btn-block" type="submit" value="Abschicken">
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

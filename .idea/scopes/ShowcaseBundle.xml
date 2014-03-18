@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="ShowcaseBundle" pattern="file:src/Anticom/ShowcaseBundle//*&amp;&amp;!file:src/Anticom/ShowcaseBundle/Resources/public//*||file:src/Anticom/ShowcaseBundle/Resources/public/*" />
+</component>

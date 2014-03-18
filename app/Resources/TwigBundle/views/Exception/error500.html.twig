@@ -1,0 +1,13 @@
+{% extends 'AnticomShowcaseBundle::base.html.twig' %}
+
+{% block title %}Ein Fehler ist aufgetreten: {{ status_code }}: {{ status_text }}{% endblock %}
+
+{% block content %}
+    <div class="panel panel-info">
+        <div class="panel-heading">{{ status_code }}: {{ status_text }}</div>
+        <div class="panel-body">
+            <p>Ein Interner Serverfehler ist aufgetreten!</p>
+            <p>Sollte das Problem wiederholt auftreten, melden Sie es bitte unserem Team!</p>
+        </div>
+    </div>
+{% endblock %}

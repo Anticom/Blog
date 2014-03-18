@@ -8,22 +8,50 @@ use Anticom\ShowcaseBundle\Entity\User;
 use DateTime;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
-class LoadSampleData implements FixtureInterface {
+class LoadSampleData implements FixtureInterface, ContainerAwareInterface {
+    /**
+     * @var ContainerInterface
+     */
+    private $container;
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setContainer(ContainerInterface $container = null) {
+        $this->container = $container;
+    }
+
     /**
      * {@inheritDoc}
      */
     public function load(ObjectManager $manager) {
-        #region users
-        $user1 = new User();
-        $user1->setNickName('Demo User eins');
-        $user1->setEmail('demo1@example.com');
-        $user1->setPassword('Demo1');
+        #region init
+        /** @var EncoderFactoryInterface $factory */
+        $factory = $this->container->get('security.encoder_factory');
+        #endregion
 
-        $user2 = new User();
-        $user2->setNickName('Demo User zwei');
+        #region users
+        $user1   = new User();
+        $encoder = $factory->getEncoder($user1);
+        $user1->setUsername('demo1');
+        $user1->setEmail('demo1@example.com');
+        $user1->setPassword(
+            $encoder->encodePassword('demo1', $user1->getSalt())
+        );
+        $user1->setIsActive(true);
+
+        $user2   = new User();
+        $encoder = $factory->getEncoder($user2);
+        $user2->setUsername('demo2');
         $user2->setEmail('demo2@example.com');
-        $user2->setPassword('Demo2');
+        $user2->setPassword(
+            $encoder->encodePassword('demo2', $user2->getSalt())
+        );
+        $user2->setIsActive(true);
         #endregion
 
         #region blog entries
