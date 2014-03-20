@@ -15,7 +15,7 @@ anticom_showcase_register:
 #region blog
 anticom_showcase_blog_list:
     path: /blog/{page}
-    defaults: {_controller: AnticomShowcaseBundle:Blog:index, page: 1}
+    defaults: {_controller: AnticomShowcaseBundle:Blog:list, page: 1}
 
 anticom_showcase_blog_show:
     path: /blog/show/{id}

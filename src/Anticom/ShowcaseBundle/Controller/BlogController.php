@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class BlogController extends Controller {
     const RECORDS_PER_PAGE = 10;
 
-    public function indexAction($page) {
+    public function listAction($page) {
         /** @var BlogEntryRepository $blogRepository */
         $blogRepository = $this->getDoctrine()->getRepository('AnticomShowcaseBundle:BlogEntry');
 
