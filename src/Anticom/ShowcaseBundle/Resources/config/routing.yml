@@ -16,10 +16,14 @@ anticom_showcase_register:
 anticom_showcase_blog_list:
     path: /blog/{page}
     defaults: {_controller: AnticomShowcaseBundle:Blog:list, page: 1}
+    requirements:
+        page:  \d+
 
 anticom_showcase_blog_show:
     path: /blog/show/{id}
     defaults: {_controller: AnticomShowcaseBundle:Blog:show}
+    requirements:
+        id:  \d+
 
 anticom_showcase_blog_new:
     path: /blog/new
@@ -28,16 +32,24 @@ anticom_showcase_blog_new:
 anticom_showcase_blog_edit:
     path: /blog/edit/{id}
     defaults: {_controller: AnticomShowcaseBundle:Blog:edit}
+    requirements:
+        id:  \d+
 #endregion
 
 #region comments
 anticom_showcase_comment_new:
     path: /blog/comment/new/{blogEntry}/{parentComment}
     defaults: {_controller: AnticomShowcaseBundle:Comment:new, parentComment: null}
+    requirements:
+        blogEntry:  \d+
+        parentComment: \d+
 
 anticom_showcase_comment_edit:
-    path: /blog/comment/edit/{blogEntry}/{comment}
-    defaults: {_controller: AnticomShowcaseBundle:Comment:edit, comment: null}
+    path: /blog/comment/edit/{blogEntry}/{parentComment}
+    defaults: {_controller: AnticomShowcaseBundle:Comment:edit, parentComment: null}
+    requirements:
+            blogEntry:  \d+
+            parentComment: \d+
 #endregion
 
 #region user

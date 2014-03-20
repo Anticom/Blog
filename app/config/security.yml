@@ -35,6 +35,7 @@ security:
             logout:
                 path: /logout
                 target: /
+            #access_denied_handler: anticom.access_denied_handler
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

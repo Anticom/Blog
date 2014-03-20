@@ -63,8 +63,20 @@ class BlogController extends Controller {
 
         $form->handleRequest($request);
         if($form->isValid()) {
-            //TODO handle submission
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($blogEntry);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success', 'Ihr Blogeintrag wurde erfolgreich gespeichert!');
+            //$this->redirect($this->generateUrl('anticom_showcase_blog'));
         }
+
+        return $this->render(
+            'AnticomShowcaseBundle:Blog:new.html.twig',
+            [
+                'form'  => $form->createView()
+            ]
+        );
     }
 
     /**

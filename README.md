@@ -15,6 +15,9 @@ Abschlussarbeit ITK 2014
     cd src/Anticom/ShowcaseBundle/Resources
     bower install
 
+Zuletzt muss von den Assets noch TinyMCE gebaut werden.
+Wie das geht, steht [hier](src/Anticom/ShowcaseBundle/Resources/public/tinymce/readme.md).
+
 ###Assets installieren
     php app/console assets:install
 
@@ -24,6 +27,20 @@ Abschlussarbeit ITK 2014
 
 ###Fixtures laden (optional)
     php app/console doctrine:fixtures:load
+
+Durch das Laden der Fixtures, werden ein paar Blogeinträge erstellt, sowie zwei Demo Benutzer angelegt.
+
+Die Logindaten für die Benutzer lauten:
+
+    username: demo1
+    password: demo1
+
+sowie
+
+    username: demo2
+    password: demo2
+
+Die Demoapplikation implementiert kein fortgeschrittenes Rechte-System; jeder der angemeldet ist kann sowohl Blogeinträge als auch Kommentare schreiben und editieren.
 
 ###Vagrant Box starten (optional)
     vagrant up
