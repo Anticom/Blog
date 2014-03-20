@@ -5,7 +5,6 @@ namespace Anticom\ShowcaseBundle\DataFixtures\ORM;
 use Anticom\ShowcaseBundle\Entity\BlogEntry;
 use Anticom\ShowcaseBundle\Entity\Comment;
 use Anticom\ShowcaseBundle\Entity\User;
-use DateTime;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -83,20 +82,17 @@ class LoadSampleData implements FixtureInterface, ContainerAwareInterface {
         $comment1 = new Comment();
         $comment1->setBlogEntry($be1);
         $comment1->setAuthor($user2);
-        $comment1->setDateTimeCreated(new DateTime());
         $comment1->setBody('Comment 1');
 
         $comment11 = new Comment();
         $comment11->setBlogEntry($be1);
         $comment11->setAuthor($user1);
-        $comment11->setDateTimeCreated(new DateTime());
         $comment11->setBody('Comment 1-1');
         $comment11->setParent($comment1);
 
         $comment2 = new Comment();
         $comment2->setBlogEntry($be1);
         $comment2->setAuthor($user2);
-        $comment2->setDateTimeCreated(new DateTime());
         $comment2->setBody('Comment 2');
 
         $be1->addComment($comment1);

@@ -53,6 +53,7 @@ class Comment {
     #region triggered
     /** @ORM\Column(type="datetime") */
     protected $dateTimeCreated;
+
     #endregion
 
     public function __construct() {
@@ -60,17 +61,16 @@ class Comment {
     }
 
     /** @ORM\PrePersist */
-    public function setDateTimeCreated() {
+    public function autoSetDateTimeCreated() {
         $this->dateTimeCreated = new \DateTime();
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -80,8 +80,7 @@ class Comment {
      * @param string $body
      * @return Comment
      */
-    public function setBody($body)
-    {
+    public function setBody($body) {
         $this->body = $body;
 
         return $this;
@@ -90,20 +89,26 @@ class Comment {
     /**
      * Get body
      *
-     * @return string 
+     * @return string
      */
-    public function getBody()
-    {
+    public function getBody() {
         return $this->body;
+    }
+
+    /**
+     * Set dateTimeCreated
+     * @param \DateTime $dateTimeCreated
+     */
+    public function setDateTimeCreated(\DateTime $dateTimeCreated) {
+        $this->dateTimeCreated = $dateTimeCreated;
     }
 
     /**
      * Get dateTimeCreated
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
-    public function getDateTimeCreated()
-    {
+    public function getDateTimeCreated() {
         return $this->dateTimeCreated;
     }
 
@@ -113,8 +118,7 @@ class Comment {
      * @param \Anticom\ShowcaseBundle\Entity\User $author
      * @return Comment
      */
-    public function setAuthor(\Anticom\ShowcaseBundle\Entity\User $author = null)
-    {
+    public function setAuthor(\Anticom\ShowcaseBundle\Entity\User $author = null) {
         $this->author = $author;
 
         return $this;
@@ -123,10 +127,9 @@ class Comment {
     /**
      * Get author
      *
-     * @return \Anticom\ShowcaseBundle\Entity\User 
+     * @return \Anticom\ShowcaseBundle\Entity\User
      */
-    public function getAuthor()
-    {
+    public function getAuthor() {
         return $this->author;
     }
 
@@ -136,8 +139,7 @@ class Comment {
      * @param \Anticom\ShowcaseBundle\Entity\BlogEntry $blogEntry
      * @return Comment
      */
-    public function setBlogEntry(\Anticom\ShowcaseBundle\Entity\BlogEntry $blogEntry = null)
-    {
+    public function setBlogEntry(\Anticom\ShowcaseBundle\Entity\BlogEntry $blogEntry = null) {
         $this->blogEntry = $blogEntry;
 
         return $this;
@@ -146,10 +148,9 @@ class Comment {
     /**
      * Get blogEntry
      *
-     * @return \Anticom\ShowcaseBundle\Entity\BlogEntry 
+     * @return \Anticom\ShowcaseBundle\Entity\BlogEntry
      */
-    public function getBlogEntry()
-    {
+    public function getBlogEntry() {
         return $this->blogEntry;
     }
 
@@ -159,8 +160,7 @@ class Comment {
      * @param \Anticom\ShowcaseBundle\Entity\Comment $children
      * @return Comment
      */
-    public function addChild(\Anticom\ShowcaseBundle\Entity\Comment $children)
-    {
+    public function addChild(\Anticom\ShowcaseBundle\Entity\Comment $children) {
         $this->children[] = $children;
 
         return $this;
@@ -171,18 +171,16 @@ class Comment {
      *
      * @param \Anticom\ShowcaseBundle\Entity\Comment $children
      */
-    public function removeChild(\Anticom\ShowcaseBundle\Entity\Comment $children)
-    {
+    public function removeChild(\Anticom\ShowcaseBundle\Entity\Comment $children) {
         $this->children->removeElement($children);
     }
 
     /**
      * Get children
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getChildren()
-    {
+    public function getChildren() {
         return $this->children;
     }
 
@@ -192,8 +190,7 @@ class Comment {
      * @param \Anticom\ShowcaseBundle\Entity\Comment $parent
      * @return Comment
      */
-    public function setParent(\Anticom\ShowcaseBundle\Entity\Comment $parent = null)
-    {
+    public function setParent(\Anticom\ShowcaseBundle\Entity\Comment $parent = null) {
         $this->parent = $parent;
 
         return $this;
@@ -202,10 +199,9 @@ class Comment {
     /**
      * Get parent
      *
-     * @return \Anticom\ShowcaseBundle\Entity\Comment 
+     * @return \Anticom\ShowcaseBundle\Entity\Comment
      */
-    public function getParent()
-    {
+    public function getParent() {
         return $this->parent;
     }
 }
