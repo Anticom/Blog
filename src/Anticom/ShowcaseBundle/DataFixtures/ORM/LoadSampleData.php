@@ -42,7 +42,6 @@ class LoadSampleData implements FixtureInterface, ContainerAwareInterface {
         $user1->setPassword(
             $encoder->encodePassword('demo1', $user1->getSalt())
         );
-        $user1->setIsActive(true);
 
         $user2   = new User();
         $encoder = $factory->getEncoder($user2);
@@ -51,7 +50,6 @@ class LoadSampleData implements FixtureInterface, ContainerAwareInterface {
         $user2->setPassword(
             $encoder->encodePassword('demo2', $user2->getSalt())
         );
-        $user2->setIsActive(true);
         #endregion
 
         #region blog entries

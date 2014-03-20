@@ -48,7 +48,7 @@ class User implements UserInterface, Serializable {
     public function __construct() {
         $this->blogEntries = new ArrayCollection();
         $this->comments    = new ArrayCollection();
-        $this->isActive    = false;
+        $this->isActive    = true;
     }
 
     #region interface implementations
