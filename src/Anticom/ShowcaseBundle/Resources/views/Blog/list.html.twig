@@ -36,7 +36,7 @@
         <div class="text-center">
             <ul class="pagination">
                 {% if page.hasPrev %}
-                    <li><a href="{{ path('anticom_showcase_blog', {'page': page.current - 1}) }}">&laquo;</a></li>
+                    <li><a href="{{ path('anticom_showcase_blog_list', {'page': page.current - 1}) }}">&laquo;</a></li>
                 {% else %}
                     <li class="disabled"><span>&laquo;</span></li>
                 {% endif %}
@@ -44,11 +44,11 @@
                     {% if i == page.current %}
                         <li class="active"><span>{{ i }}<span class="sr-only">(current)</span></span></li>
                     {% else %}
-                        <li><a href="{{ path('anticom_showcase_blog', {'page': i}) }}">{{ i }}</a></li>
+                        <li><a href="{{ path('anticom_showcase_blog_list', {'page': i}) }}">{{ i }}</a></li>
                     {% endif %}
                 {% endfor %}
                 {% if page.hasNext %}
-                    <li><a href="{{ path('anticom_showcase_blog', {'page': page.current + 1}) }}">&raquo;</a></li>
+                    <li><a href="{{ path('anticom_showcase_blog_list', {'page': page.current + 1}) }}">&raquo;</a></li>
                 {% else %}
                     <li class="disabled"><span>&raquo;</span></li>
                 {% endif %}

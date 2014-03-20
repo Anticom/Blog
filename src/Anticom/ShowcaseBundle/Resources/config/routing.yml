@@ -1,8 +1,4 @@
 #region main routes
-anticom_showcase_index:
-    path: /
-    defaults: { _controller: AnticomShowcaseBundle:Default:index }
-
 anticom_showcase_impress:
     path: /impress
     defaults: { _controller: AnticomShowcaseBundle:Default:impress }
@@ -14,11 +10,10 @@ anticom_showcase_contact:
 anticom_showcase_register:
     path: /register
     defaults: { _controller: AnticomShowcaseBundle:User:register}
-
 #endregion
 
 #region blog
-anticom_showcase_blog:
+anticom_showcase_blog_list:
     path: /blog/{page}
     defaults: {_controller: AnticomShowcaseBundle:Blog:index, page: 1}
 

@@ -21,8 +21,8 @@ class MenuBuilder extends ContainerAware {
         $menu = $factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav navbar-nav');
 
-        $menu->addChild('Startseite', ['route' => 'anticom_showcase_index']);
-        $menu->addChild('Blog', ['route' => 'anticom_showcase_blog']);
+        $menu->addChild('Startseite', ['route' => 'index']);
+        $menu->addChild('Blog', ['route' => 'anticom_showcase_blog_list']);
 
         $menu->setCurrentUri($this->container->get('request')->getRequestUri());
         return $menu;
