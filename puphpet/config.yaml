@@ -1,8 +1,8 @@
 ---
 vagrantfile-local:
     vm:
-        box: debian-wheezy72-x64-vbox43
-        box_url: 'http://box.puphpet.com/debian-wheezy72-x64-vbox43.box'
+        box: debian-73
+        box_url: http://puppet-vagrant-boxes.puppetlabs.com/debian-73-i386-virtualbox-puppet.box
         hostname: null
         network:
             private_network: 192.168.56.101
@@ -76,7 +76,7 @@ apache:
             servername: local.dev
             serveraliases:
                 - www.local.dev
-            docroot: /var/www
+            docroot: /var/www/web
             port: '80'
             setenv:
                 - 'APP_ENV dev'

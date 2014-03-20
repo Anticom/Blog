@@ -5,9 +5,20 @@ dir = File.dirname(File.expand_path(__FILE__))
 configValues = YAML.load_file("#{dir}/puphpet/config.yaml")
 data = configValues['vagrantfile-local']
 
-Vagrant.configure("2") do |config|
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "#{data['vm']['box']}"
   config.vm.box_url = "#{data['vm']['box_url']}"
+
+  #this is for debugging purposes of VM
+  config.vm.provider "virtualbox" do |v|
+    v.gui = false
+  end
+
+  config.vm.provider "virtualbox" do |v|
+    v.name = "symfony test machine"
+  end
 
   if data['vm']['hostname'].to_s != ''
     config.vm.hostname = "#{data['vm']['hostname']}"
