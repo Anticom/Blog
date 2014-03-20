@@ -2,30 +2,49 @@
 
 namespace Anticom\ShowcaseBundle\Controller;
 
+use Anticom\ShowcaseBundle\Entity\BlogEntryRepository;
 use Anticom\ShowcaseBundle\Entity\Comment;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class BlogController extends Controller {
-    public function indexAction() {
-        //$this->get('session')->getFlashBag()->add('success', 'Ihr Eintrag wurde gespeichert');
+    const RECORDS_PER_PAGE = 10;
 
-        $blogEntries = $this->getDoctrine()->getRepository('AnticomShowcaseBundle:BlogEntry')->findAll();
+    public function indexAction($page) {
+        /** @var BlogEntryRepository $blogRepository */
+        $blogRepository = $this->getDoctrine()->getRepository('AnticomShowcaseBundle:BlogEntry');
+
+        $pageInfo            = [];
+        $pageInfo['current'] = $page;
+        $pageInfo['count']   = ceil(count($blogRepository->findAll()) / self::RECORDS_PER_PAGE);
+        $pageInfo['hasPrev'] = $page > 1;
+        $pageInfo['hasNext'] = $page < $pageInfo['count'];
+
+        $offset      = self::RECORDS_PER_PAGE * ($page - 1);
+        $blogEntries = $blogRepository->findBy([], ['id' => 'ASC'], self::RECORDS_PER_PAGE, $offset);
 
         return $this->render(
-            'AnticomShowcaseBundle:Blog:index.html.twig',
+            'AnticomShowcaseBundle:Blog:list.html.twig',
             [
-                'blogEntries' => $blogEntries
+                'blogEntries' => $blogEntries,
+                'page'        => $pageInfo
             ]
         );
     }
 
     public function showAction($id) {
-        $blogEntry = $this->getDoctrine()->getRepository('AnticomShowcaseBundle:BlogEntry')->find($id);
+        /** @var BlogEntryRepository $blogRepository */
+        $blogRepository = $this->getDoctrine()->getRepository('AnticomShowcaseBundle:BlogEntry');
+
+        $blogEntry = $blogRepository->find($id);
+        $prev = $blogRepository->findPrev($blogEntry);
+        $next = $blogRepository->findNext($blogEntry);
 
         return $this->render(
             'AnticomShowcaseBundle:Blog:show.html.twig',
             [
-                'blogEntry' => $blogEntry
+                'blogEntry' => $blogEntry,
+                'prev'      => $prev,
+                'next'      => $next
             ]
         );
     }

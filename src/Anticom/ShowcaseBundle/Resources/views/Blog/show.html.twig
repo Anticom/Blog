@@ -1,4 +1,4 @@
-{% extends 'AnticomShowcaseBundle:Blog:index.html.twig' %}
+{% extends 'AnticomShowcaseBundle::base.html.twig' %}
 {% import "AnticomShowcaseBundle::_macros.html.twig" as tools %}
 {% import "AnticomShowcaseBundle:Blog:_macros.html.twig" as macros %}
 
@@ -20,12 +20,18 @@
         </div>
     </div>
 
-    <!--
     <ul class="pager">
-        <li class="previous"><a href="#">&larr; Vorheriger Eintrag</a></li>
-        <li class="next"><a href="#">Nächster Eintrag &rarr;</a></li>
+        {% if prev %}
+            <li class="previous"><a href="{{ path('anticom_showcase_blog_show', {'id': prev.id}) }}">&larr; Vorheriger Eintrag</a></li>
+        {% else %}
+            <li class="previous disabled"><span>&larr; Vorheriger Eintrag</span></li>
+        {% endif %}
+        {% if next %}
+            <li class="next"><a href="{{ path('anticom_showcase_blog_show', {'id': next.id}) }}">Nächster Eintrag &rarr;</a></li>
+        {% else %}
+            <li class="next disabled"><span>Nächster Eintrag &rarr;</span></li>
+        {% endif %}
     </ul>
-    -->
 
     <div style="height: 20px;"></div>
     <h4 id="comments">Kommentare</h4>

@@ -42,6 +42,7 @@ class LoadSampleData implements FixtureInterface, ContainerAwareInterface {
         $user1->setPassword(
             $encoder->encodePassword('demo1', $user1->getSalt())
         );
+        $manager->persist($user1);
 
         $user2   = new User();
         $encoder = $factory->getEncoder($user2);
@@ -50,6 +51,7 @@ class LoadSampleData implements FixtureInterface, ContainerAwareInterface {
         $user2->setPassword(
             $encoder->encodePassword('demo2', $user2->getSalt())
         );
+        $manager->persist($user2);
         #endregion
 
         #region blog entries
@@ -58,12 +60,26 @@ class LoadSampleData implements FixtureInterface, ContainerAwareInterface {
         $be1->setDateTimeCreated(new DateTime());
         $be1->setTitle('Demo Eintrag 1');
         $be1->setBody('Das ist der Body vom Demo Eintrag 1');
+        $manager->persist($be1);
 
         $be2 = new BlogEntry();
         $be2->setAuthor($user2);
         $be2->setDateTimeCreated(new DateTime());
         $be2->setTitle('Demo Eintrag 2');
         $be2->setBody('Das ist der Body vom Demo Eintrag 2. Dieser hat auch <strong>fett gedruckten</strong> text.');
+        $manager->persist($be2);
+
+        //even more dummy blog entries (to test pagination)
+        $limit = 20;
+        for($i = 3; $i < $limit + 3; $i++) {
+            $be = new BlogEntry();
+            $be->setAuthor($user1);
+            $be->setDateTimeCreated(new DateTime());
+            $be->setTitle('Dummy title '.$i);
+            $be->setBody('Dummy body '.$i);
+
+            $manager->persist($be);
+        }
         #endregion
 
         #region comments
@@ -91,10 +107,6 @@ class LoadSampleData implements FixtureInterface, ContainerAwareInterface {
         #endregion
 
         #region orm
-        $manager->persist($user1);
-        $manager->persist($user2);
-        $manager->persist($be1);
-        $manager->persist($be2);
         $manager->persist($comment1);
         $manager->persist($comment1_1);
         $manager->persist($comment2);
