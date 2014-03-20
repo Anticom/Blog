@@ -16,6 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class BlogEntry
  * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Anticom\ShowcaseBundle\Entity\BlogEntryRepository")
  * @ORM\Table(name="blog_entry")
  * @ORM\HasLifecycleCallbacks()
  */
