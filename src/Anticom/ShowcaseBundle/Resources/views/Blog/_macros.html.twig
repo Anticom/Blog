@@ -30,7 +30,7 @@
             <img src="{{ asset('bundles/anticomshowcase/user_blank.png') }}" class="img-circle media-object" alt="64x64">
         </a>
         <div class="media-body">
-            <div class="comment" {{ comment == highlight ? 'style="background-color: #FFFFAB;"' : '' }}>
+            <div class="comment {{ comment == highlight ? 'comment-highlight' : '' }}">
                 <h4 class="media-heading">Kommentar von <a href="#">{{ comment.author.username }}</a></h4>
                 <small><p><span class="glyphicon glyphicon-calendar"></span> {{ tools.entryDate(comment.dateTimeCreated) }}</p></small>
                 <p>{{ comment.body }}</p>

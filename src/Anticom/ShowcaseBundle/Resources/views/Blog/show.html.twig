@@ -43,24 +43,3 @@
         <a href="{{ path('anticom_showcase_blog_addcomment', {'blogEntry': blogEntry.id}) }}#comments">Neuen kommentar verfassen</a>
     </div>
 {% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-
-    <script type="text/javascript">
-        if (window.location.hash) {
-            window.scrollTo(0, 0);
-            setTimeout(function () {
-                var hash = window.location.hash;
-                var $target = $(hash);
-                $('html,body').animate(
-                    {
-                        scrollTop: $target.offset().top
-                    },
-                    'slow'
-                );
-            },
-            500);
-        }
-    </script>
-{% endblock %}

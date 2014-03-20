@@ -21,6 +21,7 @@ class BlogController extends Controller {
 
         $offset      = self::RECORDS_PER_PAGE * ($page - 1);
         $blogEntries = $blogRepository->findBy([], ['id' => 'ASC'], self::RECORDS_PER_PAGE, $offset);
+        if(empty($blogEntries)) throw $this->createNotFoundException('Es konnten keine Blogeinträge gefunden werden!');
 
         return $this->render(
             'AnticomShowcaseBundle:Blog:list.html.twig',
@@ -36,6 +37,8 @@ class BlogController extends Controller {
         $blogRepository = $this->getDoctrine()->getRepository('AnticomShowcaseBundle:BlogEntry');
 
         $blogEntry = $blogRepository->find($id);
+        if(!$blogEntry) throw $this->createNotFoundException('Der Blogeintrag konnte nicht gefunden werden!');
+
         $prev = $blogRepository->findPrev($blogEntry);
         $next = $blogRepository->findNext($blogEntry);
 
@@ -51,11 +54,13 @@ class BlogController extends Controller {
 
     public function addCommentAction($blogEntry, $comment = null) {
         $blogEntry = $this->getDoctrine()->getRepository('AnticomShowcaseBundle:BlogEntry')->find($blogEntry);
+        if(!$blogEntry) throw $this->createNotFoundException('Der Blogeintrag konnte nicht gefunden werden!');
 
         $rootComment = null;
         if($comment != null) {
             /** @var Comment $comment */
             $comment = $this->getDoctrine()->getRepository('AnticomShowcaseBundle:Comment')->find($comment);
+            if(!$blogEntry) throw $this->createNotFoundException('Der Kommentar zum Blogeintrag konnte nicht gefunden werden!');
 
             $rootComment = $comment;
             while($rootComment->getParent() !== null) {
