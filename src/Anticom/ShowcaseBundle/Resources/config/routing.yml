@@ -20,12 +20,20 @@ anticom_showcase_blog_list:
 anticom_showcase_blog_show:
     path: /blog/show/{id}
     defaults: {_controller: AnticomShowcaseBundle:Blog:show}
+
+anticom_showcase_blog_new:
+    path: /blog/new
+    defaults: {_controller: AnticomShowcaseBundle:Blog:new}
+
+anticom_showcase_blog_edit:
+    path: /blog/edit/{id}
+    defaults: {_controller: AnticomShowcaseBundle:Blog:edit}
 #endregion
 
 #region comments
 anticom_showcase_comment_new:
-    path: /blog/comment/new/{blogEntry}/{comment}
-    defaults: {_controller: AnticomShowcaseBundle:Comment:new, comment: null}
+    path: /blog/comment/new/{blogEntry}/{parentComment}
+    defaults: {_controller: AnticomShowcaseBundle:Comment:new, parentComment: null}
 
 anticom_showcase_comment_edit:
     path: /blog/comment/edit/{blogEntry}/{comment}

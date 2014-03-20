@@ -2,8 +2,12 @@
 
 namespace Anticom\ShowcaseBundle\Controller;
 
+use Anticom\ShowcaseBundle\Entity\BlogEntry;
 use Anticom\ShowcaseBundle\Entity\BlogEntryRepository;
+use Anticom\ShowcaseBundle\Form\Type\BlogEntryType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class BlogController extends Controller {
     const RECORDS_PER_PAGE = 10;
@@ -49,5 +53,31 @@ class BlogController extends Controller {
                 'next'      => $next
             ]
         );
+    }
+
+    public function newAction(Request $request) {
+        if(!$this->getUser()) throw new AccessDeniedException();
+
+        $blogEntry = new BlogEntry();
+        $form = $this->createForm(new BlogEntryType(), $blogEntry);
+
+        $form->handleRequest($request);
+        if($form->isValid()) {
+            //TODO handle submission
+        }
+    }
+
+    /**
+     * @ParamConverter("blogEntry", class="AnticomShowcaseBundle:BlogEntry")
+     */
+    public function editAction(Request $request, BlogEntry $blogEntry) {
+        if(!$this->getUser()) throw new AccessDeniedException();
+
+        $form = $this->createForm(new BlogEntryType(), $blogEntry);
+
+        $form->handleRequest($request);
+        if($form->isValid()) {
+            //TODO handle submission
+        }
     }
 }

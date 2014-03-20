@@ -6,12 +6,20 @@
         <a class="pull-left" href="#">
             <img src="{{ asset('bundles/anticomshowcase/user_blank.png') }}" class="img-circle media-object" alt="64x64">
         </a>
+
         <div class="media-body">
             <h4 class="media-heading">Kommentar von <a href="#">{{ comment.author.username }}</a></h4>
+
             <div class="comment">
-                <p><small><span class="glyphicon glyphicon-calendar"></span> {{ tools.entryDate(comment.dateTimeCreated) }}</small></p>
+                <p>
+                    <small><span class="glyphicon glyphicon-calendar"></span> {{ tools.entryDate(comment.dateTimeCreated) }}</small>
+                </p>
                 <p>{{ comment.body }}</p>
-                <small><a href="{{ path('anticom_showcase_comment_new', {'blogEntry': comment.blogEntry.id ,'comment': comment.id}) }}#comments">Antworten</a></small>
+                {% if app.user %}
+                    <small>
+                        <a href="{{ path('anticom_showcase_comment_new', {'blogEntry': comment.blogEntry.id ,'comment': comment.id}) }}#comments">Antworten</a>
+                    </small>
+                {% endif %}
             </div>
             {#nested media#}
             {% for subcomment in comment.children %}
