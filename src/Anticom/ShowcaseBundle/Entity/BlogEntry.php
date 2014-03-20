@@ -45,6 +45,7 @@ class BlogEntry {
     #region triggered
     /** @ORM\Column(type="datetime") */
     protected $dateTimeCreated;
+
     #endregion
 
     public function __construct() {
@@ -52,17 +53,16 @@ class BlogEntry {
     }
 
     /** @ORM\PrePersist */
-    public function setDateTimeCreated() {
+    public function autoSetDateTimeCreated() {
         $this->dateTimeCreated = new \DateTime();
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -72,8 +72,7 @@ class BlogEntry {
      * @param string $title
      * @return BlogEntry
      */
-    public function setTitle($title)
-    {
+    public function setTitle($title) {
         $this->title = $title;
 
         return $this;
@@ -82,10 +81,9 @@ class BlogEntry {
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
-    public function getTitle()
-    {
+    public function getTitle() {
         return $this->title;
     }
 
@@ -95,8 +93,7 @@ class BlogEntry {
      * @param string $body
      * @return BlogEntry
      */
-    public function setBody($body)
-    {
+    public function setBody($body) {
         $this->body = $body;
 
         return $this;
@@ -105,20 +102,26 @@ class BlogEntry {
     /**
      * Get body
      *
-     * @return string 
+     * @return string
      */
-    public function getBody()
-    {
+    public function getBody() {
         return $this->body;
+    }
+
+    /**
+     * Set dateTimeCreated
+     * @param \DateTime $dateTimeCreated
+     */
+    public function setDateTimeCreated(\DateTime $dateTimeCreated) {
+        $this->dateTimeCreated = $dateTimeCreated;
     }
 
     /**
      * Get dateTimeCreated
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
-    public function getDateTimeCreated()
-    {
+    public function getDateTimeCreated() {
         return $this->dateTimeCreated;
     }
 
@@ -128,8 +131,7 @@ class BlogEntry {
      * @param \Anticom\ShowcaseBundle\Entity\User $author
      * @return BlogEntry
      */
-    public function setAuthor(\Anticom\ShowcaseBundle\Entity\User $author = null)
-    {
+    public function setAuthor(\Anticom\ShowcaseBundle\Entity\User $author = null) {
         $this->author = $author;
 
         return $this;
@@ -138,10 +140,9 @@ class BlogEntry {
     /**
      * Get author
      *
-     * @return \Anticom\ShowcaseBundle\Entity\User 
+     * @return \Anticom\ShowcaseBundle\Entity\User
      */
-    public function getAuthor()
-    {
+    public function getAuthor() {
         return $this->author;
     }
 
@@ -151,8 +152,7 @@ class BlogEntry {
      * @param \Anticom\ShowcaseBundle\Entity\Comment $comments
      * @return BlogEntry
      */
-    public function addComment(\Anticom\ShowcaseBundle\Entity\Comment $comments)
-    {
+    public function addComment(\Anticom\ShowcaseBundle\Entity\Comment $comments) {
         $this->comments[] = $comments;
 
         return $this;
@@ -163,18 +163,16 @@ class BlogEntry {
      *
      * @param \Anticom\ShowcaseBundle\Entity\Comment $comments
      */
-    public function removeComment(\Anticom\ShowcaseBundle\Entity\Comment $comments)
-    {
+    public function removeComment(\Anticom\ShowcaseBundle\Entity\Comment $comments) {
         $this->comments->removeElement($comments);
     }
 
     /**
      * Get comments
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getComments()
-    {
+    public function getComments() {
         return $this->comments;
     }
 }

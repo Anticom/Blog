@@ -57,14 +57,12 @@ class LoadSampleData implements FixtureInterface, ContainerAwareInterface {
         #region blog entries
         $be1 = new BlogEntry();
         $be1->setAuthor($user1);
-        $be1->setDateTimeCreated(new DateTime());
         $be1->setTitle('Demo Eintrag 1');
         $be1->setBody('Das ist der Body vom Demo Eintrag 1');
         $manager->persist($be1);
 
         $be2 = new BlogEntry();
         $be2->setAuthor($user2);
-        $be2->setDateTimeCreated(new DateTime());
         $be2->setTitle('Demo Eintrag 2');
         $be2->setBody('Das ist der Body vom Demo Eintrag 2. Dieser hat auch <strong>fett gedruckten</strong> text.');
         $manager->persist($be2);
@@ -74,7 +72,6 @@ class LoadSampleData implements FixtureInterface, ContainerAwareInterface {
         for($i = 3; $i < $limit + 3; $i++) {
             $be = new BlogEntry();
             $be->setAuthor($user1);
-            $be->setDateTimeCreated(new DateTime());
             $be->setTitle('Dummy title '.$i);
             $be->setBody('Dummy body '.$i);
 
@@ -89,12 +86,12 @@ class LoadSampleData implements FixtureInterface, ContainerAwareInterface {
         $comment1->setDateTimeCreated(new DateTime());
         $comment1->setBody('Comment 1');
 
-        $comment1_1 = new Comment();
-        $comment1_1->setBlogEntry($be1);
-        $comment1_1->setAuthor($user1);
-        $comment1_1->setDateTimeCreated(new DateTime());
-        $comment1_1->setBody('Comment 1-1');
-        $comment1_1->setParent($comment1);
+        $comment11 = new Comment();
+        $comment11->setBlogEntry($be1);
+        $comment11->setAuthor($user1);
+        $comment11->setDateTimeCreated(new DateTime());
+        $comment11->setBody('Comment 1-1');
+        $comment11->setParent($comment1);
 
         $comment2 = new Comment();
         $comment2->setBlogEntry($be1);
@@ -108,7 +105,7 @@ class LoadSampleData implements FixtureInterface, ContainerAwareInterface {
 
         #region orm
         $manager->persist($comment1);
-        $manager->persist($comment1_1);
+        $manager->persist($comment11);
         $manager->persist($comment2);
 
         $manager->flush();
