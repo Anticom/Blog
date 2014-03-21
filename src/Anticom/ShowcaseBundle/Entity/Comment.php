@@ -65,6 +65,14 @@ class Comment {
         $this->dateTimeCreated = new \DateTime();
     }
 
+    public function getRootComment() {
+        if($this->parent !== null) {
+            return $this->getRootComment();
+        } else {
+            return $this;
+        }
+    }
+
     /**
      * Get id
      *

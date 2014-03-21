@@ -30,8 +30,12 @@
 {% endblock %}
 
 {% block content %}
+    <h1>Neuen Blogeintrag anlegen</h1>
+    {{ dump(form.vars) }}
+
     {{ form_start(form) }}
-        <label for="editor">My Cool editor</label>
-        <textarea name="content" rows="19" id="editor"></textarea>
+        {{ form_errors(form) }}
+        {#<label for="editor">My Cool editor</label>#}
+        {#<textarea name="content" rows="19" id="editor"></textarea>#}
     {{ form_end(form) }}
 {% endblock %}

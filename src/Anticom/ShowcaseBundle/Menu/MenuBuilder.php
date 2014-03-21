@@ -32,21 +32,9 @@ class MenuBuilder extends ContainerAware {
         $menu = $factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav navbar-nav navbar-right');
 
-        /** @var SecurityContextInterface $securityContext */
-        $securityContext = $this->container->get('security.context');
-        if($securityContext->isGranted(['ROLE_USER'])) {
-            /** @var User $user */
-            $user = $securityContext->getToken()->getUser();
-
-            /** @var TwigEngine $engine */
-            $engine = $this->container->get('templating');
-            $markup = $engine->render(
-                'AnticomShowcaseBundle:Menu:logged_in.html.twig',
-                [
-                    'user' => $user
-                ]
-            );
-
+        $user = $this->getUser();
+        if($user) {
+            $markup = $this->getUserInfo($user);
             $menu->addChild($markup,
                 [
                     'attributes' => ['class' => 'navbar-text'],
@@ -61,5 +49,28 @@ class MenuBuilder extends ContainerAware {
 
         $menu->setCurrentUri($this->container->get('request')->getRequestUri());
         return $menu;
+    }
+
+    protected function getUser() {
+        /** @var SecurityContextInterface $securityContext */
+        $securityContext = $this->container->get('security.context');
+        if($securityContext->isGranted(['ROLE_USER'])) {
+            /** @var User $user */
+            return $securityContext->getToken()->getUser();
+        } else {
+            return null;
+        }
+    }
+
+    protected function getUserInfo($user) {
+        /** @var TwigEngine $engine */
+        $engine = $this->container->get('templating');
+        $markup = $engine->render(
+            'AnticomShowcaseBundle:Menu:logged_in.html.twig',
+            [
+                'user' => $user
+            ]
+        );
+        return $markup;
     }
 }

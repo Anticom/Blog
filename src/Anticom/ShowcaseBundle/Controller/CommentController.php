@@ -23,14 +23,11 @@ class CommentController extends Controller {
 
         $rootComment = null;
         if($parentComment != null) {
-            /** @var Comment $comment */
+            /** @var Comment $parentComment */
             $parentComment = $this->getDoctrine()->getRepository('AnticomShowcaseBundle:Comment')->find($parentComment);
             if(!$blogEntry) throw $this->createNotFoundException('Der Kommentar zum Blogeintrag konnte nicht gefunden werden!');
 
-            $rootComment = $parentComment;
-            while($rootComment->getParent() !== null) {
-                $rootComment = $rootComment->getParent();
-            }
+            $rootComment = $parentComment->getRootComment();
         }
 
         return $this->render(
@@ -58,10 +55,7 @@ class CommentController extends Controller {
             $parentComment = $this->getDoctrine()->getRepository('AnticomShowcaseBundle:Comment')->find($parentComment);
             if(!$blogEntry) throw $this->createNotFoundException('Der Kommentar zum Blogeintrag konnte nicht gefunden werden!');
 
-            $rootComment = $parentComment;
-            while($rootComment->getParent() !== null) {
-                $rootComment = $rootComment->getParent();
-            }
+            $rootComment = $parentComment->getRootComment();
         }
 
         return $this->render(

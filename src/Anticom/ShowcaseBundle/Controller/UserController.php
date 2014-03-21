@@ -3,7 +3,6 @@
 namespace Anticom\ShowcaseBundle\Controller;
 
 use Anticom\ShowcaseBundle\Entity\User;
-use Anticom\ShowcaseBundle\Form\Type\LoginType;
 use Anticom\ShowcaseBundle\Form\Type\RegisterType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;

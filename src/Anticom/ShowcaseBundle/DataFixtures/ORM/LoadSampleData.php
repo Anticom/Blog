@@ -107,4 +107,4 @@ class LoadSampleData implements FixtureInterface, ContainerAwareInterface {
         $manager->flush();
         #endregion
     }
-} 
+}
