@@ -23,7 +23,6 @@ class AppKernel extends Kernel
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
 
             //application bundles
-            //new Acme\DemoBundle\AcmeDemoBundle(),
             new Anticom\ShowcaseBundle\AnticomShowcaseBundle()
         );
 
