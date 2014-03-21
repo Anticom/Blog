@@ -9,31 +9,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends Controller {
-    public function profileAction() {
-
-    }
-
-    /*
-    public function loginAction(Request $request) {
-        $user = new User();
-        $form = $this->createForm(new LoginType(), $user);
-
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $this->get('session')->getFlashBag()->add('success', 'Form is valid!');
-            // perform some action, such as saving the task to the database
-
-            return $this->redirect($this->generateUrl('anticom_showcase_index'));
+    public function profileAction($id = null) {
+        if($id === null) {
+            $user = $this->getUser();
+        } else {
+            $user = $this->getDoctrine()->getManager()->getRepository('AnticomShowcaseBundle:User')->find($id);
         }
 
         return $this->render(
-            'AnticomShowcaseBundle:User:login.html.twig',
+            'AnticomShowcaseBundle:User:profile.html.twig',
             [
-                'form'  => $form->createView()
+                'user'  => $user
             ]
         );
     }
-    */
 
     public function registerAction(Request $request) {
         $user = new User();

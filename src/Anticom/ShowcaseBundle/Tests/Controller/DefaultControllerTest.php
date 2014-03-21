@@ -4,14 +4,22 @@ namespace Anticom\ShowcaseBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class DefaultControllerTest extends WebTestCase
-{
-    public function testIndex()
-    {
-        $client = static::createClient();
+class DefaultControllerTest extends WebTestCase {
+    public function testIndex() {
+        $client  = static::createClient();
+        $crawler = $client->request('GET', '/');
+        $this->assertTrue($crawler->filter('html:contains("Lorem ipsum")')->count() > 0);
+    }
 
-        $crawler = $client->request('GET', '/hello/Fabien');
+    public function testImpress() {
+        $client  = static::createClient();
+        $crawler = $client->request('GET', '/impress');
+        $this->assertTrue($crawler->filter('html:contains("Impressum")')->count() > 0);
+    }
 
-        $this->assertTrue($crawler->filter('html:contains("Hello Fabien")')->count() > 0);
+    public function testContact() {
+        $client  = static::createClient();
+        $crawler = $client->request('GET', '/contact');
+        $this->assertTrue($crawler->filter('html:contains("Kontakt")')->count() > 0);
     }
 }
