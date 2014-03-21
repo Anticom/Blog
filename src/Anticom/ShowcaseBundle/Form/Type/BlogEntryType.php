@@ -18,9 +18,31 @@ class BlogEntryType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('title', 'text', ['label' => 'Überschrift'])
-            ->add('body', 'textarea', ['label' => 'Text'])
-            ->add('submit', 'submit', ['label' => 'speichern']);
+            ->add('title', 'text',
+                [
+                    'label' => 'Überschrift',
+                    'attr'  => [
+                        'class'       => 'form-control',
+                        'placeholder' => 'Überschrift'
+                    ]
+                ]
+            )
+            ->add('body', 'textarea',
+                [
+                    'label' => 'Text des Blogeintrages',
+                    'attr'  => [
+                        'class' => 'form-control'
+                    ]
+                ]
+            )
+            ->add('submit', 'submit',
+                [
+                    'label' => 'speichern',
+                    'attr'  => [
+                        'class' => 'btn btn-primary'
+                    ]
+                ]
+            );
     }
 
     public function getName() {

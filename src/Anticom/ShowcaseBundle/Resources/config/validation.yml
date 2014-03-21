@@ -20,3 +20,22 @@ Anticom\ShowcaseBundle\Entity\User:
         password:
             - NotBlank:
                 message: "Bitte geben Sie ein passwort ein"
+
+Anticom\ShowcaseBundle\Entity\BlogEntry:
+    properties:
+        title:
+            - NotNull:
+                message: "Der Blogeintrag muss einen Titel haben"
+            - NotBlank:
+                message: "Der Blogeintrag muss einen Titel haben"
+            - Length:
+                min: 5
+                minMessage: "Der Titel muss mindestens 5 Zeichen lang sein"
+        body:
+            - NotNull:
+                message: "Der Blogeintrag muss einen Text haben"
+            - NotBlank:
+                message: "Der Blogeintrag muss einen Text haben"
+            - Length:
+                min: 10
+                minMessage: "Der Text muss mindestens 10 Zeichen lang sein"

@@ -2,16 +2,31 @@
 {% import "AnticomShowcaseBundle::_macros.html.twig" as tools %}
 
 {% block content %}
+    {% if app.user %}
+        <div class="row">
+            <div class="col-md-12">
+                <a href="{{ path('anticom_showcase_blog_new') }}" class="btn btn-primary btn-sm" style="margin-bottom: 20px;">
+                    <span class="glyphicon glyphicon-file"></span> Neuen Blogeintrag schreiben
+                </a>
+            </div>
+        </div>
+    {% endif %}
     {% for blogEntry in blogEntries %}
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <h4>
-                            <strong>
-                                <a href="{{ path('anticom_showcase_blog_show', {'id': blogEntry.id}) }}">{{ blogEntry.title }}</a>
-                            </strong>
-                        </h4>
+                        <h4 class="inline-block"><a href="{{ path('anticom_showcase_blog_show', {'id': blogEntry.id}) }}">{{ blogEntry.title }}</a></h4>
+                        {% if app.user %}
+                            <div class="pull-right">
+                                <a href="{{ path('anticom_showcase_blog_edit', {'id': blogEntry.id}) }}" class="btn btn-default btn-sm">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+                                <a href="{{ path('anticom_showcase_blog_delete', {'id': blogEntry.id}) }}" class="btn btn-danger btn-sm">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </a>
+                            </div>
+                        {% endif %}
 
                         <div>
                             {{ blogEntry.body|raw }}

@@ -8,3 +8,34 @@
         </div>
     {% endif %}
 {% endmacro %}
+
+{% macro alertAggregate(messages, type) %}
+    {% if messages and messages|length %}
+        <div class="alert alert-{{ type|default('info') }}">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro alertError(error, type) %}
+    {% if error %}
+        <div class="alert alert-{{ type|default('danger') }}">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            {{ error.message }}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro alertErrorAggregate(errors, type) %}
+    {% if errors and errors|length %}
+        <div class="alert alert-{{ type|default('danger') }}">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            {% for error in errors %}
+                {{ error.message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endmacro %}

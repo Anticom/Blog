@@ -4,14 +4,13 @@
 {% block javascripts %}
     {{ parent() }}
     {#latest tinymce build#}
-    <script src="{{ asset('bundles/anticomshowcase/tinymce/js/tinymce/tinymce.jquery.min.js') }}"></script>
     <script src="{{ asset('bundles/anticomshowcase/tinymce/js/tinymce/jquery.tinymce.min.js') }}"></script>
+    <script src=""></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('#editor').tinymce({
-                //script_url : '/gui/js/tinymce/tinymce.min.js',
+                script_url : '{{ asset('bundles/anticomshowcase/tinymce/js/tinymce/tinymce.js') }}',
                 language   : 'de_DE',
-                //visual     : false,
                 menubar    : true,
                 statusbar  : true,
                 plugins : [
@@ -21,7 +20,6 @@
                     "emoticons template paste textcolor"
                 ],
                 toolbar1: "undo redo | customStyles styleselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist | link image | forecolor backcolor | preview fullscreen code",
-
                 convert_urls       : false,
                 forced_root_block  : 'div'
             });
@@ -31,11 +29,29 @@
 
 {% block content %}
     <h1>Neuen Blogeintrag anlegen</h1>
-    {{ dump(form.vars) }}
-
     {{ form_start(form) }}
-        {{ form_errors(form) }}
-        {#<label for="editor">My Cool editor</label>#}
-        {#<textarea name="content" rows="19" id="editor"></textarea>#}
+        {% if not form.vars.valid %}
+            {{ tools.alertErrorAggregate(form.vars.errors) }}
+        {% endif %}
+        <div class="form-group">
+            {{ form_label(form.title) }}
+            {% if form.title.vars.errors|length %}
+                {{ tools.alertErrorAggregate(form.title.vars.errors) }}
+            {% endif %}
+            {{ form_widget(form.title) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.body) }}
+            {% if form.body.vars.errors|length %}
+                {{ tools.alertErrorAggregate(form.body.vars.errors) }}
+            {% endif %}
+            {{ form_widget(form.body, {'id': 'editor', 'required': false, 'attr': {'rows': '15'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_widget(form.submit) }}
+            <a href="{{ path('anticom_showcase_blog_list') }}" class="btn btn-default">Abbrechen</a>
+        </div>
     {{ form_end(form) }}
 {% endblock %}

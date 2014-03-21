@@ -12,12 +12,16 @@ class BlogControllerTest extends WebTestCase {
     }
 
     public function testShow() {
+        $this->markTestIncomplete('Not yet implemented');
+
         $client  = static::createClient();
-        $crawler = $client->request('GET', '/blog/show/');
+        $crawler = $client->request('GET', '/blog/show/1');
         $this->assertTrue($crawler->filter('html:contains("Demo Eintrag 1")')->count() > 0);
     }
 
     public function testNew() {
+        $this->markTestIncomplete('Not yet implemented');
+
         $client  = static::createClient();
         $crawler = $client->request('GET', '/');
         $this->assertTrue($crawler->filter('html:contains("Neuen Blogeintrag anlegen")')->count() > 0);

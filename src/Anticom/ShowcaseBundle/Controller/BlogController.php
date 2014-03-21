@@ -59,6 +59,7 @@ class BlogController extends Controller {
         if(!$this->getUser()) throw new AccessDeniedException();
 
         $blogEntry = new BlogEntry();
+        $blogEntry->setAuthor($this->getUser());
         $form = $this->createForm(new BlogEntryType(), $blogEntry);
 
         $form->handleRequest($request);
@@ -68,7 +69,7 @@ class BlogController extends Controller {
             $em->flush();
 
             $this->get('session')->getFlashBag()->add('success', 'Ihr Blogeintrag wurde erfolgreich gespeichert!');
-            //$this->redirect($this->generateUrl('anticom_showcase_blog'));
+            return $this->redirect($this->generateUrl('anticom_showcase_blog_list'));
         }
 
         return $this->render(
@@ -89,7 +90,47 @@ class BlogController extends Controller {
 
         $form->handleRequest($request);
         if($form->isValid()) {
-            //TODO handle submission
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($blogEntry);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success', 'Ihr Blogeintrag wurde erfolgreich aktuallisiert!');
+            return $this->redirect($this->generateUrl('anticom_showcase_blog_list'));
         }
+
+        return $this->render(
+            'AnticomShowcaseBundle:Blog:edit.html.twig',
+            [
+                'form'  => $form->createView()
+            ]
+        );
+    }
+
+    /**
+     * @ParamConverter("blogEntry", class="AnticomShowcaseBundle:BlogEntry")
+     */
+    public function deleteAction(Request $request, BlogEntry $blogEntry) {
+        if(!$this->getUser()) throw new AccessDeniedException();
+
+        //TODO make a confirmation instead of BlogEntryType form
+        $form = $this->createForm(new BlogEntryType(), $blogEntry);
+
+        $form->handleRequest($request);
+        if($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($blogEntry);
+            $em->remove($blogEntry);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success', 'Ihr Blogeintrag wurde erfolgreich gelöscht!');
+            return $this->redirect($this->generateUrl('anticom_showcase_blog_list'));
+        }
+
+        return $this->render(
+            'AnticomShowcaseBundle:Blog:delete.html.twig',
+            [
+                'form'  => $form->createView()
+            ]
+        );
     }
 }
