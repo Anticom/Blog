@@ -28,4 +28,34 @@ class BlogEntryRepository extends EntityRepository {
             ->setParameter('currentId', $blogEntry->getId())
             ->getOneOrNullResult();
     }
+
+    /**
+     * @param int $page           Current page to display, reaching from 1 to n
+     * @param int $recordsPerPage Used to limit the number of pages
+     * @return array
+     */
+    public function findByPage($page, $recordsPerPage) {
+        $offset = $recordsPerPage * ($page - 1);
+        return $this->findBy([], ['id' => 'ASC'], $recordsPerPage, $offset);
+    }
+
+    /**
+     * @param   int $recordsPerPage Required for calculation
+     * @return  float
+     */
+    public function getPageCount($recordsPerPage) {
+        $count = $this->getEntityManager()->createQuery('SELECT COUNT(be.id) FROM AnticomShowcaseBundle:BlogEntry be')->getSingleScalarResult();
+        return ceil($count / $recordsPerPage);
+    }
+
+    public function getPageInfo($page, $recordsPerPage) {
+        $pageCount = $this->getPageCount($recordsPerPage);
+
+        return [
+            'current' => $page,
+            'count'   => $pageCount,
+            'hasPrev' => $page > 1,
+            'hasNext' => $page < $pageCount
+        ];
+    }
 }

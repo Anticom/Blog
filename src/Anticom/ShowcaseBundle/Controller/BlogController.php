@@ -17,15 +17,8 @@ class BlogController extends Controller {
         /** @var BlogEntryRepository $blogRepository */
         $blogRepository = $this->getDoctrine()->getRepository('AnticomShowcaseBundle:BlogEntry');
 
-        $pageInfo            = [];
-        $pageInfo['current'] = $page;
-        $pageInfo['count']   = ceil(count($blogRepository->findAll()) / self::RECORDS_PER_PAGE);
-        $pageInfo['hasPrev'] = $page > 1;
-        $pageInfo['hasNext'] = $page < $pageInfo['count'];
-
-        $offset      = self::RECORDS_PER_PAGE * ($page - 1);
-        $blogEntries = $blogRepository->findBy([], ['id' => 'ASC'], self::RECORDS_PER_PAGE, $offset);
-
+        $pageInfo            = $blogRepository->getPageInfo($page, self::RECORDS_PER_PAGE);
+        $blogEntries = $blogRepository->findByPage($page, self::RECORDS_PER_PAGE);
 
         if(empty($blogEntries)) {
             //throw $this->createNotFoundException('Es konnten keine Blogeinträge gefunden werden!');

@@ -17,6 +17,18 @@ class DefaultControllerTest extends WebTestCase {
     /**
      * @depends testIndex
      */
+    public function testIndexAuthenticated() {
+        $client  = static::createClient([], SecurityControllerTest::$auth);
+        $crawler = $client->request('GET', '/');
+
+        $response = $client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertTrue($crawler->filter('html:contains("abmelden")')->count() > 0);
+    }
+
+    /**
+     * @depends testIndex
+     */
     public function testImpress() {
         $client  = static::createClient();
         $crawler = $client->request('GET', '/impress');

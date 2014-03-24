@@ -51,9 +51,11 @@
         <div class="text-center">
             <ul class="pagination">
                 {% if page.hasPrev %}
-                    <li><a href="{{ path('anticom_showcase_blog_list', {'page': page.current - 1}) }}">&laquo;</a></li>
+                    <li><a href="{{ path('anticom_showcase_blog_list') }}">&laquo;</a></li>
+                    <li><a href="{{ path('anticom_showcase_blog_list', {'page': page.current - 1}) }}">&lt;</a></li>
                 {% else %}
                     <li class="disabled"><span>&laquo;</span></li>
+                    <li class="disabled"><span>&lt;</span></li>
                 {% endif %}
                 {% for i in 1..page.count %}
                     {% if i == page.current %}
@@ -63,8 +65,10 @@
                     {% endif %}
                 {% endfor %}
                 {% if page.hasNext %}
-                    <li><a href="{{ path('anticom_showcase_blog_list', {'page': page.current + 1}) }}">&raquo;</a></li>
+                    <li><a href="{{ path('anticom_showcase_blog_list', {'page': page.current + 1}) }}">&gt;</a></li>
+                    <li><a href="{{ path('anticom_showcase_blog_list', {'page': page.count}) }}">&raquo;</a></li>
                 {% else %}
+                    <li class="disabled"><span>&gt;</span></li>
                     <li class="disabled"><span>&raquo;</span></li>
                 {% endif %}
             </ul>

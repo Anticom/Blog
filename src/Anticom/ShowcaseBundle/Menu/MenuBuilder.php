@@ -44,7 +44,7 @@ class MenuBuilder extends ContainerAware {
             );
         } else {
             $menu->addChild('Anmelden', ['route' => 'login']);
-            $menu->addChild('Registrieren', ['route' => 'anticom_showcase_register']);
+            //$menu->addChild('Registrieren', ['route' => 'anticom_showcase_register']);
         }
 
         $menu->setCurrentUri($this->container->get('request')->getRequestUri());

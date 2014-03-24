@@ -1,13 +1,11 @@
 parameters:
+    anticom_showcase.user_login.class: Anticom\ShowcaseBundle\Service\LoginEntryPoint
 #    anticom_showcase.example.class: Anticom\ShowcaseBundle\Example
 
 services:
-#    anticom.access_denied_handler:
-#            class: Anticom\ShowcaseBundle\EventListener\AnticomAccessDeniedListener
-#            arguments:
-#                session: @session
-#            tags:
-#                - { name: kernel.event_listener, event: security.kernel_response, method: handle }
-    #anticom_showcase.example:
-        #class: %anticom_showcase.example.class%
-        #arguments: [@service_id, "plain_value", %parameter%]
+    entry_point.user_login:
+        class: %anticom_showcase.user_login.class%
+        arguments: [ @router ] #I am going to use this for URL generation since I will be redirecting in my service
+#    anticom_showcase.example:
+#        class: %anticom_showcase.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

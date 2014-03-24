@@ -27,6 +27,7 @@ security:
             security: false
 
         secured_area:
+            entry_point: entry_point.user_login
             pattern: ^/
             anonymous: ~
             form_login:
@@ -35,7 +36,6 @@ security:
             logout:
                 path: /logout
                 target: /
-            #access_denied_handler: anticom.access_denied_handler
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

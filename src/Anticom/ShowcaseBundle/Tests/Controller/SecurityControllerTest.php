@@ -5,9 +5,9 @@ namespace Anticom\ShowcaseBundle\Tests\Controller;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class SecurityControllerTest extends WebTestCase {
-    private static $auth = [
+    public static $auth = [
         'PHP_AUTH_USER' => 'demo1',
-        'PHP_AUTH_PW'   => 'demo1'
+        'PHP_AUTH_PW'   => 'demo1',
     ];
 
     public function testLoginFailure() {
