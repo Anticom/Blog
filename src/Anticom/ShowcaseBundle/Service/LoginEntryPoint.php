@@ -32,10 +32,9 @@ class LoginEntryPoint implements AuthenticationEntryPointInterface {
      */
     public function start(Request $request, AuthenticationException $authException = null) {
         $session = $request->getSession();
+        /** @noinspection PhpUndefinedMethodInspection */
         $session->getFlashBag()->add('warning', 'Bitte melden Sie sich an, um die gewünschte Seite besuchen zu können!');
 
         return new RedirectResponse($this->router->generate('login'));
     }
-
-
 }

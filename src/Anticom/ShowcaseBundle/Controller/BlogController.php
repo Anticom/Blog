@@ -17,7 +17,7 @@ class BlogController extends Controller {
         /** @var BlogEntryRepository $blogRepository */
         $blogRepository = $this->getDoctrine()->getRepository('AnticomShowcaseBundle:BlogEntry');
 
-        $pageInfo            = $blogRepository->getPageInfo($page, self::RECORDS_PER_PAGE);
+        $pageInfo    = $blogRepository->getPageInfo($page, self::RECORDS_PER_PAGE);
         $blogEntries = $blogRepository->findByPage($page, self::RECORDS_PER_PAGE);
 
         if(empty($blogEntries)) {
