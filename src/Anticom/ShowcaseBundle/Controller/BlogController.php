@@ -25,7 +25,13 @@ class BlogController extends Controller {
 
         $offset      = self::RECORDS_PER_PAGE * ($page - 1);
         $blogEntries = $blogRepository->findBy([], ['id' => 'ASC'], self::RECORDS_PER_PAGE, $offset);
-        if(empty($blogEntries)) throw $this->createNotFoundException('Es konnten keine Blogeinträge gefunden werden!');
+
+
+        if(empty($blogEntries)) {
+            //throw $this->createNotFoundException('Es konnten keine Blogeinträge gefunden werden!');
+            $this->get('session')->getFlashBag()->add('notice', 'Es ist noch kein Blogeintrag vorhanden. Bitte legen Sie einen an.');
+            return $this->redirect($this->generateUrl('anticom_showcase_blog_new'));
+        }
 
         return $this->render(
             'AnticomShowcaseBundle:Blog:list.html.twig',

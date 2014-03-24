@@ -3,7 +3,6 @@ language: php
 php:
     - 5.5
     - 5.4
-    - 5.3
 
 install:
     - composer install
@@ -17,3 +16,11 @@ script:
 after_script:
     - wget https://scrutinizer-ci.com/ocular.phar
     - php ocular.phar code-coverage:upload --format=php-clover clover.xml
+
+notifications:
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/e489e71628740e8c2997
+    on_success: always  # options: [always|never|change] default: always
+    on_failure: always  # options: [always|never|change] default: always
+    on_start: false     # default: false
