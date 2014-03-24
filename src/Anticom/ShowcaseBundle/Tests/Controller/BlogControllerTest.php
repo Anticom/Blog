@@ -42,7 +42,7 @@ class BlogControllerTest extends WebTestCase {
 
     public function testNewAuthenticated() {
         $client  = static::createClient();
-        $crawler = $client->request('GET', '/blog/new', [], [], SecurityControllerTest::$auth);
+        $crawler = $client->request('GET', '/blog/new', array(), array(), SecurityControllerTest::$auth);
 
         $response = $client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -60,7 +60,7 @@ class BlogControllerTest extends WebTestCase {
 
     public function testEditAuthenticated() {
         $client  = static::createClient();
-        $crawler = $client->request('GET', '/blog/edit/1', [], [], SecurityControllerTest::$auth);
+        $crawler = $client->request('GET', '/blog/edit/1', array(), array(), SecurityControllerTest::$auth);
 
         $response = $client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());

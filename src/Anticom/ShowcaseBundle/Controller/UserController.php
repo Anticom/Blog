@@ -17,9 +17,9 @@ class UserController extends Controller {
 
         return $this->render(
             'AnticomShowcaseBundle:User:profile.html.twig',
-            [
+            array(
                 'user'  => $user
-            ]
+            )
         );
     }
 
@@ -34,9 +34,9 @@ class UserController extends Controller {
 
         return $this->render(
             'AnticomShowcaseBundle:User:register.html.twig',
-            [
+            array(
                 'form'  => $form->createView()
-            ]
+            )
         );
     }
 } 

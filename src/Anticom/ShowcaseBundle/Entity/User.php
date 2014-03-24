@@ -77,7 +77,7 @@ class User implements UserInterface, Serializable {
      * @inheritDoc
      */
     public function getRoles() {
-        return ['ROLE_USER'];
+        return array('ROLE_USER');
     }
 
     /**
@@ -91,11 +91,11 @@ class User implements UserInterface, Serializable {
      */
     public function serialize() {
         return serialize(
-            [
+            array(
                 $this->id,
                 $this->username,
                 $this->password
-            ]
+            )
         );
     }
 

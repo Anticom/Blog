@@ -36,7 +36,7 @@ class BlogEntryRepository extends EntityRepository {
      */
     public function findByPage($page, $recordsPerPage) {
         $offset = $recordsPerPage * ($page - 1);
-        return $this->findBy([], ['id' => 'ASC'], $recordsPerPage, $offset);
+        return $this->findBy(array(), array('id' => 'ASC'), $recordsPerPage, $offset);
     }
 
     /**
@@ -51,11 +51,11 @@ class BlogEntryRepository extends EntityRepository {
     public function getPageInfo($page, $recordsPerPage) {
         $pageCount = $this->getPageCount($recordsPerPage);
 
-        return [
+        return array(
             'current' => $page,
             'count'   => $pageCount,
             'hasPrev' => $page > 1,
             'hasNext' => $page < $pageCount
-        ];
+        );
     }
 }

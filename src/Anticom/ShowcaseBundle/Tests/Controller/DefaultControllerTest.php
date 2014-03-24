@@ -18,7 +18,7 @@ class DefaultControllerTest extends WebTestCase {
      * @depends testIndex
      */
     public function testIndexAuthenticated() {
-        $client  = static::createClient([], SecurityControllerTest::$auth);
+        $client  = static::createClient(array(), SecurityControllerTest::$auth);
         $crawler = $client->request('GET', '/');
 
         $response = $client->getResponse();

@@ -5,10 +5,10 @@ namespace Anticom\ShowcaseBundle\Tests\Controller;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class SecurityControllerTest extends WebTestCase {
-    public static $auth = [
+    public static $auth = array(
         'PHP_AUTH_USER' => 'demo1',
         'PHP_AUTH_PW'   => 'demo1',
-    ];
+    );
 
     public function testLoginFailure() {
         $this->markTestIncomplete('Not implemented properly yet');
@@ -17,10 +17,10 @@ class SecurityControllerTest extends WebTestCase {
         $crawler           = $client->request('GET', '/login');
         $buttonCrawlerNode = $crawler->selectButton('Anmelden');
         $form              = $buttonCrawlerNode->form(
-            [
+            array(
                 '_username' => 'demo1',
                 '_password' => 'wrong password'
-            ]
+            )
         );
         $client->submit($form);
 
@@ -38,10 +38,10 @@ class SecurityControllerTest extends WebTestCase {
         $crawler           = $client->request('GET', '/login');
         $buttonCrawlerNode = $crawler->selectButton('Anmelden');
         $form              = $buttonCrawlerNode->form(
-            [
+            array(
                 '_username' => 'demo1',
                 '_password' => 'demo1'
-            ]
+            )
         );
         $client->submit($form);
 
@@ -51,7 +51,7 @@ class SecurityControllerTest extends WebTestCase {
     public function testLogout() {
         $this->markTestIncomplete('Not implemented properly yet');
 
-        $client  = static::createClient([], self::$auth);
+        $client  = static::createClient(array(), self::$auth);
         $crawler = $client->request('GET', '/');
 
         $link = $crawler->filter('a:contains("abmelden")')->eq(0)->link();

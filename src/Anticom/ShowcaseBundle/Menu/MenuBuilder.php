@@ -21,8 +21,8 @@ class MenuBuilder extends ContainerAware {
         $menu = $factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav navbar-nav');
 
-        $menu->addChild('Startseite', ['route' => 'index']);
-        $menu->addChild('Blog', ['route' => 'anticom_showcase_blog_list']);
+        $menu->addChild('Startseite', array('route' => 'index'));
+        $menu->addChild('Blog', array('route' => 'anticom_showcase_blog_list'));
 
         $menu->setCurrentUri($this->container->get('request')->getRequestUri());
         return $menu;
@@ -36,15 +36,15 @@ class MenuBuilder extends ContainerAware {
         if($user) {
             $markup = $this->getUserInfo($user);
             $menu->addChild($markup,
-                [
-                    'attributes' => ['class' => 'navbar-text'],
+                array(
+                    'attributes' => array('class' => 'navbar-text'),
                     'label'      => $markup,
-                    'extras'     => ['safe_label' => true]
-                ]
+                    'extras'     => array('safe_label' => true)
+                )
             );
         } else {
-            $menu->addChild('Anmelden', ['route' => 'login']);
-            //$menu->addChild('Registrieren', ['route' => 'anticom_showcase_register']);
+            $menu->addChild('Anmelden', array('route' => 'login'));
+            //$menu->addChild('Registrieren', array('route' => 'anticom_showcase_register'));
         }
 
         $menu->setCurrentUri($this->container->get('request')->getRequestUri());
@@ -54,7 +54,7 @@ class MenuBuilder extends ContainerAware {
     protected function getUser() {
         /** @var SecurityContextInterface $securityContext */
         $securityContext = $this->container->get('security.context');
-        if($securityContext->isGranted(['ROLE_USER'])) {
+        if($securityContext->isGranted(array('ROLE_USER'))) {
             /** @var User $user */
             return $securityContext->getToken()->getUser();
         } else {
@@ -67,9 +67,9 @@ class MenuBuilder extends ContainerAware {
         $engine = $this->container->get('templating');
         $markup = $engine->render(
             'AnticomShowcaseBundle:Menu:logged_in.html.twig',
-            [
+            array(
                 'user' => $user
-            ]
+            )
         );
         return $markup;
     }

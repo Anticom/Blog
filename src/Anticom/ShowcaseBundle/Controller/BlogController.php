@@ -28,10 +28,10 @@ class BlogController extends Controller {
 
         return $this->render(
             'AnticomShowcaseBundle:Blog:list.html.twig',
-            [
+            array(
                 'blogEntries' => $blogEntries,
                 'page'        => $pageInfo
-            ]
+            )
         );
     }
 
@@ -47,11 +47,11 @@ class BlogController extends Controller {
 
         return $this->render(
             'AnticomShowcaseBundle:Blog:show.html.twig',
-            [
+            array(
                 'blogEntry' => $blogEntry,
                 'prev'      => $prev,
                 'next'      => $next
-            ]
+            )
         );
     }
 
@@ -76,9 +76,9 @@ class BlogController extends Controller {
 
         return $this->render(
             'AnticomShowcaseBundle:Blog:new.html.twig',
-            [
+            array(
                 'form' => $form->createView()
-            ]
+            )
         );
     }
 
@@ -107,9 +107,9 @@ class BlogController extends Controller {
 
         return $this->render(
             'AnticomShowcaseBundle:Blog:edit.html.twig',
-            [
+            array(
                 'form' => $form->createView()
-            ]
+            )
         );
     }
 
@@ -125,7 +125,7 @@ class BlogController extends Controller {
         }
 
         $form = $this->createFormBuilder()
-            ->add('confirm', 'submit', ['label' => 'Ja', 'attr' => ['class' => 'btn btn-primary']])
+            ->add('confirm', 'submit', array('label' => 'Ja', 'attr' => array('class' => 'btn btn-primary')))
             ->getForm();
 
         $form->handleRequest($request);
@@ -141,10 +141,10 @@ class BlogController extends Controller {
 
         return $this->render(
             'AnticomShowcaseBundle:Blog:delete.html.twig',
-            [
+            array(
                 'form'      => $form->createView(),
                 'blogEntry' => $blogEntry
-            ]
+            )
         );
     }
 }

@@ -9,10 +9,10 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class CommentType extends AbstractType {
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(
-            [
+            array(
                 'data_class' => 'Anticom\ShowcaseBundle\Entity\Comment',
                 'method'     => 'post'
-            ]
+            )
         );
     }
 
@@ -21,18 +21,18 @@ class CommentType extends AbstractType {
             ->add(
                 'body',
                 'textarea',
-                [
+                array(
                     'label' => 'Ihr kommentar',
-                    'attr'  => ['class' => 'form-control']
-                ]
+                    'attr'  => array('class' => 'form-control')
+                )
             )
             ->add(
                 'submit',
                 'submit',
-                [
+                array(
                     'label' => 'Kommentar abschicken',
-                    'attr'  => ['class' => 'btn btn-primary']
-                ]
+                    'attr'  => array('class' => 'btn btn-primary')
+                )
             );
     }
 
