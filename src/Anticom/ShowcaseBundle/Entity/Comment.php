@@ -67,7 +67,7 @@ class Comment {
 
     public function getRootComment() {
         if($this->parent !== null) {
-            return $this->getRootComment();
+            return $this->getParent()->getRootComment();
         } else {
             return $this;
         }

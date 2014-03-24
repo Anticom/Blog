@@ -18,8 +18,22 @@ class CommentType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('body', 'text', ['label' => 'Text'])
-            ->add('submit', 'submit', ['label' => 'Kommentar abschicken']);
+            ->add(
+                'body',
+                'textarea',
+                [
+                    'label' => 'Ihr kommentar',
+                    'attr'  => ['class' => 'form-control']
+                ]
+            )
+            ->add(
+                'submit',
+                'submit',
+                [
+                    'label' => 'Kommentar abschicken',
+                    'attr'  => ['class' => 'btn btn-primary']
+                ]
+            );
     }
 
     public function getName() {

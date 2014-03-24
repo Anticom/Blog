@@ -14,10 +14,10 @@
                 <p>
                     <small><span class="glyphicon glyphicon-calendar"></span> {{ tools.entryDate(comment.dateTimeCreated) }}</small>
                 </p>
-                <p>{{ comment.body }}</p>
+                <p>{{ comment.body|raw }}</p>
                 {% if app.user %}
                     <small>
-                        <a href="{{ path('anticom_showcase_comment_new', {'blogEntry': comment.blogEntry.id ,'comment': comment.id}) }}#comments">Antworten</a>
+                        <a href="{{ path('anticom_showcase_comment_new', {'blogEntry': comment.blogEntry.id ,'parentComment': comment.id}) }}#comments">Antworten</a>
                     </small>
                 {% endif %}
             </div>

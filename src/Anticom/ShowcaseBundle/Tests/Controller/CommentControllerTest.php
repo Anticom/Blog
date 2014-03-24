@@ -12,12 +12,4 @@ class CommentControllerTest extends WebTestCase {
         $crawler = $client->request('GET', '/');
         $this->assertTrue($crawler->filter('html:contains("Neuen Blogeintrag anlegen")')->count() > 0);
     }
-
-    public function testEdit() {
-        $this->markTestIncomplete('Not yet implemented');
-
-        $client  = static::createClient();
-        $crawler = $client->request('GET', '/');
-        $this->assertTrue($crawler->filter('html:contains("Blogeintrag bearbeiten")')->count() > 0);
-    }
 }

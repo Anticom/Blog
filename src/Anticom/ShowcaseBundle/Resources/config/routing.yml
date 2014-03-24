@@ -49,13 +49,6 @@ anticom_showcase_comment_new:
     requirements:
         blogEntry:  \d+
         parentComment: \d+
-
-anticom_showcase_comment_edit:
-    path: /blog/comment/edit/{blogEntry}/{parentComment}
-    defaults: {_controller: AnticomShowcaseBundle:Comment:edit, parentComment: null }
-    requirements:
-            blogEntry:  \d+
-            parentComment: \d+
 #endregion
 
 #region user

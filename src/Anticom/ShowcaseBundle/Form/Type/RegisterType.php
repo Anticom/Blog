@@ -1,12 +1,4 @@
 <?php
-/**
- * RegisterType.php
- *
- * Date: 18.03.14
- * Time: 10:21
- * @author    Timo Mühlbach
- * @namespace Anticom\ShowcaseBundle\Form\Type
- */
 
 namespace Anticom\ShowcaseBundle\Form\Type;
 

@@ -63,7 +63,9 @@ class BlogController extends Controller {
     }
 
     public function newAction(Request $request) {
-        if(!$this->getUser()) throw new AccessDeniedException();
+        if(!$this->getUser()) {
+            throw new AccessDeniedException();
+        }
 
         $blogEntry = new BlogEntry();
         $blogEntry->setAuthor($this->getUser());
@@ -91,7 +93,12 @@ class BlogController extends Controller {
      * @ParamConverter("blogEntry", class="AnticomShowcaseBundle:BlogEntry")
      */
     public function editAction(Request $request, BlogEntry $blogEntry) {
-        if(!$this->getUser()) throw new AccessDeniedException();
+        if(!$this->getUser()) {
+            throw new AccessDeniedException();
+        }
+        if($this->getUser() != $blogEntry->getAuthor()) {
+            throw new AccessDeniedException();
+        }
 
         $form = $this->createForm(new BlogEntryType(), $blogEntry);
 
@@ -117,7 +124,12 @@ class BlogController extends Controller {
      * @ParamConverter("blogEntry", class="AnticomShowcaseBundle:BlogEntry")
      */
     public function deleteAction(Request $request, BlogEntry $blogEntry) {
-        if(!$this->getUser()) throw new AccessDeniedException();
+        if(!$this->getUser()) {
+            throw new AccessDeniedException();
+        }
+        if($this->getUser() != $blogEntry->getAuthor()) {
+            throw new AccessDeniedException();
+        }
 
         $form = $this->createFormBuilder()
             ->add('confirm', 'submit', ['label' => 'Ja', 'attr' => ['class' => 'btn btn-primary']])

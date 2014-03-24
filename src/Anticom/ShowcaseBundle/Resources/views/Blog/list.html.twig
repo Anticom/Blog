@@ -17,7 +17,7 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <h4 class="inline-block"><a href="{{ path('anticom_showcase_blog_show', {'id': blogEntry.id}) }}">{{ blogEntry.title }}</a></h4>
-                        {% if app.user %}
+                        {% if app.user and app.user == blogEntry.author %}
                             <div class="pull-right">
                                 <a href="{{ path('anticom_showcase_blog_edit', {'id': blogEntry.id}) }}" class="btn btn-default btn-sm">
                                     <span class="glyphicon glyphicon-pencil"></span>
@@ -70,11 +70,4 @@
             </ul>
         </div>
     {% endif %}
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript">
-        scrollToHash();
-    </script>
 {% endblock %}

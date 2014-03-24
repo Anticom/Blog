@@ -8,21 +8,10 @@
     <script src=""></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#editor').tinymce({
-                script_url : '{{ asset('bundles/anticomshowcase/tinymce/js/tinymce/tinymce.js') }}',
-                language   : 'de_DE',
-                menubar    : true,
-                statusbar  : true,
-                plugins : [
-                    "advlist autolink lists link image charmap print preview hr pagebreak",
-                    "searchreplace wordcount visualblocks visualchars code fullscreen",
-                    "insertdatetime media nonbreaking save table contextmenu directionality",
-                    "emoticons template paste textcolor"
-                ],
-                toolbar1: "undo redo | customStyles styleselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist | link image | forecolor backcolor | preview fullscreen code",
-                convert_urls       : false,
-                forced_root_block  : 'div'
-            });
+            editorBlogEntry(
+                    $('#editor'),
+                    '{{ asset('bundles/anticomshowcase/tinymce/js/tinymce/tinymce.js') }}'
+            );
         });
     </script>
 {% endblock %}

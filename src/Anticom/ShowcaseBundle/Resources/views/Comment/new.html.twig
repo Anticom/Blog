@@ -24,12 +24,12 @@
         </div>
     </div>
 
-    {% if comment %}
+    {% if parentComment %}
         <div style="height: 20px;"></div>
         <h4 id="comments">Vorangegangene Kommentare</h4>
         <hr>
 
-        {{ macros.commentResponseMedia(rootComment, comment) }}
+        {{ macros.commentResponseMedia(blogEntry, rootComment, parentComment, form) }}
     {% else %}
         <div style="height: 20px;"></div>
         <h4 id="comments">Neuen Kommentar verfassen</h4>
@@ -39,14 +39,23 @@
                 <img src="{{ asset('bundles/anticomshowcase/user_blank.png') }}" class="img-circle media-object" alt="64x64">
             </a>
             <div class="media-body">
-                <form action="" method="post">
+                {{ form_start(form) }}
+                    {% if not form.vars.valid %}
+                        {{ tools.alertErrorAggregate(form.vars.errors) }}
+                    {% endif %}
                     <div class="form-group">
-                        <label for="inputComment1">Kommentar</label>
-                        <textarea class="form-control" id="inputComment1" placeholder="Ihr Kommentar" rows="3"></textarea>
+                        {{ form_label(form.body) }}
+                        {% if form.body.vars.errors|length %}
+                            {{ tools.alertErrorAggregate(form.body.vars.errors) }}
+                        {% endif %}
+                        {{ form_widget(form.body, {'id': 'editor', 'required': false, 'attr': {'rows': '5'}}) }}
                     </div>
 
-                    <input type="submit" class="btn btn-primary" value="Kommentar abschicken">
-                </form>
+                    <div class="form-group">
+                        {{ form_widget(form.submit) }}
+                        <a href="{{ path('anticom_showcase_blog_show', {'id': blogEntry.id}) }}" class="btn btn-default">Abbrechen</a>
+                    </div>
+                {{ form_end(form) }}
             </div>
         </div>
     {% endif %}
@@ -54,7 +63,15 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <script src="{{ asset('bundles/anticomshowcase/tinymce/js/tinymce/jquery.tinymce.min.js') }}"></script>
     <script type="text/javascript">
         scrollToHash();
+
+        $(document).ready(function () {
+            editorComment(
+                $('#editor'),
+                '{{ asset('bundles/anticomshowcase/tinymce/js/tinymce/tinymce.js') }}'
+            );
+        });
     </script>
 {% endblock %}

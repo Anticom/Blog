@@ -1,4 +1,4 @@
-{% macro commentResponseMedia(comment, highlight) %}
+{% macro commentResponseMedia(blogEntry, comment, highlight, form) %}
     {% import "AnticomShowcaseBundle::_macros.html.twig" as tools %}
     {% import _self as macros %}
 
@@ -14,32 +14,41 @@
                 <p>
                     <small><span class="glyphicon glyphicon-calendar"></span> {{ tools.entryDate(comment.dateTimeCreated) }}</small>
                 </p>
-                <p>{{ comment.body }}</p>
+                <p>{{ comment.body|raw }}</p>
             </div>
 
             {#nested media#}
             {% for subcomment in comment.children %}
                 {{ macros.commentResponseMedia(subcomment, highlight) }}
             {% endfor %}
+
+            {% if comment == highlight %}
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img src="{{ asset('bundles/anticomshowcase/user_blank.png') }}" class="img-circle media-object" alt="64x64">
+                    </a>
+
+                    <div class="media-body">
+                        {{ form_start(form) }}
+                        {% if not form.vars.valid %}
+                            {{ tools.alertErrorAggregate(form.vars.errors) }}
+                        {% endif %}
+                        <div class="form-group">
+                            {{ form_label(form.body) }}
+                            {% if form.body.vars.errors|length %}
+                                {{ tools.alertErrorAggregate(form.body.vars.errors) }}
+                            {% endif %}
+                            {{ form_widget(form.body, {'id': 'editor', 'required': false, 'attr': {'rows': '5'}}) }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form_widget(form.submit) }}
+                            <a href="{{ path('anticom_showcase_blog_show', {'id': blogEntry.id}) }}" class="btn btn-default">Abbrechen</a>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            {% endif %}
         </div>
     </div>
-
-    {% if comment == highlight %}
-        <div class="media">
-            <a class="pull-left" href="#">
-                <img src="{{ asset('bundles/anticomshowcase/user_blank.png') }}" class="img-circle media-object" alt="64x64">
-            </a>
-
-            <div class="media-body">
-                <form action="" method="post">
-                    <div class="form-group">
-                        <label for="inputComment1">Kommentar</label>
-                        <textarea class="form-control" id="inputComment1" placeholder="Ihr Kommentar" rows="3"></textarea>
-                    </div>
-
-                    <input type="submit" class="btn btn-primary" value="Kommentar abschicken">
-                </form>
-            </div>
-        </div>
-    {% endif %}
 {% endmacro %}
