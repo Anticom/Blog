@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="default" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+    <TestRunner scope="XML" />
+    <RunnerSettings RunnerId="PhpUnitCoverageRunner" />
+    <ConfigurationWrapper RunnerId="PhpUnitCoverageRunner" />
+    <method />
+  </configuration>
+</component>

@@ -5,6 +5,7 @@ namespace Anticom\ShowcaseBundle\Controller;
 use Anticom\ShowcaseBundle\Entity\BlogEntry;
 use Anticom\ShowcaseBundle\Entity\BlogEntryRepository;
 use Anticom\ShowcaseBundle\Form\Type\BlogEntryType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -75,7 +76,7 @@ class BlogController extends Controller {
         return $this->render(
             'AnticomShowcaseBundle:Blog:new.html.twig',
             [
-                'form'  => $form->createView()
+                'form' => $form->createView()
             ]
         );
     }
@@ -101,7 +102,7 @@ class BlogController extends Controller {
         return $this->render(
             'AnticomShowcaseBundle:Blog:edit.html.twig',
             [
-                'form'  => $form->createView()
+                'form' => $form->createView()
             ]
         );
     }
@@ -112,8 +113,9 @@ class BlogController extends Controller {
     public function deleteAction(Request $request, BlogEntry $blogEntry) {
         if(!$this->getUser()) throw new AccessDeniedException();
 
-        //TODO make a confirmation instead of BlogEntryType form
-        $form = $this->createForm(new BlogEntryType(), $blogEntry);
+        $form = $this->createFormBuilder()
+            ->add('confirm', 'submit', ['label' => 'Ja', 'attr' => ['class' => 'btn btn-primary']])
+            ->getForm();
 
         $form->handleRequest($request);
         if($form->isValid()) {
@@ -129,7 +131,8 @@ class BlogController extends Controller {
         return $this->render(
             'AnticomShowcaseBundle:Blog:delete.html.twig',
             [
-                'form'  => $form->createView()
+                'form'      => $form->createView(),
+                'blogEntry' => $blogEntry
             ]
         );
     }

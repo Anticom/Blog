@@ -1,0 +1,18 @@
+{% extends 'AnticomShowcaseBundle::base.html.twig' %}
+{#{% import "AnticomShowcaseBundle::_macros.html.twig" as tools %}#}
+{% import "AnticomShowcaseBundle:Blog:_macros.html.twig" as macros %}
+
+{% block content %}
+    <h1>Blogeintrag löschen</h1>
+
+    <div class="alert alert-warning">
+        Sind Sie sicher, dass Sie den nachfolgenden Blogeintrag löschen möchten?
+
+        {{ form_start(form) }}
+            {{ form_widget(form.confirm) }}
+            <a href="{{ path('anticom_showcase_blog_list') }}" class="btn btn-default">Nein</a>
+        {{ form_end(form) }}
+    </div>
+
+    {{ macros.singleBlogEntry(blogEntry) }}
+{% endblock %}

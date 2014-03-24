@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="FrameworkRootSettings" id="Symfony2">
+    <option name="bundleRoots">
+      <list>
+        <option value="$PROJECT_DIR$/src" />
+      </list>
+    </option>
     <option name="typedPaths">
       <list>
         <element elementPath="$PROJECT_DIR$/app" typeId="app_directory" />
