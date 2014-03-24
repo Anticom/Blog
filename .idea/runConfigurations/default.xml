@@ -2,7 +2,9 @@
   <configuration default="false" name="default" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
     <TestRunner scope="XML" />
     <RunnerSettings RunnerId="PhpUnitCoverageRunner" />
+    <RunnerSettings RunnerId="PhpUnitDebugRunner" />
     <ConfigurationWrapper RunnerId="PhpUnitCoverageRunner" />
+    <ConfigurationWrapper RunnerId="PhpUnitDebugRunner" />
     <method />
   </configuration>
 </component>

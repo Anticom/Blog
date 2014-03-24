@@ -11,12 +11,18 @@ class DefaultControllerTest extends WebTestCase {
         $this->assertTrue($crawler->filter('html:contains("Lorem ipsum")')->count() > 0);
     }
 
+    /**
+     * @depends testIndex
+     */
     public function testImpress() {
         $client  = static::createClient();
         $crawler = $client->request('GET', '/impress');
         $this->assertTrue($crawler->filter('html:contains("Impressum")')->count() > 0);
     }
 
+    /**
+     * @depends testIndex
+     */
     public function testContact() {
         $client  = static::createClient();
         $crawler = $client->request('GET', '/contact');

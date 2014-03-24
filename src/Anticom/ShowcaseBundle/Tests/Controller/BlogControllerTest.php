@@ -28,6 +28,9 @@ class BlogControllerTest extends WebTestCase {
         $this->assertTrue($client->getResponse()->isRedirect('/login'));
     }
 
+    /**
+     * @depends testNewDenied
+     */
     public function testNewAuthenticated() {
         $client  = static::createClient();
         $crawler = $client->request('GET', '/blog/new', [], [], self::$auth);
@@ -40,6 +43,9 @@ class BlogControllerTest extends WebTestCase {
         $this->assertTrue($client->getResponse()->isRedirect('/login'));
     }
 
+    /**
+     * @depends testEditDenied
+     */
     public function testEditAuthenticated() {
         $client  = static::createClient();
         $crawler = $client->request('GET', '/blog/edit/1', [], [], self::$auth);
