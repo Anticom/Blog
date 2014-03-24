@@ -33,7 +33,7 @@ class BlogEntry {
     protected $body;
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="blogEntries")
-     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $author;
 

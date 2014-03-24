@@ -17,7 +17,7 @@ Abschlussarbeit ITK 2014
     bower install
 
 Zuletzt muss von den Assets noch TinyMCE gebaut werden.
-Wie das geht, steht [hier](src/Anticom/ShowcaseBundle/Resources/public/tinymce/readme.md).
+Wie das geht, steht [hier](https://github.com/tinymce/tinymce/blob/master/readme.md).
 
 ###Assets installieren
     php app/console assets:install

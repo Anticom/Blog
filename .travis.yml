@@ -11,7 +11,7 @@ install:
 script:
     - php app/console doctrine:database:create
     - php app/console doctrine:schema:create
-    - php app/console doctrine:fixtures:load
+    - php app/console doctrine:fixtures:load --no-interaction
     - phpunit --colors -c app/ --coverage-clover clover.xml
 
 after_script:

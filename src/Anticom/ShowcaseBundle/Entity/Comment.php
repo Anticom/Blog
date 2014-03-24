@@ -28,7 +28,7 @@ class Comment {
     protected $id;
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="comments")
-     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $author;
     /** @ORM\Column(type="text") */
@@ -37,7 +37,7 @@ class Comment {
     #region relations
     /**
      * @ORM\ManyToOne(targetEntity="BlogEntry", inversedBy="comments")
-     * @ORM\JoinColumn(name="blog_entry_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="blog_entry_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $blogEntry;
 
@@ -45,7 +45,7 @@ class Comment {
     protected $children;
     /**
      * @ORM\ManyToOne(targetEntity="Comment", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     protected $parent;
     #endregion
