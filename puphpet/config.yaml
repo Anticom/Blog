@@ -2,12 +2,12 @@
 vagrantfile-local:
     vm:
         box: debian-73
-        box_url: http://puppet-vagrant-boxes.puppetlabs.com/debian-73-i386-virtualbox-puppet.box
+        box_url: 'http://box.puphpet.com/debian-wheezy72-x64-vbox43.box'
         hostname: null
         network:
             private_network: 192.168.56.101
             forwarded_port:
-                4yZ5OYnr0oOW:
+                TOpFIHZXTTC2:
                     host: '5297'
                     guest: '22'
         provider:
@@ -26,7 +26,7 @@ vagrantfile-local:
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
                     - '--parser future'
         synced_folder:
-            XfbyLxvmz3NG:
+            ijtoy82PiDXw:
                 id: vagrant-root
                 source: ./
                 target: /var/www
@@ -72,7 +72,7 @@ apache:
         - php
         - rewrite
     vhosts:
-        rGFewRq8nXEF:
+        DRWBccGsEPTD:
             servername: local.dev
             serveraliases:
                 - www.local.dev
@@ -83,8 +83,43 @@ apache:
             override:
                 - All
             custom_fragment: ''
+            ssl_cert: ''
+            ssl_key: ''
+            ssl_chain: ''
+            ssl_certs_dir: ''
+        ZqOonT4GZejW:
+            servername: local.dev
+            serveraliases:
+                - www.local.dev
+            docroot: /var/www/web
+            port: '443'
+            setenv:
+                - 'APP_ENV dev'
+            override:
+                - All
+            custom_fragment: ''
+            ssl: '1'
+            ssl_cert: ''
+            ssl_key: ''
+            ssl_chain: ''
+            ssl_certs_dir: ''
     mod_pagespeed: 0
     mod_spdy: 0
+nginx:
+    install: 0
+    vhosts:
+        LrAD7IP5wgId:
+            server_name: awesome.dev
+            server_aliases:
+                - www.awesome.dev
+            www_root: /var/www/awesome.dev
+            listen_port: '80'
+            index_files:
+                - index.html
+                - index.htm
+                - index.php
+            envvars:
+                - 'APP_ENV dev'
 php:
     install: '1'
     version: '55'
@@ -130,7 +165,7 @@ mysql:
     phpmyadmin: 0
     adminer: 0
     databases:
-        KGXOgMf68ckS:
+        xIIfYacNpxgf:
             grant:
                 - ALL
             name: blog

@@ -36,6 +36,7 @@ security:
             logout:
                 path: /logout
                 target: /
+                invalidate_session: false   #temporary fix
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

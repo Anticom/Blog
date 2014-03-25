@@ -11,11 +11,9 @@ class SecurityControllerTest extends WebTestCase {
     );
 
     public function testLoginFailure() {
-        $this->markTestIncomplete('Not implemented properly yet');
-
         $client            = static::createClient();
         $crawler           = $client->request('GET', '/login');
-        $buttonCrawlerNode = $crawler->selectButton('Anmelden');
+        $buttonCrawlerNode = $crawler->filter('#login_submit');
         $form              = $buttonCrawlerNode->form(
             array(
                 '_username' => 'demo1',
@@ -32,11 +30,9 @@ class SecurityControllerTest extends WebTestCase {
      * @depends testLoginFailure
      */
     public function testLoginSuccess() {
-        $this->markTestIncomplete('Not implemented properly yet');
-
         $client            = static::createClient();
         $crawler           = $client->request('GET', '/login');
-        $buttonCrawlerNode = $crawler->selectButton('Anmelden');
+        $buttonCrawlerNode = $crawler->selectButton('login_submit');
         $form              = $buttonCrawlerNode->form(
             array(
                 '_username' => 'demo1',

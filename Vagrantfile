@@ -59,7 +59,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     s.args = "/vagrant/puphpet"
   end
   config.vm.provision :shell, :path => "puphpet/shell/update-puppet.sh"
-  config.vm.provision :shell, :path => "puphpet/shell/librarian-puppet-vagrant.sh"
+  config.vm.provision :shell, :path => "puphpet/shell/r10k.sh"
 
   config.vm.provision :puppet do |puppet|
     ssh_username = !data['ssh']['username'].nil? ? data['ssh']['username'] : "vagrant"
@@ -74,6 +74,20 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
+  if File.file?("#{dir}/puphpet/files/dot/ssh/id_rsa")
+    config.ssh.private_key_path = [
+      "#{dir}/puphpet/files/dot/ssh/id_rsa",
+      "#{ENV['HOME']}/.vagrant.d/insecure_private_key"
+    ]
+  end
+
+  ssh_username = !data['ssh']['username'].nil? ? data['ssh']['username'] : "vagrant"
+
+  config.vm.provision "shell" do |kg|
+    kg.path = "puphpet/shell/ssh-keygen.sh"
+    kg.args = "#{ssh_username}"
+  end
+
   config.vm.provision :shell, :path => "puphpet/shell/execute-files.sh"
 
   if !data['ssh']['host'].nil?
@@ -81,9 +95,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
   if !data['ssh']['port'].nil?
     config.ssh.port = "#{data['ssh']['port']}"
-  end
-  if !data['ssh']['private_key_path'].nil?
-    config.ssh.private_key_path = "#{data['ssh']['private_key_path']}"
   end
   if !data['ssh']['username'].nil?
     config.ssh.username = "#{data['ssh']['username']}"

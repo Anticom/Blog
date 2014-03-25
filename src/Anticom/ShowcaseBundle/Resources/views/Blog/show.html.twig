@@ -6,14 +6,14 @@
 
     <ul class="pager">
         {% if prev %}
-            <li class="previous"><a href="{{ path('anticom_showcase_blog_show', {'id': prev.id}) }}">&larr; Vorheriger Eintrag</a></li>
+            <li class="previous"><a href="{{ path('anticom_showcase_blog_show', {'id': prev.id}) }}">&larr;</a></li>
         {% else %}
-            <li class="previous disabled"><span>&larr; Vorheriger Eintrag</span></li>
+            <li class="previous disabled"><span>&larr;</span></li>
         {% endif %}
         {% if next %}
-            <li class="next"><a href="{{ path('anticom_showcase_blog_show', {'id': next.id}) }}">Nächster Eintrag &rarr;</a></li>
+            <li class="next"><a href="{{ path('anticom_showcase_blog_show', {'id': next.id}) }}">&rarr;</a></li>
         {% else %}
-            <li class="next disabled"><span>Nächster Eintrag &rarr;</span></li>
+            <li class="next disabled"><span>&rarr;</span></li>
         {% endif %}
     </ul>
 
