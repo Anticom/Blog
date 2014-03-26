@@ -9,7 +9,7 @@ use Symfony\Component\Console\Output\StreamOutput;
 use Symfony\Component\HttpFoundation\Response;
 
 class Tools {
-    protected static $loggedResponses = [];
+    protected static $loggedResponses = array();
 
     /**
      * @param Client $client
@@ -42,7 +42,7 @@ class Tools {
      * @return string[]
      */
     public static function runCommands(Client $client, array $commands = array()) {
-        $output = [];
+        $output = array();
         foreach($commands as $command) {
             $output[] = static::runCommand($client, $command);
         }
