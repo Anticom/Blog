@@ -2,23 +2,23 @@
 
 namespace Anticom\ShowcaseBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Client;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Anticom\ShowcaseBundle\Tests\Tools;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\Console\Input\StringInput;
-use Symfony\Component\Console\Output\StreamOutput;
 
 class BlogControllerTest extends WebTestCase {
+    #region setup
     /**
      * @beforeClass
      */
     public static function loadFixtures() {
-        static::runCommand(
+        Tools::runCommand(
             static::createClient(),
             'doctrine:fixtures:load'
         );
     }
+    #endregion
 
+    #region tests
     public function testList() {
         $client  = static::createClient();
         $crawler = $client->request('GET', '/blog');
@@ -101,27 +101,6 @@ class BlogControllerTest extends WebTestCase {
         $response = $client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertTrue($crawler->filter('html:contains("Blogeintrag bearbeiten")')->count() > 0);
-    }
-
-    #region auxiliaries
-    public static function runCommand(Client $client, $command) {
-        $application = new Application($client->getKernel());
-        $application->setAutoExit(false);
-
-        $fp     = tmpfile();
-        $input  = new StringInput($command);
-        $output = new StreamOutput($fp);
-
-        $application->run($input, $output);
-
-        fseek($fp, 0);
-        $output = '';
-        while(!feof($fp)) {
-            $output = fread($fp, 4096);
-        }
-        fclose($fp);
-
-        return $output;
     }
     #endregion
 }

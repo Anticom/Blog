@@ -5,6 +5,7 @@ namespace Anticom\ShowcaseBundle\Tests\Controller;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class CommentControllerTest extends WebTestCase {
+    #region tests
     public function testNewDenied() {
         $client = static::createClient();
         $client->request('GET', '/blog/comment/new/1');
@@ -36,4 +37,5 @@ class CommentControllerTest extends WebTestCase {
         $crawler = $client->request('GET', '/blog/comment/new/1/1');
         $this->assertTrue($crawler->filter('html:contains("Vorangegangene Kommentare")')->count() > 0);
     }
+    #endregion
 }

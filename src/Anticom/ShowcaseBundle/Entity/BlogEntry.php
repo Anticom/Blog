@@ -55,6 +55,8 @@ class BlogEntry {
     /** @ORM\PrePersist */
     public function autoSetDateTimeCreated() {
         $this->dateTimeCreated = new \DateTime();
+
+        return $this;
     }
 
     /**
@@ -111,9 +113,12 @@ class BlogEntry {
     /**
      * Set dateTimeCreated
      * @param \DateTime $dateTimeCreated
+     * @return BlogEntry
      */
     public function setDateTimeCreated(\DateTime $dateTimeCreated) {
         $this->dateTimeCreated = $dateTimeCreated;
+
+        return $this;
     }
 
     /**

@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="default" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
-    <TestRunner scope="XML" />
+    <TestRunner scope="XML" options="-v --coverage-html coverage --coverage-text" />
     <RunnerSettings RunnerId="PhpUnitCoverageRunner" />
     <RunnerSettings RunnerId="PhpUnitDebugRunner" />
     <ConfigurationWrapper RunnerId="PhpUnitCoverageRunner" />

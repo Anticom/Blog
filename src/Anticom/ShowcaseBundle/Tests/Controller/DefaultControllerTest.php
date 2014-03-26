@@ -5,6 +5,7 @@ namespace Anticom\ShowcaseBundle\Tests\Controller;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class DefaultControllerTest extends WebTestCase {
+    #region tests
     public function testIndex() {
         $client  = static::createClient();
         $crawler = $client->request('GET', '/');
@@ -49,4 +50,5 @@ class DefaultControllerTest extends WebTestCase {
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertTrue($crawler->filter('html:contains("Kontakt")')->count() > 0);
     }
+    #endregion
 }

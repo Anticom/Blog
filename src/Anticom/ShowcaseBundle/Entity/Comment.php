@@ -63,6 +63,8 @@ class Comment {
     /** @ORM\PrePersist */
     public function autoSetDateTimeCreated() {
         $this->dateTimeCreated = new \DateTime();
+
+        return $this;
     }
 
     public function getRootComment() {
@@ -106,9 +108,12 @@ class Comment {
     /**
      * Set dateTimeCreated
      * @param \DateTime $dateTimeCreated
+     * @return Comment
      */
     public function setDateTimeCreated(\DateTime $dateTimeCreated) {
         $this->dateTimeCreated = $dateTimeCreated;
+
+        return $this;
     }
 
     /**

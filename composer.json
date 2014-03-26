@@ -28,7 +28,7 @@
         "ircmaxell/password-compat" : "1.0.x-dev"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.0.*"
+        "phpunit/phpunit": "3.7.*"
     },
     "scripts"    : {
         "post-install-cmd": [
