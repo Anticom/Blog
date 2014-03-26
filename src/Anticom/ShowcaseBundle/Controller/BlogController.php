@@ -86,10 +86,7 @@ class BlogController extends Controller {
      * @ParamConverter("blogEntry", class="AnticomShowcaseBundle:BlogEntry")
      */
     public function editAction(Request $request, BlogEntry $blogEntry) {
-        if(!$this->getUser()) {
-            throw new AccessDeniedException();
-        }
-        if($this->getUser() != $blogEntry->getAuthor()) {
+        if(!$this->getUser() || $this->getUser() != $blogEntry->getAuthor()) {
             throw new AccessDeniedException();
         }
 

@@ -27,9 +27,9 @@ class CommentController extends Controller {
         }
 
         $comment = new Comment();
-        $comment->setAuthor($this->getUser());
-        $comment->setBlogEntry($blogEntry);
-        $comment->setParent($parentComment);
+        $comment->setAuthor($this->getUser())
+            ->setBlogEntry($blogEntry)
+            ->setParent($parentComment);
         $form = $this->createForm(new CommentType(), $comment);
 
         $form->handleRequest($request);

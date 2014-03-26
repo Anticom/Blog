@@ -45,7 +45,8 @@ tools:
     php_code_sniffer:
         config:
             tab_width: '4'
-    php_cpd: true
+    php_sim: true
+    php_cpd: false
     php_loc:
         excluded_dirs:
             - .idea

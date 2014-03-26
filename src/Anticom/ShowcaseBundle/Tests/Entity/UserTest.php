@@ -21,6 +21,10 @@ class UserTest extends PHPUnit_Framework_TestCase {
     #endregion
 
     #region tests
+    public function testId() {
+        $this->assertEquals(null, $this->user->getId());
+    }
+
     /**
      * @dataProvider provideUsername
      */
