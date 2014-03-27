@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+
+<project name="Automated Build tasks" default="build" basedir=".">
+    <!--<php expression="include('vendor/autoload.php')"/>-->
+
+    <!--region config-->
+    <property name="config.app.name" value="Showcase Project"/>
+    <!--endregion-->
+
+    <property name="basedir" value="." override="true"/>
+    <property name="sourcedir" value="${basedir}/src"/>
+    <property name="appdir" value="${basedir}/app"/>
+
+    <property name="docdir" value="${basedir}/doc"/>
+    <property name="vendordir" value="${basedir}/vendor"/>
+
+    <property name="sfApp" value="${appdir}/console"/>
+
+    <!--region filesets-->
+    <fileset dir="${sourcedir}" id="sourceWithoutTests">
+        <include name="**/*.php"/>
+
+        <exclude name="**/Test/"/>
+    </fileset>
+
+    <fileset dir="${sourcedir}" id="sourceWithTests">
+        <include name="**/*.php"/>
+    </fileset>
+
+    <fileset dir="${sourcedir}" id="tests">
+        <include name="*/Test/**/*Test.php"/>
+    </fileset>
+
+    <fileset dir="${sourcedir}" id="assets">
+        <include name="**/Resources/public/*"/>
+
+        <!--project specific-->
+        <exclude name="Anticom/ShowcaseBundle/Resources/public/user_blank.png"/>
+        <exclude name="Anticom/ShowcaseBundle/Resources/public/app.css"/>
+        <exclude name="Anticom/ShowcaseBundle/Resources/public/tools.js"/>
+    </fileset>
+    <!--endregion-->
+
+    <!--region checks-->
+    <target name="check_composer_installed" description="Checks, whether composer.lock is present">
+        <available file="composer.lock" property="composer.installed" value="true"/>
+    </target>
+    
+    <target name="check_phpunit_configuration" description="Chooses the right phpunit config file">
+        <if>
+            <available property="null" file="${appdir}/phpunit.xml"/>
+            <then>
+                <property name="phpunit.configuration" value="${appdir}/phpunit.xml"/>
+            </then>
+            <elseif>
+                <available property="null" file="${appdir}/phpunit.dist.xml"/>
+                <then>
+                    <property name="phpunit.configuration" value="${appdir}/phpunit.dist.xml"/>
+                </then>
+            </elseif>
+            <else>
+                <property name="phpunit.configuration" value="[FILE NOT FOUND]"/>
+                <!--<fail message="Neither phpunit.dist.xml nor phpunit.xml found in ${appdir}"/>-->
+            </else>
+        </if>
+    </target>
+    <!--endregion-->
+
+    <!--region init-->
+    <target name="clean" description="Cleans up build directories">
+        <echo message="Deleting documentation directory (${docdir})"/>
+        <delete dir="${docdir}"/>
+    </target>
+
+    <target name="cleanAll" depends="clean" description="Cleans up generated files and folders. Brings back repo to its initial state">
+        <echo message="Deleting vendor directory (${vendordir})"/>
+        <delete dir="${vendordir}"/>
+        <echo message="Deleting asset directories"/>
+        <!--TODO do delete assets-->
+    </target>
+
+    <target name="init" depends="clean" description="Creates cleaned up directory structure again">
+        <echo message="Creating documentation directory (${docdir})"/>
+        <mkdir dir="${docdir}"/>
+    </target>
+    <!--endregion-->
+
+    <target name="composer_install" depends="check_composer_installed" description="Installs composer vendor libs">
+        <if>
+            <istrue value="${composer.installed}"/>
+            <then>
+                <echo message="composer.lock is already present. Not running 'composer install'"/>
+            </then>
+            <else>
+                <composer command="install">
+                    <arg value="--prefer-source"/>
+                </composer>
+            </else>
+        </if>
+    </target>
+    <target name="composer_update" depends="check_composer_installed" description="Updates composer vendor libs">
+        <if>
+            <istrue value="${composer.installed}"/>
+            <then>
+                <composer command="update"/>
+            </then>
+            <else>
+                <echo message="composer.lock is not present. You need to run composer_install target first."/>
+            </else>
+        </if>
+    </target>
+
+    <target name="assets_install" description="installs assets">
+        <!--bower-->
+        <exec command="bower install" checkreturn="true"/>
+        <!--tinymce-->
+        <exec command="jake" dir="${sourcedir}/Anticom/ShowcaseBundle/Resources/public/tinymce" checkreturn="true"/>
+        <!--tinymce de_DE-->
+        <!--TODO figure this one out-->
+    </target>
+    <target name="assets_update" depends="assets_install" description="updates assets">
+        <exec executable="${sfApp}">
+            <arg value="assets:install"/>
+            <arg value="-n"/>
+        </exec>
+    </target>
+
+    <target name="database_create" description="Creates the default database">
+        <exec executable="${sfApp}">
+            <arg value="doctrine:database:create"/>
+            <arg value="-n"/>
+        </exec>
+    </target>
+    <target name="database_install" description="Creates the schema">
+        <exec executable="${sfApp}">
+            <arg value="doctrine:schema:create"/>
+            <arg value="-n"/>
+        </exec>
+    </target>
+    <target name="database_fixtures_load" description="Loads data fixtures">
+        <exec executable="${sfApp}">
+            <arg value="doctrine:schema:drop"/>
+            <arg value="-n"/>
+            <arg value="--force"/>
+        </exec>
+        <exec executable="${sfApp}">
+            <arg value="doctrine:schema:create"/>
+            <arg value="-n"/>
+        </exec>
+        <exec executable="${sfApp}">
+            <arg value="doctrine:fixtures:load"/>
+            <arg value="-n"/>
+        </exec>
+    </target>
+
+    <target name="phpunit" depends="check_phpunit_configuration" description="Runs PHPUnit to generate code coverage information">
+        <phpunit configuration="${phpunit.configuration}" codecoverage="true">
+            <formatter type="plain" usefile="false"/>
+            <formatter type="summary" usefile="true" todir="${docdir}/coverage"/>
+        </phpunit>
+    </target>
+    <target name="phpdoc2" depends="clean" description="Generate API documentation using PHPDoc2">
+        <phpdoc2 title="${config.app.name}"
+                 destdir="${docdir}/api"
+                 template="responsive-twig">
+            <fileset refid="sourceWithTests"/>
+        </phpdoc2>
+    </target>
+
+    <target name="debug" depends="check_composer_installed, check_phpunit_configuration" description="[MAIN] Prints out some Variables verifying that the build process should work fine">
+        <echo message="=================================================="/>
+        <echo message="Host information:"/>
+        <echo message="${host.name} [Domain: ${host.domain}]"/>
+        <echo message="${os.name}: ${host.os.version} [Release: ${host.os.release}]"/>
+        <echo message="File system:            ${host.fstype}"/>
+        <echo message="Processor architecture: ${host.arch}"/>
+        <echo message="=================================================="/>
+        <echo message="Phing information:"/>
+        <echo message="Phing file:          ${phing.file}"/>
+        <echo message="Phing dir:           ${phing.dir}"/>
+        <echo message="Phing home:          ${phing.home}"/>
+        <echo message="Phing version:       ${phing.version}"/>
+        <echo message="Phing project name:  ${phing.project.name}"/>
+        <echo message="=================================================="/>
+        <echo message="Build script defined properties:"/>
+        <echo message="Basedir:             ${basedir}"/>
+        <echo message="Sourcedir:           ${sourcedir}"/>
+        <echo message="Appdir:              ${appdir}"/>
+        <echo message="Docdir:              ${docdir}"/>
+        <echo message="Vendordir:           ${vendordir}"/>
+        <echo message="SF Console:          ${sfApp}"/>
+        <echo message="--------------------------------------------------"/>
+        <echo message="Composer installed? (composer.lock present): ${composer.installed}"/>
+        <echo message="PHPUnit config file? (phpunit.dist.xml|phpunit.xml): ${phpunit.configuration}"/>
+        <echo message="=================================================="/>
+    </target>
+    <target name="install" depends="composer_install, assets_install, database_create, database_install, database_fixtures_load" description="[MAIN] Does a full install on an initial repository"/>
+    <target name="update" depends="composer_update, assets_update" description="[MAIN] Updates all dependencies and installs the assets"/>
+    <target name="build" depends="init, update, phpunit, phpdoc2" description="[MAIN] Generates metrics"/>
+    <target name="uninstall" depends="cleanAll" description="[MAIN] Brings back repo to its initial state."/>
+</project>
