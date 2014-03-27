@@ -1,38 +1,39 @@
 <?xml version="1.0"?>
 
-<project name="Automated Build tasks" default="build" basedir=".">
+<project name="Automated Build tasks" default="main:build" basedir=".">
     <!--<php expression="include('vendor/autoload.php')"/>-->
 
     <!--region config-->
     <property name="config.app.name" value="Showcase Project"/>
     <!--endregion-->
 
-    <property name="basedir" value="." override="true"/>
-    <property name="sourcedir" value="${basedir}/src"/>
-    <property name="appdir" value="${basedir}/app"/>
+    <property name="dir.base" value="." override="true"/>
+    <property name="dir.src" value="${dir.base}/src"/>
+    <property name="dir.app" value="${dir.base}/app"/>
 
-    <property name="docdir" value="${basedir}/doc"/>
-    <property name="vendordir" value="${basedir}/vendor"/>
+    <property name="dir.vendor" value="${dir.base}/vendor"/>
+    <property name="dir.doc" value="${dir.base}/doc"/>
+    <property name="dir.doc.coverage" value="${dir.base}/doc/coverage"/>
+    <property name="dir.doc.api" value="${dir.base}/doc/api"/>
 
-    <property name="sfApp" value="${appdir}/console"/>
+    <property name="file.debug.fileset" value="${dir.base}/fileset.txt"/>
+
+    <property name="console.symfony" value="${dir.app}/console"/>
 
     <!--region filesets-->
-    <fileset dir="${sourcedir}" id="sourceWithoutTests">
+    <fileset dir="${dir.src}" id="sourceWithoutTests">
         <include name="**/*.php"/>
 
-        <exclude name="**/Test/"/>
+        <exclude name="**/Tests/**Test.php"/>
     </fileset>
-
-    <fileset dir="${sourcedir}" id="sourceWithTests">
+    <fileset dir="${dir.src}" id="source">
         <include name="**/*.php"/>
     </fileset>
-
-    <fileset dir="${sourcedir}" id="tests">
-        <include name="*/Test/**/*Test.php"/>
+    <fileset dir="${dir.src}" id="tests">
+        <include name="**/Tests/**Test.php"/>
     </fileset>
-
-    <fileset dir="${sourcedir}" id="assets">
-        <include name="**/Resources/public/*"/>
+    <fileset dir="${dir.src}" id="assets">
+        <include name="**/Resources/public/**"/>
 
         <!--project specific-->
         <exclude name="Anticom/ShowcaseBundle/Resources/public/user_blank.png"/>
@@ -42,20 +43,19 @@
     <!--endregion-->
 
     <!--region checks-->
-    <target name="check_composer_installed" description="Checks, whether composer.lock is present">
+    <target name="check:composer:installed" description="Checks, whether composer.lock is present">
         <available file="composer.lock" property="composer.installed" value="true"/>
     </target>
-    
-    <target name="check_phpunit_configuration" description="Chooses the right phpunit config file">
+    <target name="check:phpunit:configuration" description="Chooses the right phpunit config file">
         <if>
-            <available property="null" file="${appdir}/phpunit.xml"/>
+            <available property="null" file="${dir.app}/phpunit.xml"/>
             <then>
-                <property name="phpunit.configuration" value="${appdir}/phpunit.xml"/>
+                <property name="phpunit.configuration" value="${dir.app}/phpunit.xml"/>
             </then>
             <elseif>
-                <available property="null" file="${appdir}/phpunit.dist.xml"/>
+                <available property="null" file="${dir.app}/phpunit.dist.xml"/>
                 <then>
-                    <property name="phpunit.configuration" value="${appdir}/phpunit.dist.xml"/>
+                    <property name="phpunit.configuration" value="${dir.app}/phpunit.dist.xml"/>
                 </then>
             </elseif>
             <else>
@@ -67,25 +67,27 @@
     <!--endregion-->
 
     <!--region init-->
-    <target name="clean" description="Cleans up build directories">
-        <echo message="Deleting documentation directory (${docdir})"/>
-        <delete dir="${docdir}"/>
+    <target name="prepare:clean" description="Cleans up build directories">
+        <echo message="Deleting documentation directory structure (${dir.doc})"/>
+        <delete dir="${dir.doc.api}"/>
+        <delete dir="${dir.doc.coverage}"/>
+        <delete dir="${dir.doc}"/>
     </target>
-
-    <target name="cleanAll" depends="clean" description="Cleans up generated files and folders. Brings back repo to its initial state">
-        <echo message="Deleting vendor directory (${vendordir})"/>
-        <delete dir="${vendordir}"/>
+    <target name="prepare:cleanAll" depends="prepare:clean" description="Cleans up generated files and folders. Brings back repo to its initial state">
+        <echo message="Deleting vendor directory (${dir.vendor})"/>
+        <delete dir="${dir.vendor}"/>
         <echo message="Deleting asset directories"/>
         <!--TODO do delete assets-->
     </target>
-
-    <target name="init" depends="clean" description="Creates cleaned up directory structure again">
-        <echo message="Creating documentation directory (${docdir})"/>
-        <mkdir dir="${docdir}"/>
+    <target name="prepare:init" depends="prepare:clean" description="Creates cleaned up directory structure again">
+        <echo message="Creating documentation directory structure (${dir.doc})"/>
+        <mkdir dir="${dir.doc}"/>
+        <mkdir dir="${dir.doc.api}"/>
+        <mkdir dir="${dir.doc.coverage}"/>
     </target>
     <!--endregion-->
 
-    <target name="composer_install" depends="check_composer_installed" description="Installs composer vendor libs">
+    <target name="composer:install" depends="check:composer:installed" description="Installs composer vendor libs">
         <if>
             <istrue value="${composer.installed}"/>
             <then>
@@ -98,7 +100,7 @@
             </else>
         </if>
     </target>
-    <target name="composer_update" depends="check_composer_installed" description="Updates composer vendor libs">
+    <target name="composer:update" depends="check:composer:installed" description="Updates composer vendor libs">
         <if>
             <istrue value="${composer.installed}"/>
             <then>
@@ -110,64 +112,93 @@
         </if>
     </target>
 
-    <target name="assets_install" description="installs assets">
+    <target name="assets:install" description="installs assets">
         <!--bower-->
         <exec command="bower install" checkreturn="true"/>
         <!--tinymce-->
-        <exec command="jake" dir="${sourcedir}/Anticom/ShowcaseBundle/Resources/public/tinymce" checkreturn="true"/>
+        <exec command="jake" dir="${dir.src}/Anticom/ShowcaseBundle/Resources/public/tinymce" checkreturn="true"/>
         <!--tinymce de_DE-->
         <!--TODO figure this one out-->
     </target>
-    <target name="assets_update" depends="assets_install" description="updates assets">
-        <exec executable="${sfApp}">
+    <target name="assets:update" depends="assets:install" description="updates assets">
+        <exec executable="${console.symfony}">
             <arg value="assets:install"/>
             <arg value="-n"/>
         </exec>
     </target>
 
-    <target name="database_create" description="Creates the default database">
-        <exec executable="${sfApp}">
+    <target name="database:create" description="Creates the default database">
+        <exec executable="${console.symfony}">
             <arg value="doctrine:database:create"/>
             <arg value="-n"/>
         </exec>
     </target>
-    <target name="database_install" description="Creates the schema">
-        <exec executable="${sfApp}">
+    <target name="database:schema:create" description="Creates the schema">
+        <exec executable="${console.symfony}">
             <arg value="doctrine:schema:create"/>
             <arg value="-n"/>
         </exec>
     </target>
-    <target name="database_fixtures_load" description="Loads data fixtures">
-        <exec executable="${sfApp}">
+    <target name="database:fixtures:load" description="Loads data fixtures">
+        <exec executable="${console.symfony}">
             <arg value="doctrine:schema:drop"/>
             <arg value="-n"/>
             <arg value="--force"/>
         </exec>
-        <exec executable="${sfApp}">
+        <exec executable="${console.symfony}">
             <arg value="doctrine:schema:create"/>
             <arg value="-n"/>
         </exec>
-        <exec executable="${sfApp}">
+        <exec executable="${console.symfony}">
             <arg value="doctrine:fixtures:load"/>
             <arg value="-n"/>
         </exec>
     </target>
 
-    <target name="phpunit" depends="check_phpunit_configuration" description="Runs PHPUnit to generate code coverage information">
-        <phpunit configuration="${phpunit.configuration}" codecoverage="true">
+    <target name="build:phpunit" depends="prepare:init, check:phpunit:configuration" description="Runs PHPUnit to generate code coverage information">
+        <phpunit configuration="${dir.app}" codecoverage="true">
             <formatter type="plain" usefile="false"/>
-            <formatter type="summary" usefile="true" todir="${docdir}/coverage"/>
+            <formatter type="summary" usefile="true" todir="${dir.doc.coverage}"/>
         </phpunit>
     </target>
-    <target name="phpdoc2" depends="clean" description="Generate API documentation using PHPDoc2">
+    <target name="build:phpdoc2" depends="prepare:init" description="Generate API documentation using PHPDoc2">
         <phpdoc2 title="${config.app.name}"
-                 destdir="${docdir}/api"
+                 destdir="${dir.doc.api}"
                  template="responsive-twig">
-            <fileset refid="sourceWithTests"/>
+            <!--<fileset refid="source"/>-->
         </phpdoc2>
     </target>
 
-    <target name="debug" depends="check_composer_installed, check_phpunit_configuration" description="[MAIN] Prints out some Variables verifying that the build process should work fine">
+    <!--debugging-->
+    <target name="debug:fileset">
+        <delete file="${file.debug.fileset}"/>
+        <echo file="${file.debug.fileset}" append="true" message="sourceWithoutTests${line.separator}"/>
+        <foreach param="filename" absparam="absfilename" target="debug:fileset:echo">
+            <fileset refid="sourceWithoutTests"/>
+        </foreach>
+
+        <echo file="${file.debug.fileset}" append="true" message="source${line.separator}"/>
+        <foreach param="filename" absparam="absfilename" target="debug:fileset:echo">
+            <fileset refid="source"/>
+        </foreach>
+
+        <echo file="${file.debug.fileset}" append="true" message="tests${line.separator}"/>
+        <foreach param="filename" absparam="absfilename" target="debug:fileset:echo">
+            <fileset refid="tests"/>
+        </foreach>
+        <!--
+        <echo file="${file.debug.fileset}" append="true" message="assets${line.separator}"/>
+        <foreach param="filename" absparam="absfilename" target="debug:fileset:echo">
+            <fileset refid="assets"/>
+        </foreach>
+        -->
+    </target>
+    <target name="debug:fileset:echo">
+        <!--<echo file="${file.debug.fileset}" append="true">file: rel:${filename}|abs:${absfilename}${line.separator}</echo>-->
+        <echo file="${file.debug.fileset}" append="true">  - ${absfilename}${line.separator}</echo>
+    </target>
+
+    <target name="main:debug" depends="check:composer:installed, check:phpunit:configuration" description="[MAIN] Prints out some Variables verifying that the build process should work fine">
         <echo message="=================================================="/>
         <echo message="Host information:"/>
         <echo message="${host.name} [Domain: ${host.domain}]"/>
@@ -183,19 +214,22 @@
         <echo message="Phing project name:  ${phing.project.name}"/>
         <echo message="=================================================="/>
         <echo message="Build script defined properties:"/>
-        <echo message="Basedir:             ${basedir}"/>
-        <echo message="Sourcedir:           ${sourcedir}"/>
-        <echo message="Appdir:              ${appdir}"/>
-        <echo message="Docdir:              ${docdir}"/>
-        <echo message="Vendordir:           ${vendordir}"/>
-        <echo message="SF Console:          ${sfApp}"/>
+        <echo message="Basedir:             ${dir.base}"/>
+        <echo message="Sourcedir:           ${dir.src}"/>
+        <echo message="Appdir:              ${dir.app}"/>
+        <echo message="Docdir:              ${dir.doc}"/>
+        <echo message="Vendordir:           ${dir.vendor}"/>
+        <echo message="SF Console:          ${console.symfony}"/>
         <echo message="--------------------------------------------------"/>
         <echo message="Composer installed? (composer.lock present): ${composer.installed}"/>
         <echo message="PHPUnit config file? (phpunit.dist.xml|phpunit.xml): ${phpunit.configuration}"/>
         <echo message="=================================================="/>
+
+        <echo message="Writing fileset information to '${file.debug.fileset}'"/>
+        <phingcall target="debug:fileset"/>
     </target>
-    <target name="install" depends="composer_install, assets_install, database_create, database_install, database_fixtures_load" description="[MAIN] Does a full install on an initial repository"/>
-    <target name="update" depends="composer_update, assets_update" description="[MAIN] Updates all dependencies and installs the assets"/>
-    <target name="build" depends="init, update, phpunit, phpdoc2" description="[MAIN] Generates metrics"/>
-    <target name="uninstall" depends="cleanAll" description="[MAIN] Brings back repo to its initial state."/>
+    <target name="main:install" depends="composer:install, assets:install, database:create, database:schema:create, database:fixtures:load" description="[MAIN] Does a full install on an initial repository"/>
+    <target name="main:update" depends="composer:update, assets:update" description="[MAIN] Updates all dependencies and installs the assets"/>
+    <target name="main:build" depends="prepare:init, main:update, build:phpunit, build:phpdoc2" description="[MAIN] Generates metrics"/>
+    <target name="main:uninstall" depends="prepare:cleanAll" description="[MAIN] Brings back repo to its initial state."/>
 </project>
