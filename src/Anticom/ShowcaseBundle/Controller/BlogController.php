@@ -1,4 +1,12 @@
 <?php
+/**
+ * BlogController.php
+ *
+ * @author    Timo M
+ * @namespace Anticom\ShowcaseBundle\Controller
+ * @package   Controller
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT
+ */
 
 namespace Anticom\ShowcaseBundle\Controller;
 
@@ -10,9 +18,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
+/**
+ * Class BlogController
+ */
 class BlogController extends Controller {
     const RECORDS_PER_PAGE = 10;
 
+    /**
+     * List BlogEntries
+     *
+     * @param $page
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function listAction($page) {
         /** @var BlogEntryRepository $blogRepository */
         $blogRepository = $this->getDoctrine()->getRepository('AnticomShowcaseBundle:BlogEntry');
@@ -35,6 +52,13 @@ class BlogController extends Controller {
         );
     }
 
+    /**
+     * Show a single BlogEntry
+     *
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
     public function showAction($id) {
         /** @var BlogEntryRepository $blogRepository */
         $blogRepository = $this->getDoctrine()->getRepository('AnticomShowcaseBundle:BlogEntry');
@@ -55,6 +79,13 @@ class BlogController extends Controller {
         );
     }
 
+    /**
+     * Create a new BlogEntry
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     */
     public function newAction(Request $request) {
         if(!$this->getUser()) {
             throw new AccessDeniedException();
@@ -83,6 +114,13 @@ class BlogController extends Controller {
     }
 
     /**
+     * Edit a single BlogEntry
+     *
+     * @param Request   $request
+     * @param BlogEntry $blogEntry
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     *
      * @ParamConverter("blogEntry", class="AnticomShowcaseBundle:BlogEntry")
      */
     public function editAction(Request $request, BlogEntry $blogEntry) {
@@ -111,6 +149,13 @@ class BlogController extends Controller {
     }
 
     /**
+     * Delete a single BlogEntry
+     *
+     * @param Request   $request
+     * @param BlogEntry $blogEntry
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     *
      * @ParamConverter("blogEntry", class="AnticomShowcaseBundle:BlogEntry")
      */
     public function deleteAction(Request $request, BlogEntry $blogEntry) {

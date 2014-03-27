@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+    <title>Anticom Showcase Projekt</title>
+    <parser>
+        <target>doc/api</target>
+        <markers>
+            <item>TODO</item>
+            <item>FIXME</item>
+            <item>BUG</item>
+        </markers>
+    </parser>
+    <transformer>
+        <target>doc/api</target>
+    </transformer>
+    <transformations>
+        <template name="responsive-twig"/>
+    </transformations>
+    <files>
+        <directory>src</directory>
+    </files>
+</phpdoc>

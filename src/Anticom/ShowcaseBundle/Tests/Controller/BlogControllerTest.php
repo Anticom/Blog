@@ -1,4 +1,12 @@
 <?php
+/**
+ * BlogControllerTest.php
+ *
+ * @author    Timo M
+ * @namespace Anticom\ShowcaseBundle\Tests\Controller
+ * @package   Test\Functional\Controller
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT
+ */
 
 namespace Anticom\ShowcaseBundle\Tests\Controller;
 
@@ -7,15 +15,24 @@ use Anticom\ShowcaseBundle\Tests\Messages;
 use Anticom\ShowcaseBundle\Tests\Tools;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+/**
+ * Class BlogControllerTest
+ */
 class BlogControllerTest extends WebTestCase {
     #region setup
-    /** @var \Doctrine\ORM\EntityManager */
+    /**
+     * @var \Doctrine\ORM\EntityManager Common EntityManager
+     */
     private $em;
 
+    /**
+     * Used to prevent fixtures being loaded for each test
+     * @var bool
+     */
     private static $fixturesLoaded = false;
 
     /**
-     * {@inheritDoc}
+     * Called before every test
      */
     public function setUp() {
         static::$kernel = static::createKernel();
@@ -39,7 +56,7 @@ class BlogControllerTest extends WebTestCase {
     }
 
     /**
-     * {@inheritDoc}
+     * Called after every test
      */
     protected function tearDown() {
         parent::tearDown();
@@ -48,6 +65,9 @@ class BlogControllerTest extends WebTestCase {
     #endregion
 
     #region tests
+    /**
+     * Try to list BlogEntires
+     */
     public function testList() {
         $client  = static::createClient();
         $crawler = $client->request('GET', '/blog');
@@ -57,6 +77,9 @@ class BlogControllerTest extends WebTestCase {
         $this->assertTrue($crawler->filter('html:contains("Das ist der Body vom Demo Eintrag 1")')->count() > 0, 'Unable to find body');
     }
 
+    /**
+     * Try to show a BlogEntry that does not exist
+     */
     public function testShow404() {
         $client = static::createClient();
         $client->request('GET', '/blog/show/0');
@@ -65,6 +88,9 @@ class BlogControllerTest extends WebTestCase {
         $this->assertEquals(404, $response->getStatusCode(), Messages::STATUS_CODE);
     }
 
+    /**
+     * Try to show a BlogEntry
+     */
     public function testShow() {
         $client  = static::createClient();
         $crawler = $client->request('GET', '/blog/show/1');
@@ -74,6 +100,9 @@ class BlogControllerTest extends WebTestCase {
         $this->assertTrue($crawler->filter('html:contains("Demo Eintrag 1")')->count() > 0, 'Unable to find body');
     }
 
+    /**
+     * Try to create a new BlogEntry unauthenticated
+     */
     public function testNewDenied() {
         $client = static::createClient();
         $client->request('GET', '/blog/new');
@@ -83,6 +112,11 @@ class BlogControllerTest extends WebTestCase {
         $this->assertTrue($response->isRedirect('/login'), Messages::REDIRECT);
     }
 
+    /**
+     * Try to create a new BlogEntry authenticated
+     *
+     * This test only checks whether the create view is available
+     */
     public function testNewAuthenticated() {
         $client  = static::createClient();
         $crawler = $client->request('GET', '/blog/new', array(), array(), SecurityControllerTest::$auth);
@@ -93,6 +127,10 @@ class BlogControllerTest extends WebTestCase {
     }
 
     /**
+     * Try to create a new BlogEntry authenticated
+     *
+     * This test also actually submits the form to create a new BlogEntry
+     *
      * @depends testNewAuthenticated
      */
     public function testNewAutheticatedSubmit() {
@@ -118,6 +156,9 @@ class BlogControllerTest extends WebTestCase {
         $this->assertTrue($crawler->filter('html:contains("Ihr Blogeintrag wurde erfolgreich gespeichert")')->count() > 0, Messages::FLASH_MESSAGE);
     }
 
+    /**
+     * Try to edit a BlogEntry unauthenticated
+     */
     public function testEditDenied() {
         $client = static::createClient();
         $client->request('GET', '/blog/edit/1');
@@ -127,6 +168,11 @@ class BlogControllerTest extends WebTestCase {
         $this->assertTrue($response->isRedirect('/login'), Messages::REDIRECT);
     }
 
+    /**
+     * Try to edit a BlogEntry authenticated
+     *
+     * This test only checks whether the edit view is available
+     */
     public function testEditAuthenticated() {
         $client  = static::createClient();
         $crawler = $client->request('GET', '/blog/edit/1', array(), array(), SecurityControllerTest::$auth);
@@ -137,6 +183,10 @@ class BlogControllerTest extends WebTestCase {
     }
 
     /**
+     * Try to edit a BlogEntry authenticated
+     *
+     * This test also actually submits the form to edit a BlogEntry
+     *
      * @depends testEditAuthenticated
      */
     public function testEditAuthenticatedSubmit() {
@@ -167,6 +217,9 @@ class BlogControllerTest extends WebTestCase {
         $this->assertTrue($crawler->filter('html:contains("Ihr Blogeintrag wurde erfolgreich aktuallisiert!")')->count() > 0, Messages::FLASH_MESSAGE);
     }
 
+    /**
+     * Try to delete a BlogEntry unauthenticated
+     */
     public function testDeleteDenied() {
         $client = static::createClient();
         $client->request('GET', '/blog/delete/1');
@@ -176,6 +229,11 @@ class BlogControllerTest extends WebTestCase {
         $this->assertTrue($response->isRedirect('/login'), Messages::REDIRECT);
     }
 
+    /**
+     * Try to delete a BlogEntry authenticated
+     *
+     * This test only checks whether the delete view is available
+     */
     public function testDeleteAuthenticated() {
         $client  = static::createClient();
         $crawler = $client->request('GET', '/blog/delete/1', array(), array(), SecurityControllerTest::$auth);
@@ -186,6 +244,10 @@ class BlogControllerTest extends WebTestCase {
     }
 
     /**
+     * Try to delete a BlogEntry authenticated
+     *
+     * This test also actually submits the form to delete a BlogEntry
+     *
      * @depends testDeleteAuthenticated
      */
     public function testDeleteAuthenticatedSubmit() {

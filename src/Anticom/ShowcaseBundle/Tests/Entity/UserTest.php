@@ -1,4 +1,12 @@
 <?php
+/**
+ * UserTest.php
+ *
+ * @author    Timo M
+ * @namespace Anticom\ShowcaseBundle\Tests\Entity
+ * @package   Test\Unit\Entity
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT
+ */
 
 namespace Anticom\ShowcaseBundle\Tests\Entity;
 
@@ -8,24 +16,36 @@ use Anticom\ShowcaseBundle\Entity\User;
 use PHPUnit_Framework_TestCase;
 
 /**
+ * Class UserTest
+ *
  * @coversDefaultClass \Anticom\ShowcaseBundle\Entity\User
  */
 class UserTest extends PHPUnit_Framework_TestCase {
     #region setup
-    /** @var  User */
+    /** @var  User Common User */
     protected $user;
 
+    /**
+     * Called before every test
+     */
     public function setUp() {
         $this->user = new User();
     }
     #endregion
 
     #region tests
+    /**
+     * Test Id
+     */
     public function testId() {
         $this->assertEquals(null, $this->user->getId());
     }
 
     /**
+     * Test Username
+     *
+     * @param string $username
+     *
      * @dataProvider provideUsername
      */
     public function testUsername($username) {
@@ -33,6 +53,10 @@ class UserTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
+     * Test Email
+     *
+     * @param string $email
+     *
      * @dataProvider provideEmail
      */
     public function testEmail($email) {
@@ -40,6 +64,10 @@ class UserTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
+     * Test Password
+     *
+     * @param string $password
+     *
      * @dataProvider providePassword
      */
     public function testPassword($password) {
@@ -47,6 +75,10 @@ class UserTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
+     * Test IsActive
+     *
+     * @param bool $state
+     *
      * @dataProvider provideActiveState
      */
     public function testIsActive($state) {
@@ -54,15 +86,27 @@ class UserTest extends PHPUnit_Framework_TestCase {
     }
 
     #region interfaces
+    /**
+     * Test Salt
+     */
     public function testSalt() {
         $this->assertEquals(null, $this->user->getSalt());
     }
 
+    /**
+     * Test Roles
+     */
     public function testRoles() {
+        $this->assertNotEmpty($this->user->getRoles());
         $this->assertEquals(array('ROLE_USER'), $this->user->getRoles());
     }
 
     /**
+     * Test \Serializable Interface
+     *
+     * @param string $username
+     * @param string $password
+     *
      * @depends testUsername
      * @depends testPassword
      */
@@ -76,6 +120,9 @@ class UserTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($this->user, $unserialized);
     }
 
+    /**
+     * Test BlogEntry
+     */
     public function testBlogEntry() {
         $dummyBlogEntry = new BlogEntry();
         $this->assertCount(0, $this->user->getBlogEntries());
@@ -85,6 +132,9 @@ class UserTest extends PHPUnit_Framework_TestCase {
         $this->assertCount(0, $this->user->getBlogEntries());
     }
 
+    /**
+     * Test Comments
+     */
     public function testComments() {
         $dummyComment = new Comment();
         $this->assertCount(0, $this->user->getComments());
@@ -97,6 +147,11 @@ class UserTest extends PHPUnit_Framework_TestCase {
     #endregion
 
     #region providers
+    /**
+     * Provider for testUsername
+     *
+     * @return array
+     */
     public static function provideUsername() {
         return array(
             array('oneString'),
@@ -104,6 +159,11 @@ class UserTest extends PHPUnit_Framework_TestCase {
         );
     }
 
+    /**
+     * Provider for testEmail
+     *
+     * @return array
+     */
     public static function provideEmail() {
         return array(
             array('valid@example.com'),
@@ -111,6 +171,11 @@ class UserTest extends PHPUnit_Framework_TestCase {
         );
     }
 
+    /**
+     * Provider for testPassword
+     *
+     * @return array
+     */
     public static function providePassword() {
         return array(
             array('xjesirijoeriower'),
@@ -119,6 +184,11 @@ class UserTest extends PHPUnit_Framework_TestCase {
         );
     }
 
+    /**
+     * Provider for testIsActive
+     *
+     * @return array
+     */
     public static function provideActiveState() {
         return array(
             array(true),
@@ -126,6 +196,11 @@ class UserTest extends PHPUnit_Framework_TestCase {
         );
     }
 
+    /**
+     * Provider for testSerialize
+     *
+     * @return array
+     */
     public static function provideSerializationInfo() {
         return array(
             array('username', 'password'),

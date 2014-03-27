@@ -2,10 +2,10 @@
 /**
  * User.php
  *
- * Date: 13.03.14
- * Time: 14:26
- * @author    Timo Mühlbach
+ * @author    Timo M
  * @namespace Anticom\ShowcaseBundle\Entity
+ * @package   Entity
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT
  */
 
 namespace Anticom\ShowcaseBundle\Entity;
@@ -13,38 +13,62 @@ namespace Anticom\ShowcaseBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Serializable;
+use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * Class BlogEntry
+ * Class User
+ *
  * @ORM\Entity()
  * @ORM\Table(name="user")
  */
 class User implements UserInterface, Serializable {
     /**
+     * @var int Unique ID for each User
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    /** @ORM\Column(type="string", length=100) */
+    /**
+     * @var string The User's nickname
+     * @ORM\Column(type="string", length=100)
+     */
     protected $username;
-    /** @ORM\Column(type="string", length=255) */
+    /**
+     * @var string The User's e-mail adress
+     * @ORM\Column(type="string", length=255)
+     */
     protected $email;
-    /** @ORM\Column(type="string", length=255) */
+    /**
+     * @var string The User's password
+     * @ORM\Column(type="string", length=255)
+     */
     protected $password;
-    /** @var  @ORM\Column(name="is_active", type="boolean") */
+    /**
+     * @var bool Whether the User is active or not
+     * @ORM\Column(name="is_active", type="boolean")
+     */
     protected $isActive;
 
     #region relations
-    /** @ORM\OneToMany(targetEntity="BlogEntry", mappedBy="author") */
+    /**
+     * @var BlogEntry[] BlogEntries that belong to that User
+     * @ORM\OneToMany(targetEntity="BlogEntry", mappedBy="author")
+     */
     protected $blogEntries;
-    /** @ORM\OneToMany(targetEntity="Comment", mappedBy="author") */
+    /**
+     * @var Comment[] Comments that belong to that User
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="author")
+     */
     protected $comments;
 
     //protected $roles;
     #endregion
 
+    /**
+     * Set some sensible defaults
+     */
     public function __construct() {
         $this->blogEntries = new ArrayCollection();
         $this->comments    = new ArrayCollection();
@@ -53,40 +77,69 @@ class User implements UserInterface, Serializable {
 
     #region interface implementations
     /**
-     * @inheritDoc
+     * Returns the username used to authenticate the user.
+     *
+     * @return string The username
      */
     public function getUsername() {
         return $this->username;
     }
 
     /**
-     * @inheritDoc
+     * Returns the salt that was originally used to encode the password.
+     *
+     * This can return null if the password was not encoded using a salt.
+     *
+     * @return string|null The salt
      */
     public function getSalt() {
         return null;
     }
 
     /**
-     * @inheritDoc
+     * Returns the password used to authenticate the user.
+     *
+     * This should be the encoded password. On authentication, a plain-text
+     * password will be salted, encoded, and then compared to this value.
+     *
+     * @return string The password
      */
     public function getPassword() {
         return $this->password;
     }
 
     /**
-     * @inheritDoc
+     * Returns the roles granted to the user.
+     *
+     * <code>
+     * public function getRoles()
+     * {
+     *     return array('ROLE_USER');
+     * }
+     * </code>
+     *
+     * Alternatively, the roles might be stored on a ``roles`` property,
+     * and populated in any number of different ways when the user object
+     * is created.
+     *
+     * @return Role[] The user roles
      */
     public function getRoles() {
         return array('ROLE_USER');
     }
 
     /**
-     * @inheritDoc
+     * Removes sensitive data from the user.
+     *
+     * This is important if, at any given point, sensitive information like
+     * the plain-text password is stored on this object.
      */
     public function eraseCredentials() {
     }
 
     /**
+     * Serializes the Object
+     *
      * @see \Serializable::serialize()
      */
     public function serialize() {
@@ -100,7 +153,10 @@ class User implements UserInterface, Serializable {
     }
 
     /**
+     * Unserializes the Object
+     *
      * @see \Serializable::unserialize()
+     * @param string $serialized
      */
     public function unserialize($serialized) {
         list (

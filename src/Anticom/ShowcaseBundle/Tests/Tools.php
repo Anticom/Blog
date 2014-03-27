@@ -1,4 +1,12 @@
 <?php
+/**
+ * Tools.php
+ *
+ * @author    Timo M
+ * @namespace Anticom\ShowcaseBundle\Tests
+ * @package   Test\Tools
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT
+ */
 
 namespace Anticom\ShowcaseBundle\Tests;
 
@@ -8,12 +16,20 @@ use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\StreamOutput;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class Tools
+ */
 class Tools {
+    /**
+     * @var array Tracks logged responses to ensure unique file names
+     */
     protected static $loggedResponses = array();
 
     /**
+     * Run a Symfony CLI command
+     *
      * @param Client $client
-     * @param        $command
+     * @param string $command
      * @return string
      */
     public static function runCommand(Client $client, $command) {
@@ -37,8 +53,10 @@ class Tools {
     }
 
     /**
-     * @param Client $client
-     * @param array  $commands
+     * Run multiple Symfony CLI commands
+     *
+     * @param Client   $client
+     * @param string[] $commands
      * @return string[]
      */
     public static function runCommands(Client $client, array $commands = array()) {
@@ -50,6 +68,8 @@ class Tools {
     }
 
     /**
+     * Log a Response to file
+     *
      * @param Response $response
      * @param string   $filename  usually Tools::classAndMethodToFilename is used here
      * @param string   $extension default is html
@@ -76,6 +96,8 @@ class Tools {
     }
 
     /**
+     * Convert Class and Method of calling class to a valid file name portion
+     *
      * @param string $class  usually __CLASS__
      * @param string $method usually __METHOD__
      * @return string

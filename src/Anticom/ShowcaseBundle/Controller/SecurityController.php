@@ -1,4 +1,12 @@
 <?php
+/**
+ * SecurityController.php
+ *
+ * @author    Timo M
+ * @namespace Anticom\ShowcaseBundle\Controller
+ * @package   Controller
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT
+ */
 
 namespace Anticom\ShowcaseBundle\Controller;
 
@@ -6,7 +14,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContext;
 
+/**
+ * Class SecurityController
+ */
 class SecurityController extends Controller {
+    /**
+     * Log in User
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function loginAction(Request $request) {
         $session = $request->getSession();
 

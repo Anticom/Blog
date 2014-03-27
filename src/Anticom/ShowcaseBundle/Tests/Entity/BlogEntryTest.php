@@ -1,4 +1,12 @@
 <?php
+/**
+ * BlogEntryTest.php
+ *
+ * @author    Timo M
+ * @namespace Anticom\ShowcaseBundle\Tests\Entity
+ * @package   Test\Unit\Entity
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT
+ */
 
 namespace Anticom\ShowcaseBundle\Tests\Entity;
 
@@ -8,13 +16,18 @@ use Anticom\ShowcaseBundle\Entity\User;
 use PHPUnit_Framework_TestCase;
 
 /**
+ * Class BlogEntryTest
+ *
  * @coversDefaultClass \Anticom\ShowcaseBundle\Entity\BlogEntry
  */
 class BlogEntryTest extends PHPUnit_Framework_TestCase {
     #region setup
-    /** @var  BlogEntry */
+    /** @var  BlogEntry Common BlogEntry */
     protected $blogEntry;
 
+    /**
+     * Called before every test
+     */
     protected function setUp() {
         $this->blogEntry = new BlogEntry();
     }
@@ -22,6 +35,10 @@ class BlogEntryTest extends PHPUnit_Framework_TestCase {
 
     #region tests
     /**
+     * Test Title
+     *
+     * @param string $title
+     *
      * @dataProvider provideTitle
      */
     public function testTitle($title) {
@@ -29,6 +46,10 @@ class BlogEntryTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
+     * Test Body
+     *
+     * @param string $body
+     *
      * @dataProvider provideBody
      */
     public function testBody($body) {
@@ -36,6 +57,10 @@ class BlogEntryTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
+     * Test Author
+     *
+     * @param User $author
+     *
      * @dataProvider provideAuthor
      */
     public function testAuthor($author) {
@@ -43,12 +68,19 @@ class BlogEntryTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
+     * Test DateTimeCreated
+     *
+     * @param \DateTime $date
+     *
      * @dataProvider provideDateTimeCreated
      */
     public function testDateTimeCreated($date) {
         $this->assertEquals($date, $this->blogEntry->autoSetDateTimeCreated()->setDateTimeCreated($date)->getDateTimeCreated());
     }
 
+    /**
+     * Test Comments
+     */
     public function testComments() {
         $dummyComment = new Comment();
         $this->assertCount(0, $this->blogEntry->getComments());
@@ -60,6 +92,11 @@ class BlogEntryTest extends PHPUnit_Framework_TestCase {
     #endregion
 
     #region providers
+    /**
+     * Provider for testTitle
+     *
+     * @return array
+     */
     public static function provideTitle() {
         return array(
             array('plain'),
@@ -67,6 +104,11 @@ class BlogEntryTest extends PHPUnit_Framework_TestCase {
         );
     }
 
+    /**
+     * Provider for testBody
+     *
+     * @return array
+     */
     public static function provideBody() {
         return array(
             array('plain'),
@@ -74,6 +116,11 @@ class BlogEntryTest extends PHPUnit_Framework_TestCase {
         );
     }
 
+    /**
+     * Provider for testAuthor
+     *
+     * @return array
+     */
     public static function provideAuthor() {
         return array(
             array(new User()),
@@ -81,6 +128,11 @@ class BlogEntryTest extends PHPUnit_Framework_TestCase {
         );
     }
 
+    /**
+     * Provider for testDateTimeCreated
+     *
+     * @return array
+     */
     public static function provideDateTimeCreated() {
         return array(
             array(new \DateTime())

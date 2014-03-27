@@ -2,10 +2,9 @@
 /**
  * MenuBuilder.php
  *
- * Date: 17.03.14
- * Time: 13:41
- * @author    Timo Mühlbach
+ * @author    Timo M
  * @namespace Anticom\ShowcaseBundle\Menu
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT
  */
 
 namespace Anticom\ShowcaseBundle\Menu;
@@ -16,7 +15,17 @@ use Symfony\Bridge\Twig\TwigEngine;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
+/**
+ * Class MenuBuilder
+ */
 class MenuBuilder extends ContainerAware {
+    /**
+     * Navbar top left menu
+     *
+     * @param FactoryInterface $factory
+     * @param array            $options
+     * @return \Knp\Menu\ItemInterface
+     */
     public function mainMenu(FactoryInterface $factory, array $options) {
         $menu = $factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav navbar-nav');
@@ -28,6 +37,13 @@ class MenuBuilder extends ContainerAware {
         return $menu;
     }
 
+    /**
+     * Navbar top right menu
+     *
+     * @param FactoryInterface $factory
+     * @param array            $options
+     * @return \Knp\Menu\ItemInterface
+     */
     public function userMenu(FactoryInterface $factory, array $options) {
         $menu = $factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav navbar-nav navbar-right');
@@ -51,17 +67,27 @@ class MenuBuilder extends ContainerAware {
         return $menu;
     }
 
+    /**
+     * Auxiliary to get the User if logged in
+     *
+     * @return User|null
+     */
     protected function getUser() {
         /** @var SecurityContextInterface $securityContext */
         $securityContext = $this->container->get('security.context');
         if($securityContext->isGranted(array('ROLE_USER'))) {
-            /** @var User $user */
             return $securityContext->getToken()->getUser();
         } else {
             return null;
         }
     }
 
+    /**
+     * Auxiliary to render User information when logged in
+     *
+     * @param $user
+     * @return string
+     */
     protected function getUserInfo($user) {
         /** @var TwigEngine $engine */
         $engine = $this->container->get('templating');

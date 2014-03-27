@@ -3,22 +3,30 @@
 <project name="Automated Build tasks" default="main:build" basedir=".">
     <!--<php expression="include('vendor/autoload.php')"/>-->
 
-    <!--region config-->
-    <property name="config.app.name" value="Showcase Project"/>
+    <!--region properties-->
+    <property name="basedir" value="." override="true"/>
+    <property name="dir.src" value="${basedir}/src"/>
+    <property name="dir.bin" value="${basedir}/bin"/>
+    <property name="dir.app" value="${basedir}/app"/>
+
+    <property name="dir.vendor" value="${basedir}/vendor"/>
+    <property name="dir.doc" value="${basedir}/doc"/>
+    <property name="dir.doc.coverage" value="${basedir}/doc/coverage"/>
+    <property name="dir.doc.api" value="${basedir}/doc/api"/>
+
+    <property name="file.debug.fileset" value="${basedir}/fileset.txt"/>
     <!--endregion-->
 
-    <property name="dir.base" value="." override="true"/>
-    <property name="dir.src" value="${dir.base}/src"/>
-    <property name="dir.app" value="${dir.base}/app"/>
-
-    <property name="dir.vendor" value="${dir.base}/vendor"/>
-    <property name="dir.doc" value="${dir.base}/doc"/>
-    <property name="dir.doc.coverage" value="${dir.base}/doc/coverage"/>
-    <property name="dir.doc.api" value="${dir.base}/doc/api"/>
-
-    <property name="file.debug.fileset" value="${dir.base}/fileset.txt"/>
+    <!--region config-->
+    <property name="config.api.title" value="Showcase Project"/>
+    <property name="config.api.markers" value="TODO, FIXME, BUG"/>
 
     <property name="console.symfony" value="${dir.app}/console"/>
+    <property name="console.composer" value="composer"/>
+    <property name="console.phpunit" value="phpunit"/>
+    <!--<property name="console.phpunit" value="${dir.bin}/phpunit.bat"/>-->
+    <property name="console.phpdoc2" value="${dir.bin}/phpdoc.php.bat"/>
+    <!--endregion-->
 
     <!--region filesets-->
     <fileset dir="${dir.src}" id="sourceWithoutTests">
@@ -53,20 +61,83 @@
                 <property name="phpunit.configuration" value="${dir.app}/phpunit.xml"/>
             </then>
             <elseif>
-                <available property="null" file="${dir.app}/phpunit.dist.xml"/>
+                <available property="null" file="${dir.app}/phpunit.xml.dist"/>
                 <then>
-                    <property name="phpunit.configuration" value="${dir.app}/phpunit.dist.xml"/>
+                    <property name="phpunit.configuration" value="${dir.app}/phpunit.xml.dist"/>
                 </then>
             </elseif>
             <else>
-                <property name="phpunit.configuration" value="[FILE NOT FOUND]"/>
-                <!--<fail message="Neither phpunit.dist.xml nor phpunit.xml found in ${appdir}"/>-->
+                <fail message="Neither phpunit.dist.xml nor phpunit.xml found in ${dir.app}"/>
             </else>
         </if>
     </target>
     <!--endregion-->
 
+    <!--main targets-->
+    <target name="main:debug" depends="prepare:welcome, check:composer:installed, check:phpunit:configuration" description="[MAIN] Prints out some Variables verifying that the build process should work fine">
+        <echo message="####################################################################################################"/>
+        <echo message="# Host information:"/>
+        <echo message="# Host name:               ${host.name}"/>
+        <echo message="# Host domain:             ${host.domain}"/>
+        <echo message="# Host OS:                 ${os.name}"/>
+        <echo message="#                          ${host.os.version}"/>
+        <echo message="#                          ${host.os.release}"/>
+        <echo message="# File system:             ${host.fstype}"/>
+        <echo message="# Processor architecture:  ${host.arch}"/>
+        <echo message="# --------------------------------------------------"/>
+        <echo message="# Phing information:"/>
+        <echo message="# Phing file:              ${phing.file}"/>
+        <echo message="# Phing dir:               ${phing.dir}"/>
+        <echo message="# Phing home:              ${phing.home}"/>
+        <echo message="# Phing version:           ${phing.version}"/>
+        <echo message="# Phing project name:      ${phing.project.name}"/>
+        <echo message="####################################################################################################"/>
+        <echo message=""/>
+        <echo message="####################################################################################################"/>
+        <echo message="# Directories:"/>
+        <echo message="# Basedir:                 ${basedir}"/>
+        <echo message="# Source:                  ${dir.src}"/>
+        <echo message="# App:                     ${dir.app}"/>
+        <echo message="# Bin:                     ${dir.bin}"/>
+        <echo message="# Doc:                     ${dir.doc}"/>
+        <echo message="# Doc API:                 ${dir.doc.api}"/>
+        <echo message="# Doc Coverage:            ${dir.doc.coverage}"/>
+        <echo message="# Vendor:                  ${dir.vendor}"/>
+        <echo message="# --------------------------------------------------"/>
+        <echo message="# Configuration:"/>
+        <echo message="# PHPDoc title:            ${config.api.title}"/>
+        <echo message="# PHPDoc markers:          ${config.api.markers}"/>
+        <echo message="# Symfony application:     ${console.symfony}"/>
+        <echo message="# Composer executable:     ${console.composer}"/>
+        <echo message="# PHPUnit executable:      ${console.phpunit}"/>
+        <echo message="# PHPDoc2 executable:      ${console.phpdoc2}"/>
+        <echo message="# --------------------------------------------------"/>
+        <echo message="# Composer installed?:     ${composer.installed}"/>
+        <echo message="# PHPUnit config file:     ${phpunit.configuration}"/>
+        <echo message="####################################################################################################"/>
+    </target>
+    <target name="main:install" depends="prepare:welcome, composer:install, assets:install, database:create, database:schema:create, database:fixtures:load" description="[MAIN] Does a full install on an initial repository"/>
+    <target name="main:update" depends="prepare:welcome, composer:update, assets:update" description="[MAIN] Updates all dependencies and installs the assets"/>
+    <target name="main:build" depends="prepare:welcome, prepare:init, main:update, build:phpunit, build:api" description="[MAIN] Generates metrics"/>
+    <target name="main:uninstall" depends="prepare:welcome, prepare:cleanAll" description="[MAIN] Brings back repo to its initial state."/>
+    <!--endregion-->
+
     <!--region init-->
+    <target name="prepare:welcome">
+        <echo message="    _          _   _"/>
+        <echo message="   / \   _ __ | |_(_) ___ ___  _ __ ___"/>
+        <echo message="  / _ \ | '_ \| __| |/ __/ _ \| '_ ` _ \"/>
+        <echo message=" / ___ \| | | | |_| | (_| (_) | | | | | |"/>
+        <echo message="/_/   \_\_| |_|\__|_|\___\___/|_| |_| |_|"/>
+        <echo message=""/>
+        <echo message=" ____  _                                     ____                  _ _"/>
+        <echo message="/ ___|| |__   _____      _____ __ _ ___  ___| __ ) _   _ _ __   __| | | ___"/>
+        <echo message="\___ \| '_ \ / _ \ \ /\ / / __/ _` / __|/ _ \  _ \| | | | '_ \ / _` | |/ _ \"/>
+        <echo message=" ___) | | | | (_) \ V  V / (_| (_| \__ \  __/ |_) | |_| | | | | (_| | |  __/"/>
+        <echo message="|____/|_| |_|\___/ \_/\_/ \___\__,_|___/\___|____/ \__,_|_| |_|\__,_|_|\___|"/>
+        <echo message=""/>
+        <echo message="By Timo Muehlbach"/>
+    </target>
     <target name="prepare:clean" description="Cleans up build directories">
         <echo message="Deleting documentation directory structure (${dir.doc})"/>
         <delete dir="${dir.doc.api}"/>
@@ -87,6 +158,7 @@
     </target>
     <!--endregion-->
 
+    <!--region build-->
     <target name="composer:install" depends="check:composer:installed" description="Installs composer vendor libs">
         <if>
             <istrue value="${composer.installed}"/>
@@ -94,9 +166,7 @@
                 <echo message="composer.lock is already present. Not running 'composer install'"/>
             </then>
             <else>
-                <composer command="install">
-                    <arg value="--prefer-source"/>
-                </composer>
+                <exec command="${console.composer} install --prefer-source" passthru="true" checkreturn="true"/>
             </else>
         </if>
     </target>
@@ -104,7 +174,7 @@
         <if>
             <istrue value="${composer.installed}"/>
             <then>
-                <composer command="update"/>
+                <exec command="${console.composer} update" passthru="true" checkreturn="true"/>
             </then>
             <else>
                 <echo message="composer.lock is not present. You need to run composer_install target first."/>
@@ -114,62 +184,38 @@
 
     <target name="assets:install" description="installs assets">
         <!--bower-->
-        <exec command="bower install" checkreturn="true"/>
+        <exec command="bower install" passthru="true" checkreturn="true"/>
         <!--tinymce-->
-        <exec command="jake" dir="${dir.src}/Anticom/ShowcaseBundle/Resources/public/tinymce" checkreturn="true"/>
+        <exec command="jake" dir="${dir.src}/Anticom/ShowcaseBundle/Resources/public/tinymce" passthru="true" checkreturn="true"/>
         <!--tinymce de_DE-->
         <!--TODO figure this one out-->
     </target>
     <target name="assets:update" depends="assets:install" description="updates assets">
-        <exec executable="${console.symfony}">
-            <arg value="assets:install"/>
-            <arg value="-n"/>
-        </exec>
+        <exec command="${console.symfony} assets:install -n" passthru="true" checkreturn="true"/>
     </target>
 
     <target name="database:create" description="Creates the default database">
-        <exec executable="${console.symfony}">
-            <arg value="doctrine:database:create"/>
-            <arg value="-n"/>
-        </exec>
+        <exec command="${console.symfony} doctrine:database:create -n" passthru="true" checkreturn="true"/>
     </target>
     <target name="database:schema:create" description="Creates the schema">
-        <exec executable="${console.symfony}">
-            <arg value="doctrine:schema:create"/>
-            <arg value="-n"/>
-        </exec>
+        <exec command="${console.symfony} doctrine:schema:create -n" passthru="true" checkreturn="true"/>
     </target>
     <target name="database:fixtures:load" description="Loads data fixtures">
-        <exec executable="${console.symfony}">
-            <arg value="doctrine:schema:drop"/>
-            <arg value="-n"/>
-            <arg value="--force"/>
-        </exec>
-        <exec executable="${console.symfony}">
-            <arg value="doctrine:schema:create"/>
-            <arg value="-n"/>
-        </exec>
-        <exec executable="${console.symfony}">
-            <arg value="doctrine:fixtures:load"/>
-            <arg value="-n"/>
-        </exec>
+        <exec command="${console.symfony} doctrine:schema:drop -n --force" passthru="true" checkreturn="true"/>
+        <exec command="${console.symfony} doctrine:schema:create -n" passthru="true" checkreturn="true"/>
+        <exec command="${console.symfony} doctrine:fixtures:load -n" passthru="true" checkreturn="true"/>
     </target>
 
     <target name="build:phpunit" depends="prepare:init, check:phpunit:configuration" description="Runs PHPUnit to generate code coverage information">
-        <phpunit configuration="${dir.app}" codecoverage="true">
-            <formatter type="plain" usefile="false"/>
-            <formatter type="summary" usefile="true" todir="${dir.doc.coverage}"/>
-        </phpunit>
+        <exec command="${console.phpunit} -c app/ --coverage-html ${dir.doc.coverage}" passthru="true" checkreturn="true"/>
     </target>
-    <target name="build:phpdoc2" depends="prepare:init" description="Generate API documentation using PHPDoc2">
-        <phpdoc2 title="${config.app.name}"
-                 destdir="${dir.doc.api}"
-                 template="responsive-twig">
-            <!--<fileset refid="source"/>-->
-        </phpdoc2>
+    <target name="build:api" depends="prepare:init" description="Generate API documentation using PHPDoc2">
+        <echo message="${console.phpdoc2} -t=&quot;${dir.doc.api}&quot; -d=&quot;${phing.dir}\src&quot; -m=&quot;${config.api.markers}&quot; -title=&quot;${config.api.title}&quot;"/>
+        <exec command="${console.phpdoc2} -t=&quot;${dir.doc.api}&quot; -d=&quot;${phing.dir}\src&quot; -m=&quot;${config.api.markers}&quot; -title=&quot;${config.api.title}&quot;" passthru="true" checkreturn="true"/>
     </target>
+    <!--endregion-->
 
-    <!--debugging-->
+    <!--region debugging-->
     <target name="debug:fileset">
         <delete file="${file.debug.fileset}"/>
         <echo file="${file.debug.fileset}" append="true" message="sourceWithoutTests${line.separator}"/>
@@ -197,39 +243,5 @@
         <!--<echo file="${file.debug.fileset}" append="true">file: rel:${filename}|abs:${absfilename}${line.separator}</echo>-->
         <echo file="${file.debug.fileset}" append="true">  - ${absfilename}${line.separator}</echo>
     </target>
-
-    <target name="main:debug" depends="check:composer:installed, check:phpunit:configuration" description="[MAIN] Prints out some Variables verifying that the build process should work fine">
-        <echo message="=================================================="/>
-        <echo message="Host information:"/>
-        <echo message="${host.name} [Domain: ${host.domain}]"/>
-        <echo message="${os.name}: ${host.os.version} [Release: ${host.os.release}]"/>
-        <echo message="File system:            ${host.fstype}"/>
-        <echo message="Processor architecture: ${host.arch}"/>
-        <echo message="=================================================="/>
-        <echo message="Phing information:"/>
-        <echo message="Phing file:          ${phing.file}"/>
-        <echo message="Phing dir:           ${phing.dir}"/>
-        <echo message="Phing home:          ${phing.home}"/>
-        <echo message="Phing version:       ${phing.version}"/>
-        <echo message="Phing project name:  ${phing.project.name}"/>
-        <echo message="=================================================="/>
-        <echo message="Build script defined properties:"/>
-        <echo message="Basedir:             ${dir.base}"/>
-        <echo message="Sourcedir:           ${dir.src}"/>
-        <echo message="Appdir:              ${dir.app}"/>
-        <echo message="Docdir:              ${dir.doc}"/>
-        <echo message="Vendordir:           ${dir.vendor}"/>
-        <echo message="SF Console:          ${console.symfony}"/>
-        <echo message="--------------------------------------------------"/>
-        <echo message="Composer installed? (composer.lock present): ${composer.installed}"/>
-        <echo message="PHPUnit config file? (phpunit.dist.xml|phpunit.xml): ${phpunit.configuration}"/>
-        <echo message="=================================================="/>
-
-        <echo message="Writing fileset information to '${file.debug.fileset}'"/>
-        <phingcall target="debug:fileset"/>
-    </target>
-    <target name="main:install" depends="composer:install, assets:install, database:create, database:schema:create, database:fixtures:load" description="[MAIN] Does a full install on an initial repository"/>
-    <target name="main:update" depends="composer:update, assets:update" description="[MAIN] Updates all dependencies and installs the assets"/>
-    <target name="main:build" depends="prepare:init, main:update, build:phpunit, build:phpdoc2" description="[MAIN] Generates metrics"/>
-    <target name="main:uninstall" depends="prepare:cleanAll" description="[MAIN] Brings back repo to its initial state."/>
+    <!--endregion-->
 </project>

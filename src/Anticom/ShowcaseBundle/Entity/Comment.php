@@ -2,10 +2,10 @@
 /**
  * Comment.php
  *
- * Date: 13.03.14
- * Time: 14:28
- * @author    Timo Mühlbach
+ * @author    Timo M
  * @namespace Anticom\ShowcaseBundle\Entity
+ * @package   Entity
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT
  */
 
 namespace Anticom\ShowcaseBundle\Entity;
@@ -14,36 +14,47 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class BlogEntry
+ * Class Comment
+ *
  * @ORM\Entity()
  * @ORM\Table(name="comment")
  * @ORM\HasLifecycleCallbacks()
  */
 class Comment {
     /**
+     * @var int Unique ID for each Comment
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
     /**
+     * @var User Author of that Comment
      * @ORM\ManyToOne(targetEntity="User", inversedBy="comments")
      * @ORM\JoinColumn(name="author_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $author;
-    /** @ORM\Column(type="text") */
+    /**
+     * @var string Body of the Comment
+     * @ORM\Column(type="text")
+     */
     protected $body;
 
     #region relations
     /**
+     * @var BlogEntry The BlogEntry the Comment belongs to
      * @ORM\ManyToOne(targetEntity="BlogEntry", inversedBy="comments")
      * @ORM\JoinColumn(name="blog_entry_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $blogEntry;
 
-    /** @ORM\OneToMany(targetEntity="Comment", mappedBy="parent") */
+    /**
+     * @var Comment[] Direct responses (Comments) to that Comment
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="parent")
+     */
     protected $children;
     /**
+     * @var Comment|null Direct Parent Comment / null of that Comment
      * @ORM\ManyToOne(targetEntity="Comment", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
@@ -51,22 +62,36 @@ class Comment {
     #endregion
 
     #region triggered
-    /** @ORM\Column(type="datetime") */
+    /**
+     * @var \DateTime When the BlogEntry was created
+     * @ORM\Column(type="datetime")
+     */
     protected $dateTimeCreated;
 
     #endregion
 
+    /**
+     * Set some sensible defaults
+     */
     public function __construct() {
         $this->children = new ArrayCollection();
     }
 
-    /** @ORM\PrePersist */
+    /**
+     * Method for Doctrine to automatically set $dateTimeCreated
+     * @ORM\PrePersist
+     */
     public function autoSetDateTimeCreated() {
         $this->dateTimeCreated = new \DateTime();
 
         return $this;
     }
 
+    /**
+     * Find absolute root comment in Comment thread
+     *
+     * @return Comment
+     */
     public function getRootComment() {
         if($this->parent !== null) {
             return $this->getParent()->getRootComment();

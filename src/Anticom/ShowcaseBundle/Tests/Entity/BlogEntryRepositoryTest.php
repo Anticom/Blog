@@ -1,28 +1,34 @@
 <?php
 /**
- * User: Timo Mühlbach
- * Date: 26.03.14
- * Time: 10:43
+ * BlogEntryRepositoryTest.php
+ *
+ * @author    Timo M
+ * @namespace Anticom\ShowcaseBundle\Tests\Entity
+ * @package   Test\Unit\Entity
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT
  */
 
 namespace Anticom\ShowcaseBundle\Tests\Entity;
 
 use Anticom\ShowcaseBundle\Entity\BlogEntry;
 use Anticom\ShowcaseBundle\Entity\BlogEntryRepository;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
+ * Class BlogEntryRepositoryTest
+ *
  * @coversDefaultClass \Anticom\ShowcaseBundle\Entity\BlogEntryRepository
  */
 class BlogEntryRepositoryTest extends WebTestCase {
     #region setup
-    /** @var \Doctrine\ORM\EntityManager */
+    /** @var \Doctrine\ORM\EntityManager Common EntityManager */
     private $em;
-    /** @var  BlogEntryRepository */
+    /** @var  BlogEntryRepository Common BlogEntryRepository */
     protected $blogEntryRepository;
 
     /**
-     * {@inheritDoc}
+     * Called before every test
      */
     public function setUp() {
         static::$kernel = static::createKernel();
@@ -31,11 +37,14 @@ class BlogEntryRepositoryTest extends WebTestCase {
             ->get('doctrine')
             ->getManager();
 
-        $this->blogEntryRepository = $this->em->getRepository('AnticomShowcaseBundle:BlogEntry');
+        /** @var EntityManager $em */
+        $em = $this->em;
+
+        $this->blogEntryRepository = $em->getRepository('AnticomShowcaseBundle:BlogEntry');
     }
 
     /**
-     * {@inheritDoc}
+     * Called after every test
      */
     protected function tearDown() {
         parent::tearDown();
@@ -44,6 +53,9 @@ class BlogEntryRepositoryTest extends WebTestCase {
     #endregion
 
     #region tests
+    /**
+     * Test FindNext
+     */
     public function testFindNext() {
         /**
          * @var BlogEntry $current
@@ -58,6 +70,9 @@ class BlogEntryRepositoryTest extends WebTestCase {
         );
     }
 
+    /**
+     * Test FindPrev
+     */
     public function testFindPrev() {
         /**
          * @var BlogEntry $current
@@ -72,6 +87,9 @@ class BlogEntryRepositoryTest extends WebTestCase {
         );
     }
 
+    /**
+     * Test FindByPage
+     */
     public function testFindByPage() {
         $expected = $this->blogEntryRepository->findBy(array(), array('id' => 'ASC'), 10);
         $actual   = $this->blogEntryRepository->findByPage(1, 10);
@@ -79,6 +97,9 @@ class BlogEntryRepositoryTest extends WebTestCase {
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * Test GetPageInfo
+     */
     public function testGetPageInfo() {
         $pageCount = $this->blogEntryRepository->getPageCount(10);
         $expected  = array(

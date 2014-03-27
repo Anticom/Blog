@@ -1,4 +1,12 @@
 <?php
+/**
+ * UserController.php
+ *
+ * @author    Timo M
+ * @namespace Anticom\ShowcaseBundle\Controller
+ * @package   Controller
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT
+ */
 
 namespace Anticom\ShowcaseBundle\Controller;
 
@@ -7,7 +15,16 @@ use Anticom\ShowcaseBundle\Form\Type\RegisterType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Class UserController
+ */
 class UserController extends Controller {
+    /**
+     * Show profile for a given User
+     *
+     * @param int|null $id If null, own profile will be shown
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function profileAction($id = null) {
         if($id === null) {
             $user = $this->getUser();
@@ -23,6 +40,12 @@ class UserController extends Controller {
         );
     }
 
+    /**
+     * Sign up a new User
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function registerAction(Request $request) {
         $user = new User();
         $form = $this->createForm(new RegisterType(), $user);

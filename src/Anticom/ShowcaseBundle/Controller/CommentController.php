@@ -1,4 +1,12 @@
 <?php
+/**
+ * CommentController.php
+ *
+ * @author    Timo M
+ * @namespace Anticom\ShowcaseBundle\Controller
+ * @package   Controller
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT
+ */
 
 namespace Anticom\ShowcaseBundle\Controller;
 
@@ -9,7 +17,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
+/**
+ * Class CommentController
+ */
 class CommentController extends Controller {
+    /**
+     * Create a new Comment
+     *
+     * @param Request   $request
+     * @param BlogEntry $blogEntry
+     * @param null      $parentComment
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
     public function newAction(Request $request, BlogEntry $blogEntry, $parentComment = null) {
         if(!$this->getUser()) {
             throw new AccessDeniedException();

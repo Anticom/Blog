@@ -1,17 +1,34 @@
 <?php
+/**
+ * SecurityControllerTest.php
+ *
+ * @author    Timo M
+ * @namespace Anticom\ShowcaseBundle\Tests\Controller
+ * @package   Test\Functional\Controller
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT
+ */
 
 namespace Anticom\ShowcaseBundle\Tests\Controller;
 
 use Anticom\ShowcaseBundle\Tests\Messages;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+/**
+ * Class SecurityControllerTest
+ */
 class SecurityControllerTest extends WebTestCase {
+    /**
+     * @var array Valid auth information
+     */
     public static $auth = array(
         'PHP_AUTH_USER' => 'demo1',
         'PHP_AUTH_PW'   => 'demo1',
     );
 
     #region tests
+    /**
+     * Try to login with invalid credentials
+     */
     public function testLoginFailure() {
         $client = static::createClient();
         $client->request('GET', '/login');
@@ -37,6 +54,8 @@ class SecurityControllerTest extends WebTestCase {
     }
 
     /**
+     * Try to login with correct credentials
+     *
      * @depends testLoginFailure
      */
     public function testLoginSuccess() {
@@ -65,13 +84,16 @@ class SecurityControllerTest extends WebTestCase {
         $this->assertTrue($crawler->filter('html:contains("Lorem ipsum dolor")')->count() > 0, 'Unable to find index page dummy text (Lorem ipsum...)');
     }
 
+    /**
+     * Try to log out
+     */
     public function testLogout() {
         $this->markTestIncomplete('Bug');
 
         $client  = static::createClient(array(), self::$auth);
         $crawler = $client->request('GET', '/');
 
-        $link    = $crawler->filter('a:contains("abmelden")')->eq(0)->link();
+        $link = $crawler->filter('a:contains("abmelden")')->eq(0)->link();
         $client->click($link);
 
         $response = $client->getResponse();

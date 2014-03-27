@@ -1,4 +1,11 @@
 <?php
+/**
+ * Configuration.php
+ *
+ * @author    Timo M
+ * @namespace Anticom\ShowcaseBundle\DependencyInjection
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT
+ */
 
 namespace Anticom\ShowcaseBundle\DependencyInjection;
 

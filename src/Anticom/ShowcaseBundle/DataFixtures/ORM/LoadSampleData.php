@@ -1,4 +1,11 @@
 <?php
+/**
+ * LoadSampleData.php
+ *
+ * @author    Timo M
+ * @namespace Anticom\ShowcaseBundle\DataFixtures\ORM
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT
+ */
 
 namespace Anticom\ShowcaseBundle\DataFixtures\ORM;
 
@@ -11,21 +18,30 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
+/**
+ * Class LoadSampleData
+ */
 class LoadSampleData implements FixtureInterface, ContainerAwareInterface {
     /**
-     * @var ContainerInterface
+     * @var ContainerInterface DIC
      */
     private $container;
 
     /**
-     * {@inheritDoc}
+     * Sets the Container.
+     *
+     * @param ContainerInterface|null $container A ContainerInterface instance or null
+     *
+     * @api
      */
     public function setContainer(ContainerInterface $container = null) {
         $this->container = $container;
     }
 
     /**
-     * {@inheritDoc}
+     * Load data fixtures with the passed EntityManager
+     *
+     * @param ObjectManager $manager
      */
     public function load(ObjectManager $manager) {
         #region init

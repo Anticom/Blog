@@ -2,10 +2,10 @@
 /**
  * BlogEntry.php
  *
- * Date: 13.03.14
- * Time: 14:06
- * @author    Timo Mühlbach
+ * @author    Timo M
  * @namespace Anticom\ShowcaseBundle\Entity
+ * @package   Entity
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT
  */
 
 namespace Anticom\ShowcaseBundle\Entity;
@@ -15,6 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class BlogEntry
+ *
  * @ORM\Entity()
  * @ORM\Entity(repositoryClass="Anticom\ShowcaseBundle\Entity\BlogEntryRepository")
  * @ORM\Table(name="blog_entry")
@@ -22,37 +23,57 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class BlogEntry {
     /**
+     * @var int Unique ID for each BlogEntry
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    /** @ORM\Column(type="string", length=200) */
+    /**
+     * @var string The BlogEntriy's title
+     * @ORM\Column(type="string", length=200)
+     */
     protected $title;
-    /** @ORM\Column(type="text", nullable=false) */
+    /**
+     * @var string The BlogEntry's body
+     * @ORM\Column(type="text", nullable=false)
+     */
     protected $body;
     /**
+     * @var User The BlogEntry's author
      * @ORM\ManyToOne(targetEntity="User", inversedBy="blogEntries")
      * @ORM\JoinColumn(name="author_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $author;
 
     #region relations
-    /** @ORM\OneToMany(targetEntity="Comment", mappedBy="blogEntry") */
+    /**
+     * @var Comment[] Comments that belong to that BlogEntry
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="blogEntry")
+     */
     protected $comments;
     #endregion
 
     #region triggered
-    /** @ORM\Column(type="datetime") */
+    /**
+     * @var \DateTime When the BlogEntry was created
+     * @ORM\Column(type="datetime")
+     */
     protected $dateTimeCreated;
 
     #endregion
 
+    /**
+     * Set some sensible defaults
+     */
     public function __construct() {
         $this->comments = new ArrayCollection();
     }
 
-    /** @ORM\PrePersist */
+    /**
+     * Method for Doctrine to automatically set $dateTimeCreated
+     * @ORM\PrePersist
+     */
     public function autoSetDateTimeCreated() {
         $this->dateTimeCreated = new \DateTime();
 

@@ -1,4 +1,12 @@
 <?php
+/**
+ * CommentTest.php
+ *
+ * @author    Timo M
+ * @namespace Anticom\ShowcaseBundle\Tests\Entity
+ * @package   Test\Unit\Entity
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT
+ */
 
 namespace Anticom\ShowcaseBundle\Tests\Entity;
 
@@ -8,15 +16,24 @@ use Anticom\ShowcaseBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
+ * Class CommentTest
+ *
  * @coversDefaultClass \Anticom\ShowcaseBundle\Entity\Comment
  */
 class CommentTest extends WebTestCase {
     #region setup
-    /** @var \Doctrine\ORM\EntityManager */
+    /**
+     * @var \Doctrine\ORM\EntityManager Common EntityManager
+     */
     private $em;
-    /** @var  Comment */
+    /**
+     * @var Comment Common Comment
+     */
     protected $comment;
 
+    /**
+     * Called before every test
+     */
     public function setUp() {
         static::$kernel = static::createKernel();
         static::$kernel->boot();
@@ -27,6 +44,9 @@ class CommentTest extends WebTestCase {
         $this->comment = new Comment();
     }
 
+    /**
+     * Called after every test
+     */
     protected function tearDown() {
         parent::tearDown();
         $this->em->close();
@@ -35,6 +55,10 @@ class CommentTest extends WebTestCase {
 
     #region tests
     /**
+     * Test Body
+     *
+     * @param string $body
+     *
      * @dataProvider provideBody
      */
     public function testBody($body) {
@@ -42,6 +66,10 @@ class CommentTest extends WebTestCase {
     }
 
     /**
+     * Test Author
+     *
+     * @param User $author
+     *
      * @dataProvider provideAuthor
      */
     public function testAuthor($author) {
@@ -49,18 +77,28 @@ class CommentTest extends WebTestCase {
     }
 
     /**
+     * Test DateTimeCreated
+     *
+     * @param \DateTime $date
+     *
      * @dataProvider provideDateTimeCreated
      */
     public function testDateTimeCreated($date) {
         $this->assertEquals($date, $this->comment->autoSetDateTimeCreated()->setDateTimeCreated($date)->getDateTimeCreated());
     }
 
+    /**
+     * Test BlogEntry
+     */
     public function testBlogEntry() {
         $dummyBlogEntry = new BlogEntry();
         $this->assertEquals(null, $this->comment->getBlogEntry());
         $this->assertEquals($dummyBlogEntry, $this->comment->setBlogEntry($dummyBlogEntry)->getBlogEntry());
     }
 
+    /**
+     * Test Children (Comments)
+     */
     public function testChildComments() {
         $dummyComment = new Comment();
         $this->assertCount(0, $this->comment->getChildren());
@@ -71,6 +109,11 @@ class CommentTest extends WebTestCase {
     }
 
     /**
+     * Test RootComment
+     *
+     * @param int $currentId
+     * @param int $rootId
+     *
      * @dataProvider provideRootComment
      */
     public function testRootComment($currentId, $rootId) {
@@ -84,6 +127,11 @@ class CommentTest extends WebTestCase {
     #region tests
 
     #region providers
+    /**
+     * Provider for testBody
+     *
+     * @return array
+     */
     public static function provideBody() {
         return array(
             array('plain'),
@@ -91,6 +139,11 @@ class CommentTest extends WebTestCase {
         );
     }
 
+    /**
+     * Provider for testAuthor
+     *
+     * @return array
+     */
     public static function provideAuthor() {
         return array(
             array(new User()),
@@ -98,12 +151,22 @@ class CommentTest extends WebTestCase {
         );
     }
 
+    /**
+     * Provider for testDateTimeCreated
+     *
+     * @return array
+     */
     public static function provideDateTimeCreated() {
         return array(
             array(new \DateTime())
         );
     }
 
+    /**
+     * Provider for testRootComment
+     *
+     * @return array
+     */
     public static function provideRootComment() {
         return array(
             array(1, 1),

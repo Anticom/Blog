@@ -1,11 +1,25 @@
 <?php
+/**
+ * DefaultControllerTest.php
+ *
+ * @author    Timo M
+ * @namespace Anticom\ShowcaseBundle\Tests\Controller
+ * @package   Test\Functional\Controller
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT
+ */
 
 namespace Anticom\ShowcaseBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+/**
+ * Class DefaultControllerTest
+ */
 class DefaultControllerTest extends WebTestCase {
     #region tests
+    /**
+     * Try to access the launch page unauthenticated
+     */
     public function testIndex() {
         $client  = static::createClient();
         $crawler = $client->request('GET', '/');
@@ -16,6 +30,8 @@ class DefaultControllerTest extends WebTestCase {
     }
 
     /**
+     * Try to access the launch page authenticated
+     *
      * @depends testIndex
      */
     public function testIndexAuthenticated() {
@@ -28,6 +44,8 @@ class DefaultControllerTest extends WebTestCase {
     }
 
     /**
+     * Try to access the impress page (ununauthenticated)
+     *
      * @depends testIndex
      */
     public function testImpress() {
@@ -40,6 +58,8 @@ class DefaultControllerTest extends WebTestCase {
     }
 
     /**
+     * Try to access the contact page (unauthenticated)
+     *
      * @depends testIndex
      */
     public function testContact() {
